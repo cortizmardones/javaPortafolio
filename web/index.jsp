@@ -1,35 +1,54 @@
 <%-- 
     Document   : index
-    Created on : 10-08-2019, 19:35:27
+    Created on : 17-08-2019, 20:04:05
     Author     : Raúl Pardo Zurita
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="es">
+
     <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="icon" href="${pageContext.request.contextPath}/img/favicon.ico">
 
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <title>Bienvenido a Seguros por siempre</title>
 
-        <title>Plantilla para página simple</title>
+        <!-- Bootstrap core CSS -->
+        <link href="css/altsbaha/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Estilos de plantilla -->
+        <link href="css/altsbaha/floating-labels.css" rel="stylesheet">
+        
+        <link rel='icon' href='img/favicon.ico' type='image/x-icon' />    
     </head>
-    <body>
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-12">
-                    <h2>Plantilla Bootstrap 4 para página simple con container no fluido</h2>
-                </div>
-            </div>
-        </div>
 
-        <!-- Optional JavaScript -->
-        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <body>
+        <form class="form-signin" action="login" method="POST">
+            <div class="text-center mb-4">
+                <h1 class="h3 mb-3 font-weight-normal">Seguros por siempre</h1>
+                <p>Ingrese sus credenciales</p>
+            </div>
+
+            <div class="form-label-group">
+                <input type="email" id="inputEmail" name="correo" class="form-control" placeholder="correo@dominio.com" required="" autofocus="">
+                <label for="inputEmail">Correo electrónico</label>
+            </div>
+
+            <div class="form-label-group">
+                <input type="password" id="inputPassword" name="contrasenia" class="form-control" placeholder="Contraseña" required="" autocomplete="off">
+                <label for="inputPassword">Contraseña</label>
+            </div>
+            <input type="hidden" name="accion" value="login">    
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
+            <p style="color: red;">${mensaje}</p>
+            <p class="mt-5 mb-3 text-muted text-center">© Seguros por siempre</p>
+        </form>
     </body>
+
 </html>
