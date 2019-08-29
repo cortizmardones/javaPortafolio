@@ -76,28 +76,41 @@
                     <div class="card mb-3">
                         <div class="card-header text-white bg-dark"> Datos del cliente </div>
                         <div class="card-body" onmouseover="limpiarRutAlFallar()">
-                            <h4>Empresa</h4>
-                            <form action="index.html" method="POST">                       
+                            <form action="index.jsp" method="POST">                       
                                 
                                 <label for="nombre">Nombre de la empresa:</label><br>
-                                <input type="text" class="form-control" id="nombre" name="nombre" required> <br> <br>
+                                <input type="text" class="form-control" id="nombre" name="nombre" required>  <div id="mjNombre"></div>  <br>
 
                                 <label for="rut">RUT:</label><br>
                                 <input type="text" class="form-control input_rut" id="rut" name="rut"
-                                       placeholder="16.432.567-K" required> <span id="rut-error" style="color: red"></span> <br>  <br>
+                                       placeholder="16.432.567-K" required> <span id="rut-error" style="color: red"></span>  <div id="mjRut"></div>   <br>
 
                                 <label for="razonSocial">Razón social:</label><br>
-                                <input type="text" class="form-control" id="razonSocial" name="razonSocial" required> <br> <br>
+                                <input type="text" class="form-control" id="razonSocial" name="razonSocial" required>  <div id="mjRazonSocial"></div>  <br>
 
                                 <label for="logo">Logo:</label><br>
-                                <input type="file" class="form-control" id="logo" name="logo" required> <br> <br>                               
+                                <input type="file" class="form-control" id="logo" name="logo" required>  <div id="mjLogo"></div>  <br>                               
 
                                 <label for="fechaContrato">Fecha de contrato</label><br>
-                                <input type="datetime" class="form-control" name="fechaContrato"  id="fechaContrato"  required> <br> <br> <br> 
+                                <input type="datetime" class="form-control" name="fechaContrato"  id="fechaContrato"  required>  <div id="mjFechaContrato"></div>  <br> 
 
                                 <label for="correo">Correo:</label><br>
-                                <input type="text" class="form-control" id="correo" name="correo" required> <br> <br>                                    
-
+                                <input type="text" class="form-control" id="correo" name="correo" onblur="validarCorreo(this.value)" required> <div id="mjCorreo"></div> <br>  
+                                
+                                <label for="direccion">Dirección:</label><br>
+                                <input type="text" class="form-control" id="direccion" name="direccion" onblur="" required> <div id="mjDireccion"></div> <br>            
+                                
+                                <label for="fono">Fono:</label><br>
+                                <input type="text" class="form-control" id="fono" name="fono" onblur="" required> <div id="mjFono"></div> <br>  
+                                
+                                <label for="rubro">Rubro:</label><br>
+                                <select id="rubro" class="form-control" name="rubro" required>
+                                    <option value="">RUBRO 1</option>
+                                    <option value="">RUBRO 2</option>
+                                    <option value="">RUBRO 3</option>
+                                </select>                                 
+                                <div id="mjRubro"></div> <br>  
+                                
                                 <input type="submit" class="btn btn-primary" value="Agregar Cliente">
                             </form>
                         </div>
@@ -107,36 +120,44 @@
             <div class="row no-gutters pt-2" id="insercion">
                 <div class="col-md-12">
                     <div class="card mb-3">
-                        <div class="card-header text-white bg-dark"> Últimas operaciones </div>
+                        <div class="card-header text-white bg-dark"> Lista de clientes </div>
                         <div class="card-body">
                             <table id="t2" class="table table-hover table-responsive-xl  table-dark ts">
                                 <thead>
                                     <tr>
-                                        <th scope="col">ID de operación</th>
+                                        <th scope="col">ID de cliente</th>
                                         <th scope="col">Nombre</th>
-                                        <th scope="col">RUT</th>
-                                        <th scope="col">Correo</th>
-                                        <th scope="col">Fecha de nacimiento</th>
+                                        <th scope="col">Logo</th>
+                                        <th scope="col">RUT</th>                                       
+                                        <th scope="col">Razón Social</th>
+                                        <th scope="col">Fecha de contrato</th>
+                                        <th scope="col">Fecha de ingreso</th>
+                                        <th scope="col">Fecha de término</th>
                                         <th scope="col">Estado</th>
+                                        <th scope="col">Correo</th>
+                                        <th scope="col">Dirección</th>
+                                        <th scope="col">Rubro</th>
                                         <th scope="col">Operaciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <th scope="row"> 1 </th>
-                                        <td>Raúl Ángel Pardo Zurita</td>
-                                        <td>17.876.234-K</td>
-                                        <td>rau.pardo@alumnos.duoc.cl</td>
-                                        <td>11-11-1985</td>
-                                        <td>Activo</td>
+                                        <td>Aramark</td>
+                                        <td><img src="https://tecnohoreca.com/wp-content/uploads/2018/06/aramark-1500x789.jpg" width="100" height="40" alt="Aramark"></td>
+                                        <td>76.876.234-K</td>                                      
+                                        <td>Aramark S.A.</td>
+                                        <td>11-07-2019 17:00</td>
+                                        <td>12-07-2019 10:00</td>
+                                        <td>- No Disponible-</td>
+                                        <td>ACTIVO</td>
+                                        <td>r.pardo@aramark.cl</td>
+                                        <td>Los Siameses #765</td>
+                                        <td>PYME</td>
                                         <td>
                                             <div align="center">
-                                                <a class="btn btn-primary" style="color: white;" href="" role="button">Ver
-                                                    detalle</a> &nbsp; &nbsp;
-                                                <a class="btn btn-warning" style="color: black;" href=""
-                                                   role="button">Modificar datos</a> &nbsp; &nbsp;
-                                                <a class="btn btn-danger" style="color: white;" href=""
-                                                   role="button">Eliminar</a>
+                                                <a href=""><img src="img/delete.png" heght="20" width="20"></a> &nbsp;
+                                                <a href=""><img src="img/edit.png" heght="20" width="20"></a>
                                             </div>
                                         </td>
                                     </tr>
@@ -205,7 +226,6 @@
                 });
             });
         </script>
-        <script src="js/bahascript.js"></script>
         <script src="js/bootstrap-datetimepicker.js" type="text/javascript"></script>
         <script src="js/locales/bootstrap-datetimepicker.es.js" type="text/javascript"></script>          
         <script>
@@ -214,7 +234,8 @@
                 autoclose: true,
                 language: 'es'
             });
-        </script>         
+        </script> 
+        <script src="js/bahascript.js"></script>        
     </body>
 
 </html>
