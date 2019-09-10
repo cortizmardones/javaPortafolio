@@ -79,14 +79,14 @@
                             <form action="index.jsp" method="POST">                       
                                 
                                 <label for="nombre">Nombre de la empresa:</label><br>
-                                <input type="text" class="form-control" id="nombre" name="nombre" required>  <div id="mjNombre"></div>  <br>
+                                <input type="text" class="form-control" id="nombre" name="nombre" onblur="validaNombreEmpresa(this.value)" required>  <div id="mjNombre"></div>  <br>
 
                                 <label for="rut">RUT:</label><br>
                                 <input type="text" class="form-control input_rut" id="rut" name="rut"
                                        placeholder="16.432.567-K" required> <span id="rut-error" style="color: red"></span>  <div id="mjRut"></div>   <br>
 
                                 <label for="razonSocial">Razón social:</label><br>
-                                <input type="text" class="form-control" id="razonSocial" name="razonSocial" required>  <div id="mjRazonSocial"></div>  <br>
+                                <input type="text" class="form-control" id="razonSocial" name="razonSocial" onblur="validaRazonSocialEmpresa(this.value)"  required>  <div id="mjRazonSocial"></div>  <br>
 
                                 <label for="logo">Logo:</label><br>
                                 <input type="file" class="form-control" id="logo" name="logo" required>  <div id="mjLogo"></div>  <br>                               
@@ -98,10 +98,10 @@
                                 <input type="text" class="form-control" id="correo" name="correo" onblur="validarCorreo(this.value)" required> <div id="mjCorreo"></div> <br>  
                                 
                                 <label for="direccion">Dirección:</label><br>
-                                <input type="text" class="form-control" id="direccion" name="direccion" onblur="" required> <div id="mjDireccion"></div> <br>            
+                                <input type="text" class="form-control" id="direccion" name="direccion" onblur="validaDireccion(this.value)" required> <div id="mjDireccion"></div> <br>            
                                 
                                 <label for="fono">Fono:</label><br>
-                                <input type="text" class="form-control" id="fono" name="fono" onblur="" required> <div id="mjFono"></div> <br>  
+                                <input type="text" class="form-control" id="fono" name="fono" onblur="validaFono(this.value)" minlength="9" maxlength="9" required> <div id="mjFono"></div> <br>  
                                 
                                 <label for="rubro">Rubro:</label><br>
                                 <select id="rubro" class="form-control" name="rubro" required>
