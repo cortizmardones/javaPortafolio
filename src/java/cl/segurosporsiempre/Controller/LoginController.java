@@ -30,7 +30,8 @@ public class LoginController extends HttpServlet {
         
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-
+        
+        //BCH-ALT
     }
 
     /**
