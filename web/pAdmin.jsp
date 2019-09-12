@@ -76,7 +76,7 @@
                         <div class="card-body">
                             <div align="center">
                                 <img class="border border-success" src="img/nrt.jpg" height="200"
-                                     width="180" alt="Nacho hueco"> <br> <br>
+                                     width="180" alt="CP"> <br> <br>
                                 <b><u>Nombre:</u></b> Carlos Pederneras<br>
                                 <b><u>Perfil:</u></b> Administrador <br>
                                 <b><u>Correo:</u></b> carlos.desertor@gmail.com <br> <br>
