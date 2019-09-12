@@ -43,9 +43,9 @@ function validaNombreEmpresa(input)
     nom2 = input.search(patron2);
 
     if (nom || nom2) {
-        
+
         var novalido;
-        
+
         if (nom)
         {
             novalido = '<span style="color: red;">El nombre de la empresa debe contener solamente letras o números</span>';
@@ -54,7 +54,7 @@ function validaNombreEmpresa(input)
         {
             novalido = '<span style="color: red;">El nombre no puede comenzar ni terminar con espacios</span>';
         }
-        
+
         document.getElementById('nombre').value = "";
         document.getElementById('mjNombre').innerHTML = novalido;
     } else
@@ -74,7 +74,7 @@ function validaRazonSocialEmpresa(input)
     if (nom || nom2) {
 
         var novalido;
-        
+
         if (nom)
         {
             novalido = '<span style="color: red;">La razón social debe contener solamente letras o números</span>';
@@ -83,7 +83,7 @@ function validaRazonSocialEmpresa(input)
         {
             novalido = '<span style="color: red;">La razón social no puede comenzar ni terminar con espacios</span>';
         }
-        
+
         document.getElementById('razonSocial').value = "";
         document.getElementById('mjRazonSocial').innerHTML = novalido;
     } else
@@ -103,7 +103,7 @@ function validaDireccion(input)
     if (nom || nom2) {
 
         var novalido;
-        
+
         if (nom)
         {
             novalido = '<span style="color: red;">La dirección debe contener solo letras o números</span>';
@@ -112,7 +112,7 @@ function validaDireccion(input)
         {
             novalido = '<span style="color: red;">La dirección no puede comenzar ni terminar con espacios</span>';
         }
-        
+
         document.getElementById('direccion').value = "";
         document.getElementById('mjDireccion').innerHTML = novalido;
     } else
@@ -132,7 +132,7 @@ function validaFono(input)
     if (nom || nom2) {
 
         var novalido;
-        
+
         if (nom)
         {
             novalido = '<span style="color: red;">El fono puede contener solo números, sin espacios intermedios</span>';
@@ -141,11 +141,110 @@ function validaFono(input)
         {
             novalido = '<span style="color: red;">No pueden haber espacios ni al comienzo ni al final del fono</span>';
         }
-        
+
         document.getElementById('fono').value = "";
         document.getElementById('mjFono').innerHTML = novalido;
     } else
     {
         document.getElementById('mjFono').innerHTML = "";
-    }    
+    }
+}
+
+function validaLetra(input, tipo)
+{
+
+    var patron = /^[a-zñáéíóúüA-ZÑÁÉÍÓÚÜ]+$/i;
+    var patron2 = /^[^\s].+[^\s]$/
+
+    nom = input.search(patron);
+    nom2 = input.search(patron2);
+
+    if (nom || nom2) {
+
+        var novalido;
+
+        switch (tipo) {
+            case 'pnombre':
+                
+                if (nom)
+                {
+                    novalido = '<span style="color: red;">El primer nombre debe contener solo letras</span>';
+                }
+                if (nom2)
+                {
+                    novalido = '<span style="color: red;">No pueden haber espacios ni al comienzo ni al final del primer nombre</span>';
+                }
+
+                document.getElementById('pnombre').value = "";
+                document.getElementById('mjPnombre').innerHTML = novalido;
+
+                break;
+            case 'snombre':
+                
+                if (nom)
+                {
+                    novalido = '<span style="color: red;">El segundo nombre debe contener solo letras</span>';
+                }
+                if (nom2)
+                {
+                    novalido = '<span style="color: red;">No pueden haber espacios ni al comienzo ni al final del segundo nombre</span>';
+                }
+
+                document.getElementById('snombre').value = "";
+                document.getElementById('mjSnombre').innerHTML = novalido;
+
+                break;
+            case 'appaterno':
+                
+                if (nom)
+                {
+                    novalido = '<span style="color: red;">El apellido paterno debe contener solo letras</span>';
+                }
+                if (nom2)
+                {
+                    novalido = '<span style="color: red;">No pueden haber espacios ni al comienzo ni al final del apellido paterno</span>';
+                }
+
+                document.getElementById('appaterno').value = "";
+                document.getElementById('mjAppaterno').innerHTML = novalido;
+
+                break;
+            case 'apmaterno':
+
+                if (nom)
+                {
+                    novalido = '<span style="color: red;">El apellido materno debe contener solo letras</span>';
+                }
+                if (nom2)
+                {
+                    novalido = '<span style="color: red;">No pueden haber espacios ni al comienzo ni al final del apellido materno</span>';
+                }
+
+                document.getElementById('apmaterno').value = "";
+                document.getElementById('mjApmaterno').innerHTML = novalido;
+                
+                break;
+            default:
+
+                break;
+        }
+    } else
+    {
+        switch (tipo) {
+            case 'pnombre':
+                document.getElementById('mjPnombre').innerHTML = "";
+                break;
+            case 'snombre':
+                document.getElementById('mjSnombre').innerHTML = "";
+                break;
+            case 'appaterno':
+                document.getElementById('mjAppaterno').innerHTML = "";
+                break;
+            case 'apmaterno':
+                document.getElementById('mjApmaterno').innerHTML = "";
+                break;
+            default:
+                break;
+        }
+    }
 }

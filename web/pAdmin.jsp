@@ -38,7 +38,7 @@
             <div class="row">
                 <div class="col-xl-12">
                     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                        <a class="navbar-brand" href="#">Seguros por siempre</a>
+                        <a class="navbar-brand" href="baha?nav=aPanel">Seguros por siempre</a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse"
                                 data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                                 aria-expanded="false" aria-label="Toggle navigation">
@@ -46,12 +46,12 @@
                         </button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav mr-auto">
-                                <li class="nav-item active"> <a class="nav-link" href="#">Inicio <span
+                                <li class="nav-item active"> <a class="nav-link" href="baha?nav=aPanel">Inicio <span
                                             class="sr-only">(current)</span></a> </li>
-                                <li class="nav-item"> <a class="nav-link" href="#">Profesionales</a> </li>
-                                <li class="nav-item"> <a class="nav-link" href="#">Clientes</a> </li>
-                                <li class="nav-item"> <a class="nav-link" href="#">Pagos</a> </li>
-                                <li class="nav-item"> <a class="nav-link" href="#">Operaciones</a> </li>
+                                <li class="nav-item"> <a class="nav-link" href="baha?nav=aProfesionales">Profesionales</a> </li>
+                                <li class="nav-item"> <a class="nav-link" href="baha?nav=aClientes">Clientes</a> </li>
+                                <li class="nav-item"> <a class="nav-link" href="baha?nav=aPagos">Pagos</a> </li>
+                                <li class="nav-item"> <a class="nav-link" href="baha?nav=aOperaciones">Operaciones</a> </li>
                                 <li class="nav-item dropdown bg-dark">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -75,11 +75,11 @@
                         <div class="card-header text-white bg-dark"> Mis datos </div>
                         <div class="card-body">
                             <div align="center">
-                                <img class="border border-success" src="img/nachoql.png" height="200"
+                                <img class="border border-success" src="img/nrt.jpg" height="200"
                                      width="180" alt="Nacho hueco"> <br> <br>
-                                <b><u>Nombre:</u></b> Ignacio Villaroel <br>
+                                <b><u>Nombre:</u></b> Carlos Pederneras<br>
                                 <b><u>Perfil:</u></b> Administrador <br>
-                                <b><u>Correo:</u></b> nacho@duoc.cl <br> <br>
+                                <b><u>Correo:</u></b> carlos.desertor@gmail.com <br> <br>
                             </div>
                             <div align="center">
                                 <a class="btn btn-warning" style="color: black;" href="" role="button">Modificar datos</a>
@@ -93,42 +93,24 @@
             <div class="row no-gutters pt-2" id="insercion">
                 <div class="col-md-12">
                     <div class="card mb-3">
-                        <div class="card-header text-white bg-dark"> Últimas operaciones </div>
+                        <div class="card-header text-white bg-dark">Envío de mensajes</div>
                         <div class="card-body">
-                            <table id="t2" class="table table-hover table-responsive-xl  table-dark ts">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">ID de operación</th>
-                                        <th scope="col">Descripción</th>
-                                        <th scope="col">Tipo</th>
-                                        <th scope="col">Realizada por</th>
-                                        <th scope="col">Fecha y hora</th>
-                                        <th scope="col">Operaciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row"> 1 </th>
-                                        <td> Pago 08-09</td>
-                                        <td> Pago </td>
-                                        <td>Aramark</td>
-                                        <td>07-08-2019 18:30</td>
-                                        <td> <a class="btn btn-primary" style="color: white;" href="" role="button">Ver
-                                                detalle</a> &nbsp; &nbsp;
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row"> 2 </th>
-                                        <td> Desactivación cliente DUOC.CL</td>
-                                        <td> Cese de servicios </td>
-                                        <td>DUOC</td>
-                                        <td>01-08-2019 00:00</td>
-                                        <td> <a class="btn btn-primary" style="color: white;" href="" role="button" disabled>Ver
-                                                detalle</a> &nbsp; &nbsp;
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <form>
+                                <label for="cs">Seleccione cliente: </label>
+                                <select name="cs" id="cs" class="form-control">
+                                    <option value="v1">CLIENTE 1</option>
+                                    <option value="v2">CLIENTE 2</option>
+                                    <option value="v3">CLIENTE 3</option>
+                                    <option value="v4">CLIENTE 4</option>
+                                </select>                                
+                                <br>
+                                <label for="subject">Asunto: </label>
+                                <input type="text" class="form-control" id="subject" name="subject" required>
+                                <br>
+                                <label for="mencuerpo">Mensaje:</label> &nbsp; &nbsp;
+                                <textarea id="mencuerpo" name="mencuerpo" class="form-control" required></textarea> <br> <br>
+                                <input type="submit" class="btn btn-primary" value="Notificar">
+                            </form>
                         </div>
                     </div>
                 </div>

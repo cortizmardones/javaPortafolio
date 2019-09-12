@@ -1,6 +1,6 @@
 <%-- 
-    Document   : adminClientes
-    Created on : 17-08-2019, 20:05:06
+    Document   : adminHistorial
+    Created on : 11-09-2019, 1:53:03
     Author     : Raúl Pardo Zurita
 --%>
 
@@ -27,7 +27,7 @@
         <link href="css/bootstrap-datetimepicker.css" rel="stylesheet" type="text/css"/>   
         <link rel="stylesheet" href="css/bahastyles.css">
 
-        <title>Seguros por siempre - Administración de clientes</title>
+        <title>Seguros por siempre - Revisión de historial de operaciones</title>
     </head>
 
     <body>
@@ -50,10 +50,10 @@
                             <ul class="navbar-nav mr-auto">
                                 <li class="nav-item"> <a class="nav-link" href="baha?nav=aPanel">Inicio </a> </li>
                                 <li class="nav-item"> <a class="nav-link" href="baha?nav=aProfesionales">Profesionales </a> </li>
-                                <li class="nav-item active"> <a class="nav-link" href="baha?nav=aClientes">Clientes <span
+                                <li class="nav-item"> <a class="nav-link" href="baha?nav=aClientes">Clientes </a> </li>
+                                <li class="nav-item"> <a class="nav-link" href="baha?nav=aPagos">Pagos </a> </li>
+                                <li class="nav-item"> <a class="nav-link active" href="baha?nav=aOperaciones">Operaciones <span
                                             class="sr-only">(current)</span></a> </li>
-                                <li class="nav-item"> <a class="nav-link" href="baha?nav=aPagos">Pagos</a> </li>
-                                <li class="nav-item"> <a class="nav-link" href="baha?nav=aOperaciones">Operaciones</a> </li>
                                 <li class="nav-item dropdown bg-dark">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -74,106 +74,28 @@
             <div class="row no-gutters pt-3" id="clienteData">
                 <div class="col-md-12">
                     <div class="card mb-3">
-                        <div class="card-header text-white bg-dark"> Datos del cliente </div>
-                        <div class="card-body" onmouseover="limpiarRutAlFallar()">
-                            <form action="index.jsp" method="POST">                       
-                                
-                                <label for="nombre">Nombre de la empresa:</label><br>
-                                <input type="text" class="form-control" id="nombre" name="nombre" onblur="validaNombreEmpresa(this.value)" required>  <div id="mjNombre"></div>  <br>
-
-                                <label for="rut">RUT:</label><br>
-                                <input type="text" class="form-control input_rut" id="rut" name="rut"
-                                       placeholder="16.432.567-K" required> <span id="rut-error" style="color: red"></span>  <div id="mjRut"></div>   <br>
-
-                                <label for="razonSocial">Razón social:</label><br>
-                                <input type="text" class="form-control" id="razonSocial" name="razonSocial" onblur="validaRazonSocialEmpresa(this.value)"  required>  <div id="mjRazonSocial"></div>  <br>
-
-                                <label for="logo">Logo:</label><br>
-                                <input type="file" class="form-control" id="logo" name="logo" required>  <div id="mjLogo"></div>  <br>                               
-
-                                <label for="fechaContrato">Fecha de contrato</label><br>
-                                <input type="datetime" class="form-control" name="fechaContrato"  id="fechaContrato"  required>  <div id="mjFechaContrato"></div>  <br> 
-
-                                <label for="correo">Correo:</label><br>
-                                <input type="text" class="form-control" id="correo" name="correo" onblur="validarCorreo(this.value)" required> <div id="mjCorreo"></div> <br>  
-                                
-                                <label for="direccion">Dirección:</label><br>
-                                <input type="text" class="form-control" id="direccion" name="direccion" onblur="validaDireccion(this.value)" required> <div id="mjDireccion"></div> <br>            
-                                
-                                <label for="fono">Fono:</label><br>
-                                <input type="text" class="form-control" id="fono" name="fono" onblur="validaFono(this.value)" minlength="9" maxlength="9" required> <div id="mjFono"></div> <br>  
-                                
-                                <label for="rubro">Rubro:</label><br>
-                                <select id="rubro" class="form-control" name="rubro" required>
-                                    <option value="r1">RUBRO 1</option>
-                                    <option value="r2">RUBRO 2</option>
-                                    <option value="r3">RUBRO 3</option>
-                                </select>                                 
-                                <div id="mjRubro"></div> <br>  
-                                
-                                <label for="password">Ingrese contraseña</label>
-                                <input id="password" name="password" class="form-control" type="password" pattern="^\S{6,}$" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Debe tener al menos 6 caracteres' : '');
-                                        if (this.checkValidity())
-                                            form.password_two.pattern = this.value;"
-                                                placeholder="Contraseña" required> <br>
-                                
-                                <label for="password_two">Repita contraseña</label>
-                                <input id="password_two" name="password_two" class="form-control" type="password" pattern="^\S{6,}$" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Debe ingresar la misma contraseña de arriba' : '');"
-                                       placeholder="Confirmar contraseña" required> <br> 
-                                                                                              
-                                <input type="submit" class="btn btn-primary" value="Agregar Cliente">
-                                
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row no-gutters pt-2" id="insercion">
-                <div class="col-md-12">
-                    <div class="card mb-3">
-                        <div class="card-header text-white bg-dark"> Lista de clientes </div>
-                        <div class="card-body">
+                        <div class="card-header text-white bg-dark"> Operaciones </div>
+                        <div class="card-body" onmouseover="">
                             <table id="t2" class="table table-hover table-responsive-xl  table-dark ts">
                                 <thead>
                                     <tr>
-                                        <th scope="col">ID de cliente</th>
-                                        <th scope="col">Nombre</th>
-                                        <th scope="col">Logo</th>
-                                        <th scope="col">RUT</th>                                       
-                                        <th scope="col">Razón Social</th>
-                                        <th scope="col">Fecha de contrato</th>
-                                        <th scope="col">Fecha de ingreso</th>
-                                        <th scope="col">Fecha de término</th>
-                                        <th scope="col">Estado</th>
-                                        <th scope="col">Correo</th>
-                                        <th scope="col">Dirección</th>
-                                        <th scope="col">Rubro</th>
-                                        <th scope="col">Operaciones</th>
+                                        <th scope="col">ID de operación</th>
+                                        <th scope="col">Descripción</th>
+                                        <th scope="col">Tipo</th>                                       
+                                        <th scope="col">Realizada por</th>
+                                        <th scope="col">Fecha</th>                                        
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <th scope="row"> 1 </th>
-                                        <td>Aramark</td>
-                                        <td><img src="https://tecnohoreca.com/wp-content/uploads/2018/06/aramark-1500x789.jpg" width="100" height="40" alt="Aramark"></td>
-                                        <td>76.876.234-K</td>                                      
-                                        <td>Aramark S.A.</td>
-                                        <td>11-07-2019 17:00</td>
-                                        <td>12-07-2019 10:00</td>
-                                        <td>- No Disponible-</td>
-                                        <td>ACTIVO</td>
-                                        <td>r.pardo@aramark.cl</td>
-                                        <td>Los Siameses #765</td>
-                                        <td>PYME</td>
-                                        <td>
-                                            <div align="center">
-                                                <a href=""><img src="img/delete.png" heght="20" width="20"></a> &nbsp;
-                                                <a href=""><img src="img/edit.png" heght="20" width="20"></a>
-                                            </div>
-                                        </td>
+                                        <th scope="row">1</th>
+                                        <td>Se agrego cliente Aramark</td>                                       
+                                        <td>Mantención</td>                                      
+                                        <td>Raúl Pardo Zurita</td>
+                                        <td>20-08-2019 17:45</td>
                                     </tr>
                                 </tbody>
-                            </table>
+                            </table> 
                         </div>
                     </div>
                 </div>
