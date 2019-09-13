@@ -65,7 +65,40 @@
                     <div class="card mb-3">
                         <div class="card-header text-white bg-success">Mis solicitudes</div>
                         <div class="card-body">
-                            
+                            <table id="t2" class="table table-hover table-responsive-xl  table-dark ts">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">ID de solicitud</th>
+                                        <th scope="col">Descripcion</th>
+                                        <th scope="col">Tipo</th>
+                                        <th scope="col">Fecha</th>
+                                        <th scope="col">Estado</th>      
+                                        <th scope="col">Detalles</th>                                         
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row"> 1 </th>
+                                        <td>Una persona se cortó un brazo en mi empresa y necesito la asesoría pertinente para gestionar este caso.</td>
+                                        <td>Asesoría por accidente</td>
+                                        <td>13-09-2019 18:02</td>                                        
+                                        <td>PENDIENTE DE APROBACIÓN</td> 
+                                        <td>
+                                            <a href="#" class="btn btn-primary">Detalles</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row"> 2 </th>
+                                        <td>Mañana viene la ACHS a revisar señaléticas y necesito gestionar las que están en las zonas de seguridad.</td>
+                                        <td>Asesoría ante ente fiscalizador</td>
+                                        <td>12-09-2019 17:00</td>                                        
+                                        <td>APROBADA</td> 
+                                        <td>
+                                            <a href="#" class="btn btn-primary">Detalles</a>
+                                        </td>
+                                    </tr>                                    
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -75,7 +108,14 @@
                     <div class="card mb-3">
                         <div class="card-header text-white bg-success">Solicitud de modificación de lista de chequeo</div>
                         <div class="card-body">
-                            Modificaciones realizadas: 1
+                            Modificaciones realizadas: 1 <br><br>
+                            <label for="descripcionChequeo">Descripción:</label><br>
+                            <input type="text" class="form-control" id="descripcionChequeo" name="descripcionChequeo" onblur="" required> <div id="mj"></div><br>
+                            <label for="criterio">Criterio(s):</label><br>
+                            <input type="text" class="form-control" id="criterio" name="criterio" onblur="" required> <div id="mj"></div><br>  
+                            <label for="modc">Modificación(es):</label><br>
+                            <input type="text" class="form-control" id="modc" name="modc" onblur="" required> <div id="mj"></div><br> 
+                            <a href="#" class="btn btn-success">Solicitar</a>                           
                         </div>
                     </div>
                 </div>
@@ -85,7 +125,11 @@
                     <div class="card mb-3">
                         <div class="card-header text-white bg-success">Solicitud de capacitación extra</div>
                         <div class="card-body">
-                            
+                            Capacitaciones realizadas: 5 <br> <br>
+                            <label for="descCapExtra">Descripción:</label><br>
+                            <input type="text" class="form-control" id="descCapExtra" name="descCapExtra" onblur="" required> <div id="mj"></div><br>  
+                           
+                            <a href="#" class="btn btn-success">Solicitar</a>                             
                         </div>
                     </div>
                 </div>
@@ -95,7 +139,7 @@
                     <div class="card mb-3">
                         <div class="card-header text-white bg-success">Solicitud de informe extra</div>
                         <div class="card-body">
-                            
+
                         </div>
                     </div>
                 </div>
@@ -105,7 +149,7 @@
                     <div class="card mb-3">
                         <div class="card-header text-white bg-success">Solicitud de asesoría</div>
                         <div class="card-body">
-                            
+
                         </div>
                     </div>
                 </div>
@@ -129,34 +173,34 @@
         crossorigin="anonymous"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.js"></script>
         <script type="text/javascript">
-$(document).ready(function () {
-    $('#t2').DataTable({
-        "language": {
-            "sProcessing": "Procesando...",
-            "sLengthMenu": "Mostrar _MENU_ registros",
-            "sZeroRecords": "No se encontraron resultados",
-            "sEmptyTable": "Ningún dato disponible en esta tabla",
-            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-            "sInfoPostFix": "",
-            "sSearch": "Buscar:",
-            "sUrl": "",
-            "sInfoThousands": ",",
-            "sLoadingRecords": "Cargando...",
-            "oPaginate": {
-                "sFirst": "Primero",
-                "sLast": "Último",
-                "sNext": "Siguiente",
-                "sPrevious": "Anterior"
-            },
-            "oAria": {
-                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-            }
-        }
-    });
-});
+            $(document).ready(function () {
+                $('#t2').DataTable({
+                    "language": {
+                        "sProcessing": "Procesando...",
+                        "sLengthMenu": "Mostrar _MENU_ registros",
+                        "sZeroRecords": "No se encontraron resultados",
+                        "sEmptyTable": "Ningún dato disponible en esta tabla",
+                        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                        "sInfoPostFix": "",
+                        "sSearch": "Buscar:",
+                        "sUrl": "",
+                        "sInfoThousands": ",",
+                        "sLoadingRecords": "Cargando...",
+                        "oPaginate": {
+                            "sFirst": "Primero",
+                            "sLast": "Último",
+                            "sNext": "Siguiente",
+                            "sPrevious": "Anterior"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                        }
+                    }
+                });
+            });
         </script>        
     </body>
 </html>
