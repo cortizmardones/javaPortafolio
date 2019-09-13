@@ -1,7 +1,7 @@
 <%-- 
-    Document   : pCliente
-    Created on : 12-09-2019, 1:03:14
-    Author     : raulp
+    Document   : cliSolicitudes
+    Created on : 12-09-2019, 1:03:37
+    Author     : Raúl Pardo Zurita
 --%>
 
 <%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
@@ -60,65 +60,56 @@
                     </nav>
                 </div>
             </div>
-            <div class="row no-gutters pt-3" id="cli">
+            <div class="row no-gutters pt-3" id="cli1">
                 <div class="col-md-12">
                     <div class="card mb-3">
-                        <div class="card-header text-white bg-success">Mis datos</div>
+                        <div class="card-header text-white bg-success">Mis solicitudes</div>
                         <div class="card-body">
-                            <div align="center">
-                                <div align="center">
-                                    <img src="img/aramark-1500x789.jpg"  height="200"  width="180" alt="" />    
-                                </div>
-                                <b><u>Nombre:</u></b> Aramark <br>                               
-                                <b><u>Dirección:</u></b> Los Aromos 2050 <br>
-                                <b><u>Correo:</u></b> ert.uiy@aramark.cl<br> <br>
-                            </div>
-                            <div align="center">
-                                <a class="btn btn-warning" style="color: black;" href="" role="button">Modificar datos</a>
-                                <a class="btn btn-warning" style="color: black;" href="" role="button">Modificar
-                                    contraseña</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row no-gutters pt-3" id="clidata">
-                <div class="col-md-12">
-                    <div class="card mb-3">
-                        <div class="card-header text-white bg-success">Servicios</div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-xl-3">
-                                    <div class="card border-danger mb-3" style="max-width: 18rem;">
-                                        <div class="card-body text-dark">
-                                            <h5 class="card-title">Servicio base</h5>
-                                            <p class="card-text">- 2 visitas al mes</p>
-                                            <p class="card-text">- 10 asesorías</p>
-                                            <p class="card-text">- 1 capacitación cada 2 meses</p>
-                                            <p class="card-text">- 1 reporte</p>
-                                            <p class="card-text">- Servicio de chat</p>
-                                            <hr>
-                                            <p class="card-text">ESTADO: ACTIVO</p>                                    
-                                        </div>
-                                    </div> 
-                                </div>
-                                <div class="col-xl-3">
-                                    <div class="card border-success mb-3" style="max-width: 18rem;">
-                                        <div class="card-body text-dark">
-                                            <h5 class="card-title">Servicio extra</h5>
-                                            <h6 class="card-subtitle mb-2 text-muted">Modificación de lista de chequeo</h6><br>                                            
-                                            <p class="card-text">Número de modificación: 2</p>
-                                            <p>Fecha de solicitud: 13-09-2019 18:40</p>
-                                            <hr>
-                                            <p class="card-text">ESTADO: ACEPTADO</p>                                    
-                                        </div>
-                                    </div> 
-                                </div>                                
-                            </div>
+                            
                         </div>
                     </div>
                 </div>
             </div>            
+            <div class="row no-gutters pt-3" id="cli2">
+                <div class="col-md-12">
+                    <div class="card mb-3">
+                        <div class="card-header text-white bg-success">Solicitud de modificación de lista de chequeo</div>
+                        <div class="card-body">
+                            Modificaciones realizadas: 1
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row no-gutters pt-3" id="cli3">
+                <div class="col-md-12">
+                    <div class="card mb-3">
+                        <div class="card-header text-white bg-success">Solicitud de capacitación extra</div>
+                        <div class="card-body">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            <div class="row no-gutters pt-3" id="cli3">
+                <div class="col-md-12">
+                    <div class="card mb-3">
+                        <div class="card-header text-white bg-success">Solicitud de informe extra</div>
+                        <div class="card-body">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>  
+            <div class="row no-gutters pt-3" id="cli3">
+                <div class="col-md-12">
+                    <div class="card mb-3">
+                        <div class="card-header text-white bg-success">Solicitud de asesoría</div>
+                        <div class="card-body">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>             
             <div class="row no-gutters pt-3" id="footer">
                 <div class="col-md-12 bg-dark text-white text-center py-4">
                     Copyright &copy;Seguros por siempre

@@ -14,7 +14,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Raúl Pardo Zurita
  */
-public class LoginController extends HttpServlet {
+public class ClienteController extends HttpServlet {
+
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -30,7 +31,7 @@ public class LoginController extends HttpServlet {
         
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-               
+        
     }
 
     /**
@@ -48,5 +49,37 @@ public class LoginController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         
+        String accion = request.getParameter("accion");
+        
+        switch (accion) {
+            case "agregarCliente":
+                this.agregarCliente(request, response);
+                break;
+            default:
+                throw new AssertionError();
+        }
+    }
+
+    private void agregarCliente(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+        
+        /*
+        String nombre = request.getParameter("nombre");
+        String rut = request.getParameter("rut");
+        String razonSocial = request.getParameter("razonSocial");
+        String logo = "www.carloschile.cl/ultra.jpg";
+        String fechaContrato = request.getParameter("fechaContrato");
+        
+        Date fechaActual = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String fechaIngreso = sdf.format(fechaActual);
+        
+        String fechaTermino = "1999-01-01 00:00";
+        String correo = request.getParameter("correo");
+        String direccion = request.getParameter("direccion");
+        String fono = request.getParameter("fono"); 
+        String rubro = request.getParameter("rubro");
+        boolean estado = true;
+        String pass = Utils.MD5(request.getParameter("password_two")); 
+        */
     }
 }
