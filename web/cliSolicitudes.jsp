@@ -50,9 +50,9 @@
                         </button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav mr-auto">
-                                <li class="nav-item active"> <a class="nav-link" href="baha?nav=pCliente">Inicio <span
+                                <li class="nav-item"> <a class="nav-link" href="baha?nav=pCliente">Inicio</a> </li>
+                                <li class="nav-item active"> <a class="nav-link" href="baha?nav=cliSolicitudes">Solicitudes<span
                                             class="sr-only">(current)</span></a> </li>
-                                <li class="nav-item"> <a class="nav-link" href="baha?nav=cliSolicitudes">Solicitudes</a> </li>
                                 <li class="nav-item"> <a class="nav-link" href="baha?nav=cliPagos">Pagos</a> </li>
                                 <li class="nav-item"> <a class="nav-link" href="baha?nav=cliReportes">Reportes</a> </li>
                             </ul>
@@ -125,7 +125,6 @@
                     <div class="card mb-3">
                         <div class="card-header text-white bg-success">Solicitud de capacitación extra</div>
                         <div class="card-body">
-                            Capacitaciones realizadas: 5 <br> <br>
                             <label for="descCapExtra">Descripción:</label><br>
                             <input type="text" class="form-control" id="descCapExtra" name="descCapExtra" onblur="" required> <div id="mj"></div><br>  
                            
@@ -139,7 +138,10 @@
                     <div class="card mb-3">
                         <div class="card-header text-white bg-success">Solicitud de informe extra</div>
                         <div class="card-body">
-
+                            <label for="descInforme">Descripción:</label><br>
+                            <input type="text" class="form-control" id="descInforme" name="descInforme" onblur="" required> <div id="mj"></div><br>  
+                           
+                            <a href="#" class="btn btn-success">Solicitar</a> 
                         </div>
                     </div>
                 </div>
@@ -147,9 +149,20 @@
             <div class="row no-gutters pt-3" id="cli3">
                 <div class="col-md-12">
                     <div class="card mb-3">
-                        <div class="card-header text-white bg-success">Solicitud de asesoría</div>
+                        <div class="card-header text-white bg-success">Solicitud de asesoría</div>                     
                         <div class="card-body">
-
+                            Asesorías concretadas: 5 <br> <br>
+                            
+                            <label for="descAsesoria">Descripción:</label><br>
+                            <input type="text" class="form-control" id="descAsesoria" name="descAsesoria" onblur="" required> <div id="mj"></div><br>  
+                            
+                            <label for="mot">Motivo:</label><br>
+                            <select name="mot" class="form-control">
+                                <option value="a1">Accidente</option>
+                                <option value="a2">Fiscalización</option>
+                            </select>
+                            <br>
+                            <a href="#" class="btn btn-success">Solicitar</a> 
                         </div>
                     </div>
                 </div>

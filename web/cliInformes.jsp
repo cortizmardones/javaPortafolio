@@ -1,9 +1,8 @@
 <%-- 
-    Document   : cliPagos
-    Created on : 12-09-2019, 12:55:24
-    Author     : raulp
+    Document   : cliInformes
+    Created on : 13-09-2019, 22:13:18
+    Author     : PFT
 --%>
-
 <%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"  %>  
 
