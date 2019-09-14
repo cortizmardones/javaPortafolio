@@ -41,7 +41,7 @@
             <div class="row">
                 <div class="col-xl-12">
                     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                        <a class="navbar-brand" href="baha?nav=pCliente">Seguros por siempre</a>
+                        <a class="navbar-brand" href="baha?nav=cPanel">Seguros por siempre</a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse"
                                 data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                                 aria-expanded="false" aria-label="Toggle navigation">
@@ -49,11 +49,11 @@
                         </button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav mr-auto">
-                                <li class="nav-item"> <a class="nav-link" href="baha?nav=pCliente">Inicio</a> </li>
-                                <li class="nav-item"> <a class="nav-link" href="baha?nav=cliSolicitudes">Solicitudes</a> </li>
-                                <li class="nav-item active"> <a class="nav-link" href="baha?nav=cliPagos">Pagos<span
+                                <li class="nav-item"> <a class="nav-link" href="baha?nav=cPanel">Inicio</a> </li>
+                                <li class="nav-item"> <a class="nav-link" href="baha?nav=cSolicitudes">Solicitudes</a> </li>
+                                <li class="nav-item active"> <a class="nav-link" href="baha?nav=cPagos">Pagos<span
                                             class="sr-only">(current)</span></a> </li>
-                                <li class="nav-item"> <a class="nav-link" href="baha?nav=cliReportes">Reportes</a> </li>
+                                <li class="nav-item"> <a class="nav-link" href="baha?nav=cReportes">Reportes</a> </li>
                             </ul>
                         </div>
                     </nav>

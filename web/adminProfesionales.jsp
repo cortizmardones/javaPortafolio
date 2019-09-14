@@ -54,6 +54,7 @@
                                 <li class="nav-item"> <a class="nav-link" href="baha?nav=aClientes">Clientes </a> </li>
                                 <li class="nav-item"> <a class="nav-link" href="baha?nav=aPagos">Pagos</a> </li>
                                 <li class="nav-item"> <a class="nav-link" href="baha?nav=aOperaciones">Operaciones</a> </li>
+                                <li class="nav-item"> <a class="nav-link" href="baha?nav=aCredenciales">Credenciales</a></li>                                 
                                 <li class="nav-item dropdown bg-dark">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -93,6 +94,9 @@
                                 <label for="rut">RUT:</label><br>
                                 <input type="text" class="form-control input_rut" id="rut" name="rut"
                                        placeholder="16.432.567-K" required> <span id="rut-error" style="color: red"></span>  <div id="mjRut"></div>   <br>
+                                
+                                <label for="foto">Foto:</label><br>
+                                <input type="file" class="form-control-file" id="foto" name="lfoto" accept=".gif,.jpg,.jpeg" required>  <div id="mjLogo"></div>  <br>                                   
 
                                 <label for="fechaContrato">Fecha de contrato</label><br>
                                 <input type="datetime" class="form-control" name="fechaContrato"  id="fechaContrato"  required>  <div id="mjFechaContrato"></div>  <br> 
@@ -105,16 +109,6 @@
 
                                 <label for="fono">Fono:</label><br>
                                 <input type="text" class="form-control" id="fono" name="fono" onblur="validaFono(this.value)" minlength="9" maxlength="9" required> <div id="mjFono"></div> <br>  
-
-                                <label for="password">Ingrese contraseña</label>
-                                <input id="password" name="password" class="form-control" type="password" pattern="^\S{6,}$" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Debe tener al menos 6 caracteres' : '');
-                                        if (this.checkValidity())
-                                            form.password_two.pattern = this.value;"
-                                                placeholder="Contraseña" required> <br>
-                                
-                                <label for="password_two">Repita contraseña</label>
-                                <input id="password_two" name="password_two" class="form-control" type="password" pattern="^\S{6,}$" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Debe ingresar la misma contraseña de arriba' : '');"
-                                       placeholder="Confirmar contraseña" required> <br> 
                                 
                                 <input type="submit" class="btn btn-primary" value="Agregar Profesional">
                                 

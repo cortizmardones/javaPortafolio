@@ -49,7 +49,22 @@ public class MappingController extends HttpServlet {
                 break; 
             case "aOperaciones":
                 request.getRequestDispatcher("adminHistorial.jsp").forward(request, response);                
-                break;                   
+                break;  
+            case "aCredenciales":
+                request.getRequestDispatcher("adminPersonas.jsp").forward(request, response);                
+                break;                 
+            case "cPanel":
+                request.getRequestDispatcher("pCliente.jsp").forward(request, response);                
+                break; 
+            case "cSolicitudes":
+                request.getRequestDispatcher("cliSolicitudes.jsp").forward(request, response);                
+                break;          
+            case "cPagos":
+                request.getRequestDispatcher("cliPagos.jsp").forward(request, response);                
+                break;          
+            case "cReportes":
+                request.getRequestDispatcher("cliReportes.jsp").forward(request, response);                
+                break;                          
             default:
                 throw new AssertionError();
         }       

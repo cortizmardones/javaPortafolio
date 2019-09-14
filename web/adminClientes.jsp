@@ -54,6 +54,7 @@
                                             class="sr-only">(current)</span></a> </li>
                                 <li class="nav-item"> <a class="nav-link" href="baha?nav=aPagos">Pagos</a> </li>
                                 <li class="nav-item"> <a class="nav-link" href="baha?nav=aOperaciones">Operaciones</a> </li>
+                                <li class="nav-item"> <a class="nav-link" href="baha?nav=aCredenciales">Credenciales</a></li>                                 
                                 <li class="nav-item dropdown bg-dark">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -89,7 +90,7 @@
                                 <input type="text" class="form-control" id="razonSocial" name="razonSocial" onblur="validaRazonSocialEmpresa(this.value)"  required>  <div id="mjRazonSocial"></div>  <br>
 
                                 <label for="logo">Logo:</label><br>
-                                <input type="file" class="form-control" id="logo" name="logo" required>  <div id="mjLogo"></div>  <br>                               
+                                <input type="file" class="form-control-file" id="logo" name="logo" accept=".gif,.jpg,.jpeg"  required>  <div id="mjLogo"></div>  <br>                               
 
                                 <label for="fechaContrato">Fecha de contrato</label><br>
                                 <input type="datetime" class="form-control" name="fechaContrato"  id="fechaContrato"  required>  <div id="mjFechaContrato"></div>  <br> 
@@ -101,7 +102,10 @@
                                 <input type="text" class="form-control" id="direccion" name="direccion" onblur="validaDireccion(this.value)" required> <div id="mjDireccion"></div> <br>            
                                 
                                 <label for="fono">Fono:</label><br>
-                                <input type="text" class="form-control" id="fono" name="fono" onblur="validaFono(this.value)" minlength="9" maxlength="9" required> <div id="mjFono"></div> <br>  
+                                <input type="text" class="form-control" id="fono" name="fono" onblur="validaFono(this.value)" minlength="9" maxlength="9" required> <div id="mjFono"></div> <br> 
+                                
+                                <label for="cantidad">Número de trabajadores:</label><br>
+                                <input type="number" class="form-control" id="cantidad" name="cantidad" onblur="" min="0" required> <div id="mjCantidad"></div> <br>                                  
                                 
                                 <label for="rubro">Rubro:</label><br>
                                 <select id="rubro" class="form-control" name="rubro" required>
@@ -109,17 +113,7 @@
                                     <option value="r2">RUBRO 2</option>
                                     <option value="r3">RUBRO 3</option>
                                 </select>                                 
-                                <div id="mjRubro"></div> <br>  
-                                
-                                <label for="password">Ingrese contraseña</label>
-                                <input id="password" name="password" class="form-control" type="password" pattern="^\S{6,}$" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Debe tener al menos 6 caracteres' : '');
-                                        if (this.checkValidity())
-                                            form.password_two.pattern = this.value;"
-                                                placeholder="Contraseña" required> <br>
-                                
-                                <label for="password_two">Repita contraseña</label>
-                                <input id="password_two" name="password_two" class="form-control" type="password" pattern="^\S{6,}$" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Debe ingresar la misma contraseña de arriba' : '');"
-                                       placeholder="Confirmar contraseña" required> <br> 
+                                <div id="mjRubro"></div> <br>                                  
                                                                                               
                                 <input type="submit" class="btn btn-primary" value="Agregar Cliente">
                                 

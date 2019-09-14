@@ -248,3 +248,32 @@ function validaLetra(input, tipo)
         }
     }
 }
+
+function validaNombrePersona(input)
+{
+    var patron = /^[a-zñáéíóúüA-ZÑÁÉÍÓÚÜ ]+$/i;
+    var patron2 = /^[^\s].+[^\s]$/
+
+    nom = input.search(patron);
+    nom2 = input.search(patron2);
+
+    if (nom || nom2) {
+
+        var novalido;
+
+        if (nom)
+        {
+            novalido = '<span style="color: red;">El nombre debe contener solamente letras</span>';
+        }
+        if (nom2)
+        {
+            novalido = '<span style="color: red;">El nombre no puede comenzar ni terminar con espacios</span>';
+        }
+
+        document.getElementById('nombre').value = "";
+        document.getElementById('mjNombre').innerHTML = novalido;
+    } else
+    {
+        document.getElementById('mjNombre').innerHTML = "";
+    }
+}
