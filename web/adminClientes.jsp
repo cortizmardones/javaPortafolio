@@ -77,7 +77,7 @@
                     <div class="card mb-3">
                         <div class="card-header text-white bg-dark"> Datos del cliente </div>
                         <div class="card-body" onmouseover="limpiarRutAlFallar()">
-                            <form action="index.jsp" method="POST">                       
+                            <form action="index.jsp" method="POST" enctype="multipart/form-data">                       
                                 
                                 <label for="nombre">Nombre de la empresa:</label><br>
                                 <input type="text" class="form-control" id="nombre" name="nombre" onblur="validaNombreEmpresa(this.value)" required>  <div id="mjNombre"></div>  <br>
@@ -109,9 +109,9 @@
                                 
                                 <label for="rubro">Rubro:</label><br>
                                 <select id="rubro" class="form-control" name="rubro" required>
-                                    <option value="r1">RUBRO 1</option>
-                                    <option value="r2">RUBRO 2</option>
-                                    <option value="r3">RUBRO 3</option>
+                                    <c:forEach items="${rRubros}" var="rubro">
+                                        <option value="${rubro.idRubro}">${rubro.nombre}</option>                                        
+                                    </c:forEach>
                                 </select>                                 
                                 <div id="mjRubro"></div> <br>                                  
                                                                                               

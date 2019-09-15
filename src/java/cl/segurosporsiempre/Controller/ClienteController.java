@@ -4,11 +4,13 @@
  */
 package cl.segurosporsiempre.Controller;
 
+import java.io.File;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 /**
  *
@@ -16,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ClienteController extends HttpServlet {
 
+    private static final String UPLOAD_DIR = "multimedia";
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -28,10 +31,10 @@ public class ClienteController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-        
+
     }
 
     /**
@@ -45,12 +48,12 @@ public class ClienteController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-        
+
         String accion = request.getParameter("accion");
-        
+
         switch (accion) {
             case "agregarCliente":
                 this.agregarCliente(request, response);
@@ -60,8 +63,8 @@ public class ClienteController extends HttpServlet {
         }
     }
 
-    private void agregarCliente(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
-        
+    private void agregarCliente(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         /*
         String nombre = request.getParameter("nombre");
         String rut = request.getParameter("rut");
@@ -80,6 +83,15 @@ public class ClienteController extends HttpServlet {
         String rubro = request.getParameter("rubro");
         boolean estado = true;
         String pass = Utils.MD5(request.getParameter("password_two")); 
-        */
+         */
+    }
+
+    private void subirArchivo(HttpServletRequest request, HttpServletResponse response, Part archivo) throws ServletException, IOException {
+
+        String applicationPath = getServletContext().getInitParameter("file-upload");
+        String uploadFilePath = applicationPath + File.separator;
+        String nombre = archivo.getSubmittedFileName();
+        archivo.write(uploadFilePath + File.separator + nombre);
+        
     }
 }

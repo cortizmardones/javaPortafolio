@@ -23,7 +23,6 @@ public class Rubro {
     public Rubro(Integer idRubro, String nombre, String descripcion) {
         this.idRubro = idRubro;
         this.nombre = nombre;
-        this.descripcion = descripcion;
     }
    
     public Integer getIdRubro() {
@@ -40,13 +39,5 @@ public class Rubro {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
     }
 }

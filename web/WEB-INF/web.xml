@@ -11,6 +11,22 @@
     <servlet>
         <servlet-name>ClienteController</servlet-name>
         <servlet-class>cl.segurosporsiempre.Controller.ClienteController</servlet-class>
+        <multipart-config>
+            <location>/tmp</location>
+            <max-file-size>1048576</max-file-size>
+            <max-request-size>5242880</max-request-size>
+            <file-size-threshold>1048576</file-size-threshold>
+        </multipart-config>
+    </servlet>
+    <servlet>
+        <servlet-name>ProfesionalController</servlet-name>
+        <servlet-class>cl.segurosporsiempre.Controller.ProfesionalController</servlet-class>
+        <multipart-config>
+            <location>/tmp</location>
+            <max-file-size>1048576</max-file-size>
+            <max-request-size>5242880</max-request-size>
+            <file-size-threshold>1048576</file-size-threshold>
+        </multipart-config>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
@@ -24,9 +40,18 @@
         <servlet-name>ClienteController</servlet-name>
         <url-pattern>/cliente</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProfesionalController</servlet-name>
+        <url-pattern>/profesional</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
+    <context-param>
+        <description>Ubicación para guardar el archivo que se subió</description>
+        <param-name>file-upload</param-name>
+        <param-value>/home/bahamut/Descargas</param-value>
+    </context-param>
 </web-app>

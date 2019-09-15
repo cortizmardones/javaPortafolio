@@ -77,7 +77,7 @@
                     <div class="card mb-3">
                         <div class="card-header text-white bg-dark"> Datos del profesional </div>
                         <div class="card-body" onmouseover="limpiarRutAlFallar()">
-                            <form action="index.jsp" method="POST">                     
+                            <form action="index.jsp" method="POST" enctype="multipart/form-data">                     
 
                                 <label for="pnombre">Primer nombre:</label><br>
                                 <input type="text" class="form-control" id="pnombre" name="pnombre" onblur="validaLetra(this.value, 'pnombre')" required>  <div id="mjPnombre"></div>  <br>
@@ -96,7 +96,7 @@
                                        placeholder="16.432.567-K" required> <span id="rut-error" style="color: red"></span>  <div id="mjRut"></div>   <br>
                                 
                                 <label for="foto">Foto:</label><br>
-                                <input type="file" class="form-control-file" id="foto" name="lfoto" accept=".gif,.jpg,.jpeg" required>  <div id="mjLogo"></div>  <br>                                   
+                                <input type="file" class="form-control-file" id="foto" name="foto" accept=".gif,.jpg,.jpeg" required>  <div id="mjLogo"></div>  <br>                                   
 
                                 <label for="fechaContrato">Fecha de contrato</label><br>
                                 <input type="datetime" class="form-control" name="fechaContrato"  id="fechaContrato"  required>  <div id="mjFechaContrato"></div>  <br> 
