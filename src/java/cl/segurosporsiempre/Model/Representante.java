@@ -54,4 +54,11 @@ public class Representante {
     public void setRut(String rut) {
         this.rut = rut;
     }
+
+    @Override
+    public String toString() {
+        return "Representante{" + "idRepresentante=" + idRepresentante + ", login=" + login + ", nombre=" + nombre + ", rut=" + rut + '}';
+    }
+    
+    
 }

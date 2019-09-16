@@ -18,6 +18,8 @@ public class Login {
     private Representante respresentante;
     private Integer intentos;
     private Boolean nuevo;
+    private Cliente cliente;
+    private Boolean activado;
 
     public Login() {
     }
@@ -81,4 +83,27 @@ public class Login {
     public void setNuevo(Boolean nuevo) {
         this.nuevo = nuevo;
     }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public Boolean getActivado() {
+        return activado;
+    }
+
+    public void setActivado(Boolean activado) {
+        this.activado = activado;
+    }
+
+    @Override
+    public String toString() {
+        return "Login{" + "idLogin=" + idLogin + ", correo=" + correo + ", pass=" + pass + ", perfil=" + perfil + ", respresentante=" + respresentante + ", intentos=" + intentos + ", nuevo=" + nuevo + ", cliente=" + cliente + ", activado=" + activado + '}';
+    }
+    
+    
 }

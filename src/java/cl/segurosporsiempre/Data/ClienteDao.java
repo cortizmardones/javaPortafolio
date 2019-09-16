@@ -7,7 +7,13 @@ package cl.segurosporsiempre.Data;
 import cl.segurosporsiempre.Connection.Conexion;
 import cl.segurosporsiempre.Model.Cliente;
 import java.sql.CallableStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import oracle.jdbc.OracleTypes;
 
 /**
  *
@@ -50,6 +56,40 @@ public class ClienteDao {
         } catch (Exception ex) {
             System.out.println(ex.getMessage());            
            return false;
+        }
+    }   
+      
+    public List<Cliente> obtenerClientesR()
+    {
+        try {
+            List<Cliente> clientes = new LinkedList<>();
+            Cliente c;
+            
+            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_OBTENER_CLIENTES(?) }");
+            cst.registerOutParameter(1, OracleTypes.CURSOR);
+            
+            cst.execute();
+            
+            ResultSet rs = (ResultSet)cst.getObject(1);
+            
+            while (rs.next())
+            {
+                c = new Cliente();
+                c.setIdCliete(rs.getLong("ID_EMPRESA"));
+                c.setNombre(rs.getString("NOMBRE"));
+                
+                clientes.add(c);
+            }
+            
+            return clientes;
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } catch (Exception ex) {
+            Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);           
+            return null;
         }
     }    
 }

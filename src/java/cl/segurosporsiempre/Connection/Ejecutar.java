@@ -5,12 +5,14 @@
 package cl.segurosporsiempre.Connection;
 
 import cl.segurosporsiempre.Data.ClienteDao;
+import cl.segurosporsiempre.Data.CredencialDao;
 import cl.segurosporsiempre.Data.LoginDao;
 import cl.segurosporsiempre.Data.RubroDao;
 import cl.segurosporsiempre.Model.Cliente;
 import cl.segurosporsiempre.Model.Contrato;
 import cl.segurosporsiempre.Model.Login;
 import cl.segurosporsiempre.Model.Rubro;
+import cl.segurosporsiempre.Model.Utils;
 import java.util.List;
 
 /**
@@ -23,19 +25,6 @@ public class Ejecutar {
      * @param args los argumentos de la línea de comandos
      */
     public static void main(String[] args) {
-        
-        Conexion conn = new Conexion();
-        LoginDao lDto = new LoginDao(conn);
-        
-        Login l = new Login();
-        l.setCorreo("ETEJEDA");
-        l.setPass("MHUNTER4");
-        
-        Login log = lDto.obtenerLogin(l);
-        
-        System.out.println(log.getIdLogin());
-        
-        
         
         
         /*

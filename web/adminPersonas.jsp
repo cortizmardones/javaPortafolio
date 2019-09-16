@@ -72,16 +72,58 @@
                     </nav>
                 </div>
             </div>
+            <div class="row no-gutters pt-4">
+                <c:if test="${mensaje eq 'agregarCredencialPos'}">
+                    <div class="col-md-12">
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            Persona ingresada con éxito al sistema
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                </c:if>
+                <c:if test="${mensaje eq 'agregarCredencialNeg'}">
+                    <div class="col-md-12">
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            No se pudo agregar la persona
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                </c:if> 
+                <c:if test="${mensaje eq 'desactivarCredencialPos'}">
+                    <div class="col-md-12">
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            Persona desactivada exitosamente
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                </c:if>
+                <c:if test="${mensaje eq 'desactivarCredencialNeg'}">
+                    <div class="col-md-12">
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            Persona  no se pudo desactivar
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                </c:if>                               
+            </div>
             <div class="row no-gutters pt-3" id="clienteDatwa">
                 <div class="col-md-12">
                     <div class="card mb-3">
                         <div class="card-header text-white bg-dark">Ingreso de personas y credenciales</div>
                         <div class="card-body"  onmouseover="limpiarRutAlFallar()">
-                            <form>
+                            <form action="credencial" method="POST">
                                 <label for="correo">Correo (login):</label><br>
                                 <input type="text" class="form-control" id="correo" name="correo" onblur="validarCorreo(this.value)" required> <div id="mjCorreo"></div> <br>  
 
-                                <label for="nombre">Nombre del representante:</label><br>
+                                <label for="nombre">Nombre del representate/profesional:</label><br>
                                 <input type="text" class="form-control" id="nombre" name="nombre" onblur="validaNombrePersona(this.value)" required>  <div id="mjNombre"></div>  <br>   
 
                                 <label for="rut">RUT:</label><br>
@@ -97,7 +139,17 @@
                                 <label for="password_two">Repita contraseña</label>
                                 <input id="password_two" name="password_two" class="form-control" type="password" pattern="^\S{6,}$" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Debe ingresar la misma contraseña de arriba' : '');"
                                        placeholder="Confirmar contraseña" required> <br> 
+                              
+                                <label for="empresa">Empresa/Perfil:</label><br>
+                                <select id="empresa" class="form-control" name="empresa" required>
+                                    <c:forEach items="${rClientes}" var="empresa">
+                                        <option value="${empresa.idCliete}">${empresa.nombre}</option>                                        
+                                    </c:forEach>
+                                </select>                                 
+                                <div id="mjRubro"></div> <br>  
                                 
+                                <input type="hidden" name="accion" value="agregarCredencial">
+
                                 <input type="submit" class="btn btn-primary" value="Agregar persona">
                             </form>
                         </div>
@@ -116,21 +168,38 @@
                                         <th scope="col">Nombre</th>
                                         <th scope="col">Perfil</th>                                        
                                         <th scope="col">RUT</th>                                       
-                                        <th scope="col">Correo</th>
-                                        <th scope="col">Fecha de ingreso</th>  
+                                        <th scope="col">Correo</th> 
                                         <th scope="col">Estado</th>                                             
+                                        <th scope="col">Operaciones</th>                                             
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Alma Ortiz</td>                                       
-                                        <td>Administrador</td>                                       
-                                        <td>15.145.851-4</td>                                      
-                                        <td>alma.dp@lpmd.cl</td>
-                                        <td>20-08-2019 17:00</td>
-                                        <td>ACTIVADA</td>
-                                    </tr>
+                                    <c:forEach items="${rCredenciales}" var="credencial">
+                                        <tr>
+                                            <td>${credencial.idLogin}</td>
+                                            <td>${credencial.respresentante.nombre}</td>
+                                            <td>${credencial.perfil.nombre}</td>
+                                            <td>${credencial.respresentante.rut}</td>
+                                            <td>${credencial.correo}</td>
+                                            <td>
+                                                <c:if test="${credencial.activado}">
+                                                    <span style="color: #00FF41">ACTIVADO</span>
+                                                </c:if>
+                                                <c:if test="${!credencial.activado}">
+                                                    <span style="color: red;">DESHABILITADO</span>
+                                                </c:if>
+                                            </td>
+                                            <td>
+                                                <div align="center">
+                                                    <a href="credencial?accion=desactivarPersona&id=${credencial.idLogin}"><img src="img/delete.png" onclick="return confirm('¿Desea desactivar este usuario?')" heght="20" width="20"></a> &nbsp;
+                                                    <%--
+                                                    <a href="credencial?accion=gModificarPersona&id=${credencial.idLogin}"><img src="img/edit.png" onclick="return confirm('¿Desea modificar este usuario?')" heght="20" width="20"></a>
+                                                    <a href="credencial?accion=gModificarPass&id=${credencial.idLogin}"><img src="img/candado.png" onclick="return confirm('¿Desea modificar la contraseña de este usuario?')" heght="20" width="20">
+                                                    --%>
+                                                </div>
+                                            </td>        
+                                        </tr>
+                                    </c:forEach>
                                 </tbody>
                             </table> 
                         </div>

@@ -132,6 +132,11 @@ public class Cliente {
     public void setContrato(Contrato contrato) {
         this.contrato = contrato;
     }
+
+    @Override
+    public String toString() {
+        return "Cliente{" + "idCliete=" + idCliete + ", nombre=" + nombre + ", descripcion=" + descripcion + ", rubro=" + rubro + ", rut=" + rut + ", estado=" + estado + ", imagen=" + imagen + ", correo=" + correo + ", razonSocial=" + razonSocial + ", direccion=" + direccion + ", contrato=" + contrato + '}';
+    }
     
     
 }

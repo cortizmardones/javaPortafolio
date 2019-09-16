@@ -60,6 +60,18 @@
                     </nav>
                 </div>
             </div>
+            <div class="row no-gutters pt-4">
+                <c:if test="${user != null}">
+                    <div class="col-md-12">
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            Bienvenido(a) ${user.respresentante.nombre}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                </c:if>
+            </div>            
             <div class="row no-gutters pt-3" id="cli">
                 <div class="col-md-12">
                     <div class="card mb-3">

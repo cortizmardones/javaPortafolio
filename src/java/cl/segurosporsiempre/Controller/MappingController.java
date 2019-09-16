@@ -6,7 +6,9 @@
 package cl.segurosporsiempre.Controller;
 
 import cl.segurosporsiempre.Connection.Conexion;
+import cl.segurosporsiempre.Data.ClienteDao;
 import cl.segurosporsiempre.Data.RubroDao;
+import cl.segurosporsiempre.Model.Cliente;
 import cl.segurosporsiempre.Model.Rubro;
 import java.io.IOException;
 import java.util.List;
@@ -37,13 +39,19 @@ public class MappingController extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
 
         String nav = request.getParameter("nav");
+        
+        if (nav == null)
+        {
+            System.out.println((String)request.getAttribute("nave"));
+            nav = (String)request.getAttribute("nave");
+        }
 
         switch (nav) {
             case "aPanel":
                 request.getRequestDispatcher("pAdmin.jsp").forward(request, response);
                 break;
             case "aClientes":
-                this.setRubrosRequest(request, response);
+                Common.setRubrosRequest(request, response);
                 request.getRequestDispatcher("adminClientes.jsp").forward(request, response);
                 break;
             case "aProfesionales":
@@ -56,6 +64,8 @@ public class MappingController extends HttpServlet {
                 request.getRequestDispatcher("adminHistorial.jsp").forward(request, response);
                 break;
             case "aCredenciales":
+                Common.setCredencialesRequest(request, response);
+                Common.setClientesRequest(request, response);
                 request.getRequestDispatcher("adminPersonas.jsp").forward(request, response);
                 break;
             case "cPanel":
@@ -70,25 +80,20 @@ public class MappingController extends HttpServlet {
             case "cReportes":
                 request.getRequestDispatcher("cliReportes.jsp").forward(request, response);
                 break;
+            case "pPanel":
+                request.getRequestDispatcher("pProfesional.jsp").forward(request, response);
+                break;
+            case "pAsesorias":
+                request.getRequestDispatcher("proAsesorias.jsp").forward(request, response);
+                break;
+            case "pCapacitaciones":
+                request.getRequestDispatcher("proCapacitaciones.jsp").forward(request, response);
+                break;
+            case "pVisitas":
+                request.getRequestDispatcher("proVisitas.jsp").forward(request, response);
+                break;                
             default:
                 throw new AssertionError();
-        }
-    }
-
-    /**
-    Deja en request todos los rubros
-    */
-    protected void setRubrosRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
-        Conexion conn = new Conexion();
-        RubroDao rDto = new RubroDao(conn);
-
-        List<Rubro> rubros = rDto.obtenerRubros();
-        
-        conn.cerrarConexion();
-
-        if (rubros.size() > 0) {
-            request.setAttribute("rRubros", rubros);
         }
     }
 

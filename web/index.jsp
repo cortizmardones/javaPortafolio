@@ -29,7 +29,7 @@
     </head>
 
     <body>
-        <form class="form-signin" action="pAdmin.jsp" method="POST">
+        <form class="form-signin" action="login" method="POST">
             <div class="text-center mb-4">
                 <h1 class="h3 mb-3 font-weight-normal">Seguros por siempre</h1>
                 <p>Ingrese sus credenciales</p>
