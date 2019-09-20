@@ -42,6 +42,9 @@ public class CredencialController extends HttpServlet {
             case "desactivarPersona":
                 this.eliminarCredencial(request, response);
                 break;
+            case "activarPersona":
+                this.activarCredencial(request, response);
+                break;                
             case "gModificarPersona":
                 this.gatillarModificaiconCredencial(request, response);
                 break; 
@@ -145,8 +148,9 @@ public class CredencialController extends HttpServlet {
         Conexion conn = new Conexion();
         CredencialDao cDto = new CredencialDao(conn);
         
-        boolean resultado = cDto.desactivarCredencial(id);       
+        boolean resultado = cDto.desactivarCredencial(id);
         
+        conn.cerrarConexion();        
         
         if (resultado)
         {
@@ -161,8 +165,7 @@ public class CredencialController extends HttpServlet {
             Common.setClientesRequest(request, response);
             Common.setCredencialesRequest(request, response);            
             request.getRequestDispatcher("adminPersonas.jsp").forward(request, response);                
-        }
-        
+        }        
     }
 
     private void gatillarModificaiconCredencial(HttpServletRequest request, HttpServletResponse response) {
@@ -171,5 +174,33 @@ public class CredencialController extends HttpServlet {
 
     private void gatillarModificacionPass(HttpServletRequest request, HttpServletResponse response) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void activarCredencial(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException {
+        
+        Long id = Long.parseLong(request.getParameter("id"));
+        
+        Conexion conn = new Conexion();
+        CredencialDao cDto = new CredencialDao(conn);
+        
+        boolean resultado = cDto.activarCredencial(id);  
+        
+        conn.cerrarConexion();
+        
+        
+        if (resultado)
+        {
+            request.setAttribute("mensaje", "activarCredencialPos");
+            Common.setClientesRequest(request, response);
+            Common.setCredencialesRequest(request, response);            
+            request.getRequestDispatcher("adminPersonas.jsp").forward(request, response);                
+        }
+        else
+        {
+            request.setAttribute("mensaje", "activarCredencialNeg");
+            Common.setClientesRequest(request, response);
+            Common.setCredencialesRequest(request, response);            
+            request.getRequestDispatcher("adminPersonas.jsp").forward(request, response);                
+        }              
     }
 }

@@ -112,7 +112,27 @@
                             </button>
                         </div>
                     </div>
-                </c:if>                               
+                </c:if>  
+                <c:if test="${mensaje eq 'activarCredencialPos'}">
+                    <div class="col-md-12">
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            Persona activada exitosamente
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                </c:if>
+                <c:if test="${mensaje eq 'activarCredencialNeg'}">
+                    <div class="col-md-12">
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            Persona  no se pudo activar
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                </c:if>                 
             </div>
             <div class="row no-gutters pt-3" id="clienteDatwa">
                 <div class="col-md-12">
@@ -191,11 +211,14 @@
                                             </td>
                                             <td>
                                                 <div align="center">
+                                                <c:if test="${credencial.activado}">
                                                     <a href="credencial?accion=desactivarPersona&id=${credencial.idLogin}"><img src="img/delete.png" onclick="return confirm('¿Desea desactivar este usuario?')" heght="20" width="20"></a> &nbsp;
-                                                    <%--
+                                                </c:if>
+                                                <c:if test="${!credencial.activado}">
+                                                   <a href="credencial?accion=activarPersona&id=${credencial.idLogin}"><img src="img/correcto.png" onclick="return confirm('¿Desea activar este usuario?')" heght="20" width="20"></a> &nbsp;
+                                                </c:if> 
                                                     <a href="credencial?accion=gModificarPersona&id=${credencial.idLogin}"><img src="img/edit.png" onclick="return confirm('¿Desea modificar este usuario?')" heght="20" width="20"></a>
                                                     <a href="credencial?accion=gModificarPass&id=${credencial.idLogin}"><img src="img/candado.png" onclick="return confirm('¿Desea modificar la contraseña de este usuario?')" heght="20" width="20">
-                                                    --%>
                                                 </div>
                                             </td>        
                                         </tr>

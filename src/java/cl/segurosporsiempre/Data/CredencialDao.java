@@ -130,4 +130,25 @@ public class CredencialDao {
             return false;
         }
     }
+    
+
+    public boolean activarCredencial(Long id) {
+        
+        try {
+            
+            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_ACTIVAR_CREDENCIAL(?) }");
+            cst.setLong(1, id);
+            System.out.println(id);
+            cst.execute();
+            
+            return true;
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(CredencialDao.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } catch (Exception ex) {
+            Logger.getLogger(CredencialDao.class.getName()).log(Level.SEVERE, null, ex);           
+            return false;
+        }
+    }    
 }
