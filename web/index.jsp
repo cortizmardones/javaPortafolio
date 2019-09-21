@@ -25,7 +25,12 @@
         <!-- Estilos de plantilla -->
         <link href="css/altsbaha/floating-labels.css" rel="stylesheet">
         
-        <link rel='icon' href='img/favicon.ico' type='image/x-icon' />    
+        <link rel='icon' href='img/favicon.ico' type='image/x-icon' /> 
+        
+        <!-- Start of  Zendesk Widget script -->
+        <script id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=b79f88eb-4907-4e36-80ad-d601fb67032c"></script>
+        <!-- End of  Zendesk Widget script --> 
+        
     </head>
 
     <body>

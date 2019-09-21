@@ -26,10 +26,7 @@
         <link rel='icon' href='img/favicon.ico' type='image/x-icon' />      
 
         <title>Seguros por siempre - Clientes</title>
-
-        <!-- Start of  Zendesk Widget script -->
-        <script id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=b79f88eb-4907-4e36-80ad-d601fb67032c"></script>
-        <!-- End of  Zendesk Widget script -->        
+        
     </head>
 
     <body>
@@ -39,8 +36,8 @@
                     <img src="img/spsbanner.png" alt="Seguros por siempre - Dashboard Administrador" class="img-fluid">
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xl-12">
+            <div class="row no-gutters">
+                <div class="col-xl-10">
                     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                         <a class="navbar-brand" href="baha?nav=pPanel">Seguros por siempre</a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -60,6 +57,11 @@
                         </div>
                     </nav>
                 </div>
+                <div class="col-xl-2 pt-2 pr-2 bg-dark">
+                    <div align="right">
+                        <a href="logout" class="btn btn-danger">Salir</a>
+                    </div>
+                </div>                  
             </div>
             <div class="row no-gutters pt-4">
                 <c:if test="${user != null}">

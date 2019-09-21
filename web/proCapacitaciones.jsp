@@ -37,8 +37,8 @@
                     <img src="img/spsbanner.png" alt="Seguros por siempre - Dashboard Administrador" class="img-fluid">
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xl-12">
+            <div class="row no-gutters">
+                <div class="col-xl-10">
                     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                         <a class="navbar-brand" href="baha?nav=pPanel">Seguros por siempre</a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -48,9 +48,9 @@
                         </button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav mr-auto">
-                                <li class="nav-item active"> <a class="nav-link" href="baha?nav=pPanel">Inicio</a> </li>
+                                <li class="nav-item"> <a class="nav-link" href="baha?nav=pPanel">Inicio</a> </li>
                                 <li class="nav-item"> <a class="nav-link" href="baha?nav=pVisitas">Visitas</a> </li>
-                                <li class="nav-item"> <a class="nav-link active" href="baha?nav=pCapacitaciones">Capacitaciones<span
+                                <li class="nav-item active"> <a class="nav-link" href="baha?nav=pCapacitaciones">Capacitaciones<span
                                             class="sr-only">(current)</span></a> </li>
                                 <li class="nav-item"> <a class="nav-link" href="baha?nav=pAsesorias">Asesorias</a> </li>
                                 <li class="nav-item"> <a class="nav-link" href="https://segurosporsiempre7.zendesk.com/chat/agent?email-id=31423#home" target="_blank">Chat</a> </li>
@@ -58,51 +58,54 @@
                         </div>
                     </nav>
                 </div>
-            </div>
+                <div class="col-xl-2 pt-2 pr-2 bg-dark">
+                    <div align="right">
+                        <a href="logout" class="btn btn-danger">Salir</a>
+                    </div>
+                </div>                  
+            </div>           
             <div class="row no-gutters pt-3" id="clienteData">
                 <div class="col-md-12">
                     <div class="card mb-3">
                         <div class="card-header text-white bg-primary"> Listado Capacitaciones </div>
-                           <div class="row no-gutters pt-2" id="insercion">
+                        <div class="row no-gutters pt-2" id="insercion">
                             <div class="card-body">
-                            <table id="t2" class="table table-hover table-responsive-xl  table-dark ts">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">ID Capacitación</th>
-                                        <th scope="col">RUT</th>                                       
-                                        <th scope="col">Nombre Empresa</th>
-                                        <th scope="col">Fecha de ingreso</th>
-                                        <th scope="col">Fecha estimada realización</th>
-                                        <th scope="col">Estado</th>
-                                        <th scope="col">Correo</th>
-                                        <th scope="col">Dirección</th>
-                                        <th scope="col">Rubro</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row"> 1 </th>
-                                        <td>76.876.234-K</td>                                      
-                                        <td>Aramark S.A.</td>
-                                        <td>11-07-2019</td>
-                                        <td>15-07-2019 10:00</td>
-                                        <td>Pendiente</td>
-                                        <td>r.pardo@aramark.cl</td>
-                                        <td>Los Siameses #765</td>
-                                        <td>PYME</td>
-                                        <td>
-                                            <div align="center">
-                                                <a href=""><img src="img/delete.png" heght="20" width="20"></a> &nbsp;
-                                                <a href=""><img src="img/edit.png" heght="20" width="20"></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                <table id="t2" class="table table-hover table-responsive-xl  table-dark ts">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">ID Capacitación</th>
+                                            <th scope="col">RUT</th>                                       
+                                            <th scope="col">Nombre Empresa</th>
+                                            <th scope="col">Fecha de ingreso</th>
+                                            <th scope="col">Fecha estimada realización</th>
+                                            <th scope="col">Estado</th>
+                                            <th scope="col">Correo</th>
+                                            <th scope="col">Dirección</th>
+                                            <th scope="col">Rubro</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row"> 1 </th>
+                                            <td>76.876.234-K</td>                                      
+                                            <td>Aramark S.A.</td>
+                                            <td>11-07-2019</td>
+                                            <td>15-07-2019 10:00</td>
+                                            <td>Pendiente</td>
+                                            <td>r.pardo@aramark.cl</td>
+                                            <td>Los Siameses #765</td>
+                                            <td>PYME</td>
+                                            <td>
+                                                <div align="center">
+                                                    <a href=""><img src="img/delete.png" heght="20" width="20"></a> &nbsp;
+                                                    <a href=""><img src="img/edit.png" heght="20" width="20"></a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>                                   
                         </div>
-                    
-               
-            </div>
                         <!--<div class="card-body" onmouseover="limpiarRutAlFallar()">
                             <form action="index.jsp" method="POST" enctype="multipart/form-data">                       
                                 
@@ -136,16 +139,16 @@
                                 
                                 <label for="rubro">Rubro:</label><br>
                                 <select id="rubro" class="form-control" name="rubro" required>
-                                    <c:forEach items="${rRubros}" var="rubro">
-                                        <option value="${rubro.idRubro}">${rubro.nombre}</option>                                        
-                                    </c:forEach>
-                                </select>                                 
-                                <div id="mjRubro"></div> <br>                                  
-                                                                                              
-                                <input type="submit" class="btn btn-primary" value="Agregar Cliente">
-                                
-                            </form>
-                        </div>-->
+                        <c:forEach items="${rRubros}" var="rubro">
+                            <option value="${rubro.idRubro}">${rubro.nombre}</option>                                        
+                        </c:forEach>
+                    </select>                                 
+                    <div id="mjRubro"></div> <br>                                  
+                                                                                  
+                    <input type="submit" class="btn btn-primary" value="Agregar Cliente">
+                    
+                </form>
+            </div>-->
                     </div>
                 </div>
             </div>

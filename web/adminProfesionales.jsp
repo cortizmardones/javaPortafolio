@@ -37,8 +37,8 @@
                     <img src="img/spsbanner.png" alt="Seguros por siempre - Dashboard Administrador" class="img-fluid">
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xl-12">
+            <div class="row no-gutters">
+                <div class="col-xl-10">
                     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                         <a class="navbar-brand" href="baha?nav=aPanel">Seguros por siempre</a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -71,7 +71,12 @@
                         </div>
                     </nav>
                 </div>
-            </div>
+                <div class="col-xl-2 pt-2 pr-2 bg-dark">
+                    <div align="right">
+                        <a href="logout" class="btn btn-danger">Salir</a>
+                    </div>
+                </div>                  
+            </div>            
             <div class="row no-gutters pt-3" id="clienteData">
                 <div class="col-md-12">
                     <div class="card mb-3">
@@ -94,7 +99,7 @@
                                 <label for="rut">RUT:</label><br>
                                 <input type="text" class="form-control input_rut" id="rut" name="rut"
                                        placeholder="16.432.567-K" required> <span id="rut-error" style="color: red"></span>  <div id="mjRut"></div>   <br>
-                                
+
                                 <label for="foto">Foto:</label><br>
                                 <input type="file" class="form-control-file" id="foto" name="foto" accept=".gif,.jpg,.jpeg" required>  <div id="mjLogo"></div>  <br>                                   
 
@@ -109,9 +114,9 @@
 
                                 <label for="fono">Fono:</label><br>
                                 <input type="text" class="form-control" id="fono" name="fono" onblur="validaFono(this.value)" minlength="9" maxlength="9" required> <div id="mjFono"></div> <br>  
-                                
+
                                 <input type="submit" class="btn btn-primary" value="Agregar Profesional">
-                                
+
                             </form>
                         </div>
                     </div>

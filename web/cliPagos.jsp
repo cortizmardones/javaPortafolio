@@ -38,8 +38,8 @@
                     <img src="img/spsbanner.png" alt="Seguros por siempre - Dashboard Administrador" class="img-fluid">
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xl-12">
+            <div class="row no-gutters">
+                <div class="col-xl-10">
                     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                         <a class="navbar-brand" href="baha?nav=cPanel">Seguros por siempre</a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -58,6 +58,11 @@
                         </div>
                     </nav>
                 </div>
+                <div class="col-xl-2 pt-2 pr-2 bg-dark">
+                    <div align="right">
+                        <a href="logout" class="btn btn-danger">Salir</a>
+                    </div>
+                </div>                  
             </div>
             <div class="row no-gutters pt-3" id="cli1">
                 <div class="col-md-12">
