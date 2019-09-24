@@ -131,221 +131,68 @@
                   </button>
                </div>
             </div>
-         </c:if>        
-         <c:if test="${mensaje eq 'credNoEncontradaMod'}">
+         </c:if>
+         <c:if test="${mensaje eq 'modificarCredencialNeg'}">
             <div class="col-md-12">
                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                  No se encontró la credencial que quiere modificar
+                  No se pudo modificar la credencial
                   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                   </button>
                </div>
             </div>
-         </c:if>  
-         <c:if test="${mensaje eq 'modificarCredencialPos'}">
-            <div class="col-md-12">
-               <div class="alert alert-success alert-dismissible fade show" role="alert">
-                  La credencial se pudo modificar exitosamente
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                  </button>
-               </div>
-            </div>
-         </c:if>   
-         <c:if test="${mensaje eq 'modificarPassPos'}">
-            <div class="col-md-12">
-               <div class="alert alert-success alert-dismissible fade show" role="alert">
-                  Contraseña cambiada exitosamente
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                  </button>
-               </div>
-            </div>
-         </c:if>           
+         </c:if>          
       </div>
       <div class="row no-gutters pt-3" id="clienteDatwa">
          <div class="col-md-12">
             <div class="card mb-3">
-               <div class="card-header text-white bg-dark">Ingreso de personas y credenciales</div>
+               <div class="card-header text-white bg-dark">Modificar persona</div>
                <div class="card-body" onmouseover="limpiarRutAlFallar()">
                   <form action="credencial" method="POST">
                      <label for="correo">Correo (login):</label><br>
                      <input type="text" class="form-control" id="correo" name="correo"
-                        onblur="validarCorreo(this.value)" required>
+                        onblur="validarCorreo(this.value)" value="${tCredencial.correo}" required>
                      <div id="mjCorreo"></div>
                      <br>
                      <label for="nombre">Nombre del representate/profesional:</label><br>
                      <input type="text" class="form-control" id="nombre" name="nombre"
-                        onblur="validaNombrePersona(this.value)" required>
+                        onblur="validaNombrePersona(this.value)" value="${tCredencial.respresentante.nombre}" required>
                      <div id="mjNombre"></div>
                      <br>
                      <label for="rut">RUT:</label><br>
-                     <input type="text" class="form-control input_rut" id="rut" name="rut"
-                        placeholder="16.432.567-K" required> <span id="rut-error" style="color: red"></span>
+                     <input type="text" class="form-control input_rut" id="rut" name="rut" placeholder="16.432.567-K" value="${tCredencial.respresentante.rut}" required> <span id="rut-error" style="color: red"></span>
                      <div id="mjRut"></div>
-                     <br>
-                     <label for="password">Ingrese contraseña</label>
-                     <input id="password" name="password" class="form-control" type="password" pattern="^\S{6,}$"
-                        onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Debe tener al menos 6 caracteres' : '');
-                        if (this.checkValidity())
-                        form.password_two.pattern = this.value;" placeholder="Contraseña" required>
-                     <br>
-                     <label for="password_two">Repita contraseña</label>
-                     <input id="password_two" name="password_two" class="form-control" type="password"
-                        pattern="^\S{6,}$"
-                        onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Debe ingresar la misma contraseña de arriba' : '');"
-                        placeholder="Confirmar contraseña" required> <br>
-                     <label for="empresa">Empresa/Perfil:</label><br>
+                     <br>                   
+                     <label for="empresa">Empresa/Perfil:</label><br>${tCredencial.cliente.idCliete}
                      <select id="empresa" class="form-control" name="empresa" required>
                         <c:forEach items="${rClientes}" var="empresa">
-                           <option value="${empresa.idCliete}">${empresa.nombre}</option>
+                            <c:choose>
+                                <c:when test="${tCredencial.cliente.nombre eq empresa.nombre}">
+                                    <option value="${empresa.idCliete}" selected>${empresa.nombre}</option>
+                                </c:when>
+                                <c:otherwise>
+                                    <option value="${empresa.idCliete}">${empresa.nombre}</option>
+                                </c:otherwise>
+                            </c:choose>
                         </c:forEach>
                      </select>
                      <div id="mjRubro"></div>
                      <br>
-                     <input type="hidden" name="accion" value="agregarCredencial">
-                     <input type="submit" class="btn btn-primary" value="Agregar persona">
+                     <input type="hidden" name="accion" value="modificarPersona">
+                     <input type="hidden" name="id" value="${tCredencial.idLogin}">
+                     <input type="submit" class="btn btn-primary" value="Modificar persona">
                   </form>
                </div>
             </div>
          </div>
       </div>
-      <div class="row no-gutters pt-3" id="clienteDatwa">
-         <div class="col-md-12">
-            <div class="card mb-3">
-               <div class="card-header text-white bg-dark">Personas en el sistema</div>
-               <div class="card-body" onmouseover="">
-                  <table id="t2" class="table table-hover table-responsive-xl  table-dark ts">
-                     <thead>
-                        <tr>
-                           <th scope="col">ID</th>
-                           <th scope="col">Nombre</th>
-                           <th scope="col">Perfil</th>
-                           <th scope="col">RUT</th>
-                           <th scope="col">Correo</th>
-                           <th scope="col">Estado</th>
-                           <th scope="col">Operaciones</th>
-                        </tr>
-                     </thead>
-                     <tbody>
-                        <c:forEach items="${rCredenciales}" var="credencial">
-                           <tr>
-                              <td>${credencial.idLogin}</td>
-                              <td>${credencial.respresentante.nombre}</td>
-                              <td>${credencial.perfil.nombre}</td>
-                              <td>${credencial.respresentante.rut}</td>
-                              <td>${credencial.correo}</td>
-                              <td>
-                                 <c:if test="${credencial.activado}">
-                                    <span style="color: #00FF41">ACTIVADO</span>
-                                 </c:if>
-                                 <c:if test="${!credencial.activado}">
-                                    <span style="color: red;">DESHABILITADO</span>
-                                 </c:if>
-                              </td>
-                              <td>
-                                 <c:choose>
-                                    <c:when test="${credencial.perfil.nombre eq 'Administrador'}">
-                                       <div align="center">
-                                          Sin operaciones
-                                       </div>
-                                    </c:when>
-                                    <c:otherwise>
-                                       <div align="center">
-                                          <c:if test="${credencial.activado}">
-                                             <a
-                                                href="credencial?accion=desactivarPersona&id=${credencial.idLogin}"><img
-                                                src="img/delete.png"
-                                                onclick="return confirm('¿Desea desactivar este usuario?')"
-                                                heght="20" width="20"></a> &nbsp;
-                                          </c:if>
-                                          <c:if test="${!credencial.activado}">
-                                             <a
-                                                href="credencial?accion=activarPersona&id=${credencial.idLogin}"><img
-                                                src="img/correcto.png"
-                                                onclick="return confirm('¿Desea activar este usuario?')"
-                                                heght="20" width="20"></a> &nbsp;
-                                          </c:if>
-                                          <a
-                                             href="credencial?accion=gModificarPersona&id=${credencial.idLogin}"><img
-                                             src="img/edit.png"
-                                             onclick="return confirm('¿Desea modificar este usuario?')"
-                                             heght="20" width="20"></a>
-                                          <a
-                                             href="credencial?accion=gModificarPass&id=${credencial.idLogin}"><img
-                                             src="img/candado.png"
-                                             onclick="return confirm('¿Desea modificar la contraseña de este usuario?')"
-                                             heght="20" width="20">
-                                            </div> 
-                                    </c:otherwise>
-                                 </c:choose>
-                              </td>
-                           </tr>
-                        </c:forEach>
-                     </tbody>
-                  </table>
-                  </div> 
-               </div>
-            </div>
-         </div>
-         <div
-            class="row no-gutters pt-3" id="footer">
-            <div class="col-md-12 bg-dark text-white text-center py-4">
-               Copyright &copy;Seguros por siempre
-            </div>
-         </div>
+          <div
+              class="row no-gutters pt-3" id="footer">
+              <div class="col-md-12 bg-dark text-white text-center py-4">
+                  Copyright &copy;Seguros por siempre
+              </div>
+          </div>
       </div>
-       
-        <!-- Modal -->
-        <div class="modal fade" id="modPass" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-             aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalCenterTitle">Modificar contraseña</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <form action="credencial" method="POST">
-                        <c:if test="${mensaje eq 'credNoEncontradaMod'}">
-                            <div class="col-md-12">
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    No se pudo modificar la contraseña
-                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                     <span aria-hidden="true">&times;</span>
-                                     </button>
-                                </div>
-                            </div>
-                        </c:if>  
-                        <div class="modal-body">
-                            <p>ID: ${tCredencial.idLogin}</p>
-                            <p>Correo: ${tCredencial.correo}</p>
-
-                            <label for="password">Ingrese contraseña</label>
-                            <input id="password" name="password" class="form-control" type="password" pattern="^\S{6,}$"
-                                   onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Debe tener al menos 6 caracteres' : '');
-                            if (this.checkValidity())
-                             form.password_two.pattern = this.value;" placeholder="Contraseña" required>
-                            <br>
-                            <label for="password_two">Repita contraseña</label>
-                            <input id="password_two" name="password_two" class="form-control" type="password"
-                                   pattern="^\S{6,}$"
-                                   onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Debe ingresar la misma contraseña de arriba' : '');"
-                                   placeholder="Confirmar contraseña" required> <br>                        
-
-                            <input type="hidden" value="modificarPass" name="accion">
-                            <input type="hidden" value="${tCredencial.idLogin}" name="idl">
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                            <input type="submit" class="btn btn-primary" value="Guardar Cambios">
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-                        
       <!-- Optional JavaScript -->
       <!-- jQuery first, then Popper.js, then Bootstrap JS -->
       <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -405,11 +252,5 @@
          });
       </script>
       <script src="js/bahascript.js"></script>
-      <script type="text/javascript">
-        $(window).on('load', function () {
-            $('#${modal}').modal('show');
-        });
-      </script>
-      
    </body>
 </html>

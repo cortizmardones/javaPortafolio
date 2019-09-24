@@ -44,13 +44,13 @@ public class CredencialController extends HttpServlet {
                 break;
             case "activarPersona":
                 this.activarCredencial(request, response);
-                break;                
+                break;
             case "gModificarPersona":
                 this.gatillarModificaiconCredencial(request, response);
-                break; 
+                break;
             case "gModificarPass":
                 this.gatillarModificacionPass(request, response);
-                break;                
+                break;
             default:
                 throw new AssertionError();
         }
@@ -78,6 +78,12 @@ public class CredencialController extends HttpServlet {
             case "agregarCredencial":
                 this.agregarCredencial(request, response);
                 break;
+            case "modificarPersona":
+                this.modificarPersona(request, response);
+                break;
+            case "modificarPass":
+                this.modificarPass(request, response);
+                break;
             default:
                 throw new AssertionError();
         }
@@ -90,117 +96,227 @@ public class CredencialController extends HttpServlet {
         String correo = request.getParameter("correo");
         String password = Utils.MD5(request.getParameter("password"));
         Long idEmpresa = Long.parseLong(request.getParameter("empresa"));
-        
+
         Conexion conn = new Conexion();
         CredencialDao cDto = new CredencialDao(conn);
-        
+
         Representante rep = new Representante();
         rep.setNombre(nombre);
         rep.setRut(rut);
-        
+
         Cliente cli = new Cliente();
         cli.setIdCliete(idEmpresa);
-        
+
         Perfil perf = new Perfil();
-        if (idEmpresa == 25)
-        {
+        if (idEmpresa == 25) {
             perf.setIdPerfil(2L);
-        }
-        else
-        {
+        } else {
             perf.setIdPerfil(3L);
         }
-        
+
         Login login = new Login();
         login.setActivado(true);
         login.setCorreo(correo);
         login.setPass(password);
         login.setRespresentante(rep);
         login.setCliente(cli);
-        login.setPerfil(perf);        
+        login.setPerfil(perf);
 
         boolean resultado = cDto.agregarCredencial(login);
-        
+
         System.out.println(resultado);
-        
+
         conn.cerrarConexion();
-        
-        if (resultado)
-        {
+
+        if (resultado) {
             request.setAttribute("mensaje", "agregarCredencialPos");
             Common.setClientesRequest(request, response);
             Common.setCredencialesRequest(request, response);
-            request.getRequestDispatcher("adminPersonas.jsp").forward(request, response);             
-        }
-        else
-        {
+            request.getRequestDispatcher("adminPersonas.jsp").forward(request, response);
+        } else {
             request.setAttribute("mensaje", "agregarCredencialNeg");
             Common.setClientesRequest(request, response);
-            Common.setCredencialesRequest(request, response);            
-            request.getRequestDispatcher("adminPersonas.jsp").forward(request, response);            
-        } 
+            Common.setCredencialesRequest(request, response);
+            request.getRequestDispatcher("adminPersonas.jsp").forward(request, response);
+        }
     }
 
-    private void eliminarCredencial(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException  {
-        
+    private void eliminarCredencial(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         Long id = Long.parseLong(request.getParameter("id"));
-        
+
         Conexion conn = new Conexion();
         CredencialDao cDto = new CredencialDao(conn);
-        
+
         boolean resultado = cDto.desactivarCredencial(id);
-        
-        conn.cerrarConexion();        
-        
-        if (resultado)
-        {
+
+        conn.cerrarConexion();
+
+        if (resultado) {
             request.setAttribute("mensaje", "desactivarCredencialPos");
             Common.setClientesRequest(request, response);
-            Common.setCredencialesRequest(request, response);            
-            request.getRequestDispatcher("adminPersonas.jsp").forward(request, response);                
-        }
-        else
-        {
+            Common.setCredencialesRequest(request, response);
+            request.getRequestDispatcher("adminPersonas.jsp").forward(request, response);
+        } else {
             request.setAttribute("mensaje", "desactivarCredencialNeg");
             Common.setClientesRequest(request, response);
-            Common.setCredencialesRequest(request, response);            
-            request.getRequestDispatcher("adminPersonas.jsp").forward(request, response);                
-        }        
+            Common.setCredencialesRequest(request, response);
+            request.getRequestDispatcher("adminPersonas.jsp").forward(request, response);
+        }
     }
 
-    private void gatillarModificaiconCredencial(HttpServletRequest request, HttpServletResponse response) {
-        
-    }
+    private void gatillarModificaiconCredencial(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-    private void gatillarModificacionPass(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private void activarCredencial(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException {
-        
         Long id = Long.parseLong(request.getParameter("id"));
-        
+
         Conexion conn = new Conexion();
         CredencialDao cDto = new CredencialDao(conn);
-        
-        boolean resultado = cDto.activarCredencial(id);  
-        
+
+        Login l = new Login();
+        l.setCorreo("nulo");
+
+        l = cDto.obtenerCredencial(id);
+
+        if (!l.getCorreo().equals("nulo")) {
+            request.setAttribute("tCredencial", l);
+            request.getRequestDispatcher("adminPersonasMod.jsp").forward(request, response);
+        } else {
+            request.setAttribute("mensaje", "credNoEncontradaMod");
+            request.getRequestDispatcher("adminPersonasMod.jsp").forward(request, response);
+        }
+    }
+
+    private void gatillarModificacionPass(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        Long id = Long.parseLong(request.getParameter("id"));
+
+        Conexion conn = new Conexion();
+        CredencialDao cDto = new CredencialDao(conn);
+
+        Login l = new Login();
+        l.setCorreo("nulo");
+
+        l = cDto.obtenerCredencial(id);
+
         conn.cerrarConexion();
-        
-        
-        if (resultado)
-        {
+
+        if (!l.getCorreo().equals("nulo")) {
+            request.setAttribute("tCredencial", l);
+            request.setAttribute("modal", "modPass");
+            request.getRequestDispatcher("adminPersonas.jsp").forward(request, response);
+        } else {
+            request.setAttribute("mensaje", "credNoEncontradaMod");
+            request.getRequestDispatcher("adminPersonasMod.jsp").forward(request, response);
+        }
+    }
+
+    private void activarCredencial(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        Long id = Long.parseLong(request.getParameter("id"));
+
+        Conexion conn = new Conexion();
+        CredencialDao cDto = new CredencialDao(conn);
+
+        boolean resultado = cDto.activarCredencial(id);
+
+        conn.cerrarConexion();
+
+        if (resultado) {
             request.setAttribute("mensaje", "activarCredencialPos");
             Common.setClientesRequest(request, response);
-            Common.setCredencialesRequest(request, response);            
-            request.getRequestDispatcher("adminPersonas.jsp").forward(request, response);                
-        }
-        else
-        {
+            Common.setCredencialesRequest(request, response);
+            request.getRequestDispatcher("adminPersonas.jsp").forward(request, response);
+        } else {
             request.setAttribute("mensaje", "activarCredencialNeg");
             Common.setClientesRequest(request, response);
-            Common.setCredencialesRequest(request, response);            
-            request.getRequestDispatcher("adminPersonas.jsp").forward(request, response);                
-        }              
+            Common.setCredencialesRequest(request, response);
+            request.getRequestDispatcher("adminPersonas.jsp").forward(request, response);
+        }
+    }
+
+    private void modificarPersona(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        Long id = Long.parseLong(request.getParameter("id"));
+        String nombre = request.getParameter("nombre");
+        String rut = request.getParameter("rut");
+        String correo = request.getParameter("correo");
+        Long idEmpresa = Long.parseLong(request.getParameter("empresa"));
+
+        Representante rep = new Representante();
+        rep.setNombre(nombre);
+        rep.setRut(rut);
+
+        Cliente cli = new Cliente();
+        cli.setIdCliete(idEmpresa);
+
+        Perfil perf = new Perfil();
+        if (idEmpresa == 25) {
+            perf.setIdPerfil(2L);
+        } else {
+            perf.setIdPerfil(3L);
+        }
+
+        Login login = new Login();
+        login.setCorreo(correo);
+        login.setRespresentante(rep);
+        login.setCliente(cli);
+        login.setPerfil(perf);
+        login.setIdLogin(id);
+
+        Conexion conn = new Conexion();
+        CredencialDao cDto = new CredencialDao(conn);
+
+        boolean resultado = cDto.modificarPersona(login);
+
+        if (resultado) {
+            request.setAttribute("mensaje", "modificarCredencialPos");
+            Common.setClientesRequest(request, response);
+            Common.setCredencialesRequest(request, response);
+            request.getRequestDispatcher("adminPersonas.jsp").forward(request, response);
+        } else {
+            request.setAttribute("mensaje", "modificarCredencialNeg");
+            Common.setClientesRequest(request, response);
+            Common.setCredencialesRequest(request, response);
+            request.getRequestDispatcher("adminPersonasMod.jsp").forward(request, response);
+        }
+    }
+
+    private void modificarPass(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        Long id = Long.parseLong(request.getParameter("idl"));
+        String pass = Utils.MD5(request.getParameter("password"));
+
+        Conexion conn = new Conexion();
+        CredencialDao cDto = new CredencialDao(conn);
+
+        boolean resultado = cDto.modificarClave(id, pass);
+
+        if (resultado) {
+            conn.cerrarConexion();
+            request.setAttribute("mensaje", "modificarPassPos");
+            Common.setClientesRequest(request, response);
+            Common.setCredencialesRequest(request, response);
+            request.getRequestDispatcher("adminPersonas.jsp").forward(request, response);
+        } else {
+           
+            Login l = new Login();
+            l.setCorreo("nulo");
+
+            l = cDto.obtenerCredencial(id);
+
+            conn.cerrarConexion();
+
+            if (!l.getCorreo().equals("nulo")) {
+                
+                request.setAttribute("tCredencial", l);
+                request.setAttribute("men", "modificarPassNeg");
+                request.setAttribute("modal", "modPass");
+                request.getRequestDispatcher("adminPersonas.jsp").forward(request, response);
+                
+            } else {
+                request.setAttribute("mensaje", "credNoEncontradaMod");
+                request.getRequestDispatcher("adminPersonasMod.jsp").forward(request, response);
+            }
+        }
     }
 }
