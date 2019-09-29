@@ -84,17 +84,11 @@
                         <div class="card-body" onmouseover="limpiarRutAlFallar()">
                             <form action="index.jsp" method="POST" enctype="multipart/form-data">                     
 
-                                <label for="pnombre">Primer nombre:</label><br>
-                                <input type="text" class="form-control" id="pnombre" name="pnombre" onblur="validaLetra(this.value, 'pnombre')" required>  <div id="mjPnombre"></div>  <br>
+                                <label for="nombres">Nombres:</label><br>
+                                <input type="text" class="form-control" id="nombres" name="nombres" onblur="validaNombres(this.value)" required>  <div id="mjNombres"></div>  <br>
 
-                                <label for="snombre">Segundo nombre:</label><br>
-                                <input type="text" class="form-control" id="snombre" name="snombre" onblur="validaLetra(this.value, 'snombre')" required>  <div id="mjSnombre"></div>  <br>                                
-
-                                <label for="appaterno">Apellido paterno:</label><br>
-                                <input type="text" class="form-control" id="appaterno" name="appaterno" onblur="validaLetra(this.value, 'appaterno')" required>  <div id="mjAppaterno"></div>  <br>
-
-                                <label for="apmaterno">Apellido materno:</label><br>
-                                <input type="text" class="form-control" id="apmaterno" name="apmaterno" onblur="validaLetra(this.value, 'apmaterno')" required>  <div id="mjApmaterno"></div>  <br>
+                                <label for="apellidos">Apellidos:</label><br>
+                                <input type="text" class="form-control" id="apellidos" name="apellidos" onblur="validaApellidos(this.value)" required>  <div id="mjApellidos"></div>  <br>
 
                                 <label for="rut">RUT:</label><br>
                                 <input type="text" class="form-control input_rut" id="rut" name="rut"
@@ -105,9 +99,11 @@
 
                                 <label for="fechaContrato">Fecha de contrato</label><br>
                                 <input type="datetime" class="form-control" name="fechaContrato"  id="fechaContrato"  required>  <div id="mjFechaContrato"></div>  <br> 
+                                
 
-                                <label for="correo">Correo:</label><br>
-                                <input type="text" class="form-control" id="correo" name="correo" onblur="validarCorreo(this.value)" required> <div id="mjCorreo"></div> <br>  
+                                <label for="fechaNacimiento">Fecha de nacimiento</label><br>
+                                <input type="datetime" class="form-control" name="fechaNacimiento"  id="fechaNacimiento"  required>  <div id="mjFechaNacimiento"></div>  <br>                                 
+
 
                                 <label for="direccion">Dirección:</label><br>
                                 <input type="text" class="form-control" id="direccion" name="direccion" onblur="validaDireccion(this.value)" required> <div id="mjDireccion"></div> <br>            
@@ -136,8 +132,8 @@
                                         <th scope="col">Fecha de contrato</th>
                                         <th scope="col">Fecha de ingreso</th>
                                         <th scope="col">Fecha de término</th>
+                                        <th scope="col">Fecha de nacimiento</th>                                        
                                         <th scope="col">Estado</th>
-                                        <th scope="col">Correo</th>
                                         <th scope="col">Fono</th>                                        
                                         <th scope="col">Dirección</th>
                                         <th scope="col">Operaciones</th>
@@ -151,8 +147,8 @@
                                         <td>11-07-2019 17:00</td>
                                         <td>12-07-2019 10:00</td>
                                         <td>- No Disponible-</td>
+                                        <td>12-11-1980 10:00</td>                                        
                                         <td>ACTIVO</td>
-                                        <td>c.pedernerasm@alumnos.duoc.cl</td>
                                         <td>966255680</td>                                        
                                         <td>Los Siameses #765</td>
                                         <td>
@@ -236,6 +232,13 @@
                 language: 'es'
             });
         </script> 
+        <script>
+            $("#fechaNacimiento").datetimepicker({
+                isRTL: false,
+                autoclose: true,
+                language: 'es'
+            });
+        </script>        
         <script src="js/bahascript.js"></script>        
     </body>
 

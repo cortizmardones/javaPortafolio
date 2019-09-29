@@ -165,7 +165,7 @@ function validaLetra(input, tipo)
 
         switch (tipo) {
             case 'pnombre':
-                
+
                 if (nom)
                 {
                     novalido = '<span style="color: red;">El primer nombre debe contener solo letras</span>';
@@ -180,7 +180,7 @@ function validaLetra(input, tipo)
 
                 break;
             case 'snombre':
-                
+
                 if (nom)
                 {
                     novalido = '<span style="color: red;">El segundo nombre debe contener solo letras</span>';
@@ -195,7 +195,7 @@ function validaLetra(input, tipo)
 
                 break;
             case 'appaterno':
-                
+
                 if (nom)
                 {
                     novalido = '<span style="color: red;">El apellido paterno debe contener solo letras</span>';
@@ -222,7 +222,7 @@ function validaLetra(input, tipo)
 
                 document.getElementById('apmaterno').value = "";
                 document.getElementById('mjApmaterno').innerHTML = novalido;
-                
+
                 break;
             default:
 
@@ -275,5 +275,64 @@ function validaNombrePersona(input)
     } else
     {
         document.getElementById('mjNombre').innerHTML = "";
+    }
+}
+
+function validaNombres(input)
+{
+    var patron = /^[a-zñáéíóúüA-ZÑÁÉÍÓÚÜ ]+$/i;
+    var patron2 = /^[^\s].+[^\s]$/
+
+    nom = input.search(patron);
+    nom2 = input.search(patron2);
+
+    if (nom || nom2) {
+
+        var novalido;
+
+        if (nom)
+        {
+            novalido = '<span style="color: red;">Los nombres deben contener solamente letras</span>';
+        }
+        if (nom2)
+        {
+            novalido = '<span style="color: red;">Los nombres no pueden comenzar ni terminar con espacios</span>';
+        }
+
+        document.getElementById('nombres').value = "";
+        document.getElementById('mjNombres').innerHTML = novalido;
+    } else
+    {
+        document.getElementById('mjNombres').innerHTML = "";
+    }
+}
+
+
+function validaApellidos(input)
+{
+    var patron = /^[a-zñáéíóúüA-ZÑÁÉÍÓÚÜ ]+$/i;
+    var patron2 = /^[^\s].+[^\s]$/
+
+    nom = input.search(patron);
+    nom2 = input.search(patron2);
+
+    if (nom || nom2) {
+
+        var novalido;
+
+        if (nom)
+        {
+            novalido = '<span style="color: red;">Los apellidos deben contener solamente letras</span>';
+        }
+        if (nom2)
+        {
+            novalido = '<span style="color: red;">Los apellidos no pueden comenzar ni terminar con espacios</span>';
+        }
+
+        document.getElementById('apellidos').value = "";
+        document.getElementById('mjApellidos').innerHTML = novalido;
+    } else
+    {
+        document.getElementById('mjApellidos').innerHTML = "";
     }
 }
