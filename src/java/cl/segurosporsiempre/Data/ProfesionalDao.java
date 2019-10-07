@@ -1,9 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cl.segurosporsiempre.Data;
+
+import cl.segurosporsiempre.Connection.Conexion;
+import cl.segurosporsiempre.Model.Profesional;
 
 /**
  *
@@ -11,4 +10,14 @@ package cl.segurosporsiempre.Data;
  */
 public class ProfesionalDao {
     
+    private Conexion conn;
+
+    public ProfesionalDao(Conexion conn) {
+        this.conn = conn;
+    }
+    
+    public boolean agregarProfesional(Profesional p)
+    {
+       return true; 
+    }  
 }

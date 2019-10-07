@@ -1,22 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
-        <servlet-name>LoginController</servlet-name>
-        <servlet-class>cl.segurosporsiempre.Controller.LoginController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>MappingController</servlet-name>
         <servlet-class>cl.segurosporsiempre.Controller.MappingController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ClienteController</servlet-name>
-        <servlet-class>cl.segurosporsiempre.Controller.ClienteController</servlet-class>
-        <multipart-config>
-            <location>/tmp</location>
-            <max-file-size>1048576</max-file-size>
-            <max-request-size>5242880</max-request-size>
-            <file-size-threshold>1048576</file-size-threshold>
-        </multipart-config>
+        <servlet-name>LogoutController</servlet-name>
+        <servlet-class>cl.segurosporsiempre.Controller.LogoutController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ProfesionalController</servlet-name>
@@ -26,46 +16,26 @@
             <max-file-size>1048576</max-file-size>
             <max-request-size>5242880</max-request-size>
             <file-size-threshold>1048576</file-size-threshold>
-        </multipart-config>
+        </multipart-config>    
     </servlet>
-    <servlet>
-        <servlet-name>CredencialController</servlet-name>
-        <servlet-class>cl.segurosporsiempre.Controller.CredencialController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>LogoutController</servlet-name>
-        <servlet-class>cl.segurosporsiempre.Controller.LogoutController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>LoginController</servlet-name>
-        <url-pattern>/login</url-pattern>
-    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>MappingController</servlet-name>
         <url-pattern>/baha</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ClienteController</servlet-name>
-        <url-pattern>/cliente</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ProfesionalController</servlet-name>
-        <url-pattern>/profesional</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>CredencialController</servlet-name>
-        <url-pattern>/credencial</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>LogoutController</servlet-name>
         <url-pattern>/logout</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProfesionalController</servlet-name>
+        <url-pattern>/pro</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
-            30
+            120
         </session-timeout>
     </session-config>
-<!--
+    <!--
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>securedapp</web-resource-name>
@@ -75,5 +45,5 @@
             <transport-guarantee>CONFIDENTIAL</transport-guarantee>
         </user-data-constraint>
     </security-constraint>    
---> 
+-->
 </web-app>
