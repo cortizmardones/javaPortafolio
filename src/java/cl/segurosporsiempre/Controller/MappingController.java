@@ -6,10 +6,6 @@
 package cl.segurosporsiempre.Controller;
 
 import cl.segurosporsiempre.Connection.Conexion;
-import cl.segurosporsiempre.Data.ClienteDao;
-import cl.segurosporsiempre.Data.RubroDao;
-import cl.segurosporsiempre.Model.Cliente;
-import cl.segurosporsiempre.Model.Rubro;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -51,7 +47,6 @@ public class MappingController extends HttpServlet {
                 request.getRequestDispatcher("pAdmin.jsp").forward(request, response);
                 break;
             case "aClientes":
-                Common.setRubrosRequest(request, response);
                 request.getRequestDispatcher("adminClientes.jsp").forward(request, response);
                 break;
             case "aProfesionales":
@@ -64,8 +59,6 @@ public class MappingController extends HttpServlet {
                 request.getRequestDispatcher("adminHistorial.jsp").forward(request, response);
                 break;
             case "aCredenciales":
-                Common.setCredencialesRequest(request, response);
-                Common.setClientesRequest(request, response);
                 request.getRequestDispatcher("adminPersonas.jsp").forward(request, response);
                 break;
             case "cPanel":
