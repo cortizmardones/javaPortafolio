@@ -76,13 +76,35 @@
                         <a href="logout" class="btn btn-danger">Salir</a>
                     </div>
                 </div>                  
-            </div>            
+            </div>
+            <div class="row no-gutters pt-4">
+                <c:if test="${mensaje eq 'agregarProfesionalExito'}">
+                    <div class="col-md-12">
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            Profesional agregado al sistema exitosamente
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                </c:if>
+                <c:if test="${mensaje eq 'agregarProfesionalFracaso'}">
+                    <div class="col-md-12">
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            El profesional no se pudo agregar al sistema
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                </c:if>  
+            </div>
             <div class="row no-gutters pt-3" id="clienteData">
                 <div class="col-md-12">
                     <div class="card mb-3">
                         <div class="card-header text-white bg-dark"> Datos del profesional </div>
-                        <div class="card-body" onmouseover="limpiarRutAlFallar()">
-                            <form action="index.jsp" method="POST" enctype="multipart/form-data">                     
+                        <div class="card-body" onmouseover="limpiarRutAlFallar()">                           
+                            <form action="pro" method="post" enctype="multipart/form-data">                     
 
                                 <label for="nombres">Nombres:</label><br>
                                 <input type="text" class="form-control" id="nombres" name="nombres" onblur="validaNombres(this.value)" required>  <div id="mjNombres"></div>  <br>
@@ -111,9 +133,10 @@
                                 <label for="fono">Fono:</label><br>
                                 <input type="text" class="form-control" id="fono" name="fono" onblur="validaFono(this.value)" minlength="9" maxlength="9" required> <div id="mjFono"></div> <br>  
 
+                                <input type="hidden" name="accion" value="agregarProfesional">
+                                
                                 <input type="submit" class="btn btn-primary" value="Agregar Profesional">
-
-                            </form>
+                            </form>                       
                         </div>
                     </div>
                 </div>

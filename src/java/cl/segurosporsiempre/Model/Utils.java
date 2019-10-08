@@ -35,5 +35,15 @@ public class Utils {
             Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }   
-    }    
+    } 
+    
+    public static String FECHATRANSFORMADA(String fecha)
+    {
+        String dia = fecha.substring(8,10);
+        String mes = fecha.substring(5,7);
+        String anio = fecha.substring(0,4);
+        String hora = fecha.substring(11);
+        
+        return dia + "-" + mes + "-" + anio + " " + hora;
+    }
 }

@@ -6,9 +6,14 @@
 package cl.segurosporsiempre.Controller;
 
 import cl.segurosporsiempre.Connection.Conexion;
+import cl.segurosporsiempre.Data.ProfesionalDao;
+import cl.segurosporsiempre.Model.ContratoProfesional;
+import cl.segurosporsiempre.Model.Profesional;
+import cl.segurosporsiempre.Model.Utils;
 import java.io.File;
 import java.io.IOException;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,8 +24,9 @@ import javax.servlet.http.Part;
  *
  * @author raulp
  */
+@MultipartConfig(maxFileSize = 16177215)
 public class ProfesionalController extends HttpServlet {
-    
+
      private static final String UPLOAD_DIR = "fotosPro";
 
     /**
@@ -73,15 +79,44 @@ public class ProfesionalController extends HttpServlet {
         String nombres = request.getParameter("nombres");
         String apellidos = request.getParameter("apellidos");
         String rut = request.getParameter("rut");
-        String foto = this.subirFoto(request.getPart("foto"), request, response);
-        String fechaContrato = request.getParameter("fechaContrato");
-        String fechaNacimiento = request.getParameter("fechaNacimiento");
+        String avatar = this.subirFoto(request.getPart("foto"), request, response);
+        String fechaContrato = Utils.FECHATRANSFORMADA(request.getParameter("fechaContrato"));
+        String fechaNacimiento = Utils.FECHATRANSFORMADA(request.getParameter("fechaNacimiento"));
         String direccion = request.getParameter("direccion");
-        String fono = request.getParameter("fono");
+        int fono = Integer.parseInt(request.getParameter("fono"));
         
-        Conexion conn = new Conexion();
         
-
+        ContratoProfesional contrato = new ContratoProfesional();
+        
+        contrato.setEstado(Boolean.TRUE);
+        contrato.setFechaContrato(fechaContrato);
+        contrato.setFechaTermino(null);
+        
+        Profesional pro = new Profesional();
+        pro.setNombres(nombres);
+        pro.setApellidos(apellidos);
+        pro.setRut(rut);
+        pro.setAvatar(avatar);
+        pro.setDireccion(direccion);
+        pro.setFono(fono);
+        pro.setFechaNacimiento(fechaNacimiento);
+        pro.setContrato(contrato);
+        
+        Conexion conn = new Conexion();        
+        ProfesionalDao pDto = new ProfesionalDao(conn);
+        
+        boolean resultado = pDto.agregarProfesional(pro);
+        
+        if (resultado)
+        {
+            request.setAttribute("mensaje", "agregarProfesionalExito");
+            request.getRequestDispatcher("adminProfesionales.jsp").forward(request, response);
+        }
+        else
+        {
+            request.setAttribute("mensaje", "agregarProfesionalFracaso");
+            request.getRequestDispatcher("adminProfesionales.jsp").forward(request, response);            
+        }
     }
     
     private String subirFoto(Part archivo, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
@@ -100,5 +135,6 @@ public class ProfesionalController extends HttpServlet {
         archivo.write(uploadFilePath + File.separator + nombre); 
         
         return "https://www.segurosporsiempre.cl/fotosPro/"+ nombre;
-    }    
+    }       
+
 }

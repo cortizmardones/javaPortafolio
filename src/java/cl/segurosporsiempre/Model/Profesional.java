@@ -15,9 +15,10 @@ public class Profesional {
     private String nombres;
     private String apellidos;
     private String direccion;
-    private String fono;
+    private Integer fono;
     private String rut;
     private String avatar;
+    private ContratoProfesional contrato;
     private String fechaNacimiento;
     private String fechaIngreso;
     private String fechaTermino;
@@ -29,6 +30,22 @@ public class Profesional {
 
     public Profesional(Long id) {
         this.id = id;
+    }
+
+    public Profesional(Long id, String nombres, String apellidos, String direccion, Integer fono, String rut, String avatar, ContratoProfesional contrato, String fechaNacimiento, String fechaIngreso, String fechaTermino, String fechaContrato, Boolean estado) {
+        this.id = id;
+        this.nombres = nombres;
+        this.apellidos = apellidos;
+        this.direccion = direccion;
+        this.fono = fono;
+        this.rut = rut;
+        this.avatar = avatar;
+        this.contrato = contrato;
+        this.fechaNacimiento = fechaNacimiento;
+        this.fechaIngreso = fechaIngreso;
+        this.fechaTermino = fechaTermino;
+        this.fechaContrato = fechaContrato;
+        this.estado = estado;
     }
 
     public Long getId() {
@@ -63,11 +80,11 @@ public class Profesional {
         this.direccion = direccion;
     }
 
-    public String getFono() {
+    public Integer getFono() {
         return fono;
     }
 
-    public void setFono(String fono) {
+    public void setFono(Integer fono) {
         this.fono = fono;
     }
 
@@ -85,6 +102,14 @@ public class Profesional {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    public ContratoProfesional getContrato() {
+        return contrato;
+    }
+
+    public void setContrato(ContratoProfesional contrato) {
+        this.contrato = contrato;
     }
 
     public String getFechaNacimiento() {
@@ -129,6 +154,6 @@ public class Profesional {
 
     @Override
     public String toString() {
-        return "Profesional{" + "id=" + id + ", nombres=" + nombres + ", apellidos=" + apellidos + ", direccion=" + direccion + ", fono=" + fono + ", rut=" + rut + ", avatar=" + avatar + ", fechaNacimiento=" + fechaNacimiento + ", fechaIngreso=" + fechaIngreso + ", fechaTermino=" + fechaTermino + ", fechaContrato=" + fechaContrato + ", estado=" + estado + '}';
+        return "Profesional{" + "id=" + id + ", nombres=" + nombres + ", apellidos=" + apellidos + ", direccion=" + direccion + ", fono=" + fono + ", rut=" + rut + ", avatar=" + avatar + ", contrato=" + contrato + ", fechaNacimiento=" + fechaNacimiento + ", fechaIngreso=" + fechaIngreso + ", fechaTermino=" + fechaTermino + ", fechaContrato=" + fechaContrato + ", estado=" + estado + '}';
     }
 }

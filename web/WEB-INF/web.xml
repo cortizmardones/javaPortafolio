@@ -11,12 +11,6 @@
     <servlet>
         <servlet-name>ProfesionalController</servlet-name>
         <servlet-class>cl.segurosporsiempre.Controller.ProfesionalController</servlet-class>
-        <multipart-config>
-            <location>/tmp</location>
-            <max-file-size>1048576</max-file-size>
-            <max-request-size>5242880</max-request-size>
-            <file-size-threshold>1048576</file-size-threshold>
-        </multipart-config>    
     </servlet>
     <servlet-mapping>
         <servlet-name>MappingController</servlet-name>
@@ -34,8 +28,8 @@
         <session-timeout>
             120
         </session-timeout>
-    </session-config>
-    <!--
+    </session-config>  
+    <!-- 
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>securedapp</web-resource-name>
@@ -45,5 +39,5 @@
             <transport-guarantee>CONFIDENTIAL</transport-guarantee>
         </user-data-constraint>
     </security-constraint>    
--->
+    --> 
 </web-app>
