@@ -34,6 +34,8 @@ public class ProfesionalDao {
             cst.setString(7, p.getFechaNacimiento());
             cst.setString(8, p.getContrato().getFechaContrato());
             
+            cst.execute();
+            
             return true;
             
             

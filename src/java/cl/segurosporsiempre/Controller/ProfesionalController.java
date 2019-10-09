@@ -85,27 +85,31 @@ public class ProfesionalController extends HttpServlet {
         String direccion = request.getParameter("direccion");
         int fono = Integer.parseInt(request.getParameter("fono"));
         
+        System.out.println(fechaContrato);
+        System.out.println(fechaNacimiento);
         
-        ContratoProfesional contrato = new ContratoProfesional();
         
-        contrato.setEstado(Boolean.TRUE);
-        contrato.setFechaContrato(fechaContrato);
-        contrato.setFechaTermino(null);
+        ContratoProfesional c = new ContratoProfesional();
+        c.setFechaContrato(fechaContrato);
+        
         
         Profesional pro = new Profesional();
         pro.setNombres(nombres);
         pro.setApellidos(apellidos);
         pro.setRut(rut);
-        pro.setAvatar(avatar);
         pro.setDireccion(direccion);
         pro.setFono(fono);
         pro.setFechaNacimiento(fechaNacimiento);
-        pro.setContrato(contrato);
+        pro.setAvatar(avatar);
+        
+        pro.setContrato(c);
         
         Conexion conn = new Conexion();        
         ProfesionalDao pDto = new ProfesionalDao(conn);
         
         boolean resultado = pDto.agregarProfesional(pro);
+        
+        conn.cerrarConexion();
         
         if (resultado)
         {
