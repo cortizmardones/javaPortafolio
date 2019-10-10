@@ -163,24 +163,35 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th scope="row"> 1 </th>
-                                        <td>Carlos Luis Pederneras Mena</td>                                       
-                                        <td>16.785.699-4</td>                                      
-                                        <td>11-07-2019 17:00</td>
-                                        <td>12-07-2019 10:00</td>
-                                        <td>- No Disponible-</td>
-                                        <td>12-11-1980 10:00</td>                                        
-                                        <td>ACTIVO</td>
-                                        <td>966255680</td>                                        
-                                        <td>Los Siameses #765</td>
-                                        <td>
-                                            <div align="center">
-                                                <a href=""><img src="img/delete.png" heght="20" width="20"></a> &nbsp;
-                                                <a href=""><img src="img/edit.png" heght="20" width="20"></a>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    <c:forEach items="${profesionales}" var="profesional">
+                                        <tr>
+                                            <th scope="row"> ${profesional.id} </th>
+                                            <td>${profesional.nombres} ${profesional.apellidos}</td>                                       
+                                            <td>${profesional.rut}</td>                                      
+                                            <td>${profesional.contrato.fechaContrato}</td>
+                                            <td>${profesional.contrato.fechaIngreso}</td>
+                                            <td>${profesional.contrato.fechaTermino}</td>
+                                            <td>${profesional.fechaNacimiento}</td>                                        
+                                            <td>
+                                                <c:choose>
+                                                    <c:when test="${profesional.estado}">
+                                                        <span style="color: greenyellow;">ACTIVO</span>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <span style="color: red;">INACTIVO</span>
+                                                    </c:otherwise>
+                                                </c:choose>                                            
+                                            </td>
+                                            <td>${profesional.fono}</td>                                        
+                                            <td>${profesional.direccion}</td>
+                                            <td>
+                                                <div align="center">
+                                                    <a href=""><img src="img/delete.png" heght="20" width="20"></a> &nbsp;
+                                                    <a href=""><img src="img/edit.png" heght="20" width="20"></a>
+                                                </div>
+                                            </td>
+                                        </tr>                                        
+                                    </c:forEach>
                                 </tbody>
                             </table>
                         </div>

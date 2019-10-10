@@ -114,11 +114,13 @@ public class ProfesionalController extends HttpServlet {
         if (resultado)
         {
             request.setAttribute("mensaje", "agregarProfesionalExito");
+            Common.setProfesionalesSession(request, response);
             request.getRequestDispatcher("adminProfesionales.jsp").forward(request, response);
         }
         else
         {
             request.setAttribute("mensaje", "agregarProfesionalFracaso");
+            Common.setProfesionalesSession(request, response);
             request.getRequestDispatcher("adminProfesionales.jsp").forward(request, response);            
         }
     }

@@ -50,6 +50,7 @@ public class MappingController extends HttpServlet {
                 request.getRequestDispatcher("adminClientes.jsp").forward(request, response);
                 break;
             case "aProfesionales":
+                Common.setProfesionalesSession(request, response);
                 request.getRequestDispatcher("adminProfesionales.jsp").forward(request, response);
                 break;
             case "aPagos":
