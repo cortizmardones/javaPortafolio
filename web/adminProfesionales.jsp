@@ -186,8 +186,15 @@
                                             <td>${profesional.direccion}</td>
                                             <td>
                                                 <div align="center">
-                                                    <a href=""><img src="img/delete.png" heght="20" width="20"></a> &nbsp;
-                                                    <a href=""><img src="img/edit.png" heght="20" width="20"></a>
+                                                    <c:choose>
+                                                        <c:when test="${profesional.estado}">
+                                                            <a href="pro?accion=desactivar&id=${profesional.id}"><img src="img/delete.png" heght="20" width="20"></a> &nbsp;
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <a href="pro?accion=activar&id=${profesional.id}"><img src="img/correcto.png" heght="20" width="20"></a> &nbsp;
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                    <a href="pro?accion=gModificar&id=${profesional.id}"><img src="img/edit.png" heght="20" width="20"></a>
                                                 </div>
                                             </td>
                                         </tr>                                        
