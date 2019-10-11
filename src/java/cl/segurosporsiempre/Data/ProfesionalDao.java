@@ -114,4 +114,46 @@ public class ProfesionalDao {
             return null;
         }
     }
+    
+    
+    public boolean activarProfesional(Long id)
+    {
+        
+        try {
+            
+            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_ACTIVAR_PROFESIONAL(?) }");
+            cst.setLong(1, id);
+            
+            cst.execute();
+            
+            return true;
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ProfesionalDao.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } catch (Exception ex) {
+            Logger.getLogger(ProfesionalDao.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
+    public boolean desactivarProfesional(Long id)
+    {       
+        try {
+            
+            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_DESACTIVAR_PROFESIONAL(?) }");
+            cst.setLong(1, id);
+            
+            cst.execute();
+            
+            return true;
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ProfesionalDao.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } catch (Exception ex) {
+            Logger.getLogger(ProfesionalDao.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }    
 }

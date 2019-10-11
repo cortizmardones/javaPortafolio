@@ -97,7 +97,47 @@
                             </button>
                         </div>
                     </div>
-                </c:if>  
+                </c:if> 
+                <c:if test="${mensaje eq 'activarProfesionalExito'}">
+                    <div class="col-md-12">
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            Profesional activado
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                </c:if> 
+                <c:if test="${mensaje eq 'activarProfesionalFracaso'}">
+                    <div class="col-md-12">
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            Profesional no se pudo activar
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                </c:if> 
+                <c:if test="${mensaje eq 'desactivarProfesionalExito'}">
+                    <div class="col-md-12">
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            Profesional desactivado
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                </c:if> 
+                <c:if test="${mensaje eq 'desactivarProfesionalFracaso'}">
+                    <div class="col-md-12">
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            Profesional no se pudo desactivar
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                </c:if>                   
             </div>
             <div class="row no-gutters pt-3" id="clienteData">
                 <div class="col-md-12">
@@ -188,13 +228,13 @@
                                                 <div align="center">
                                                     <c:choose>
                                                         <c:when test="${profesional.estado}">
-                                                            <a href="pro?accion=desactivar&id=${profesional.id}"><img src="img/delete.png" heght="20" width="20"></a> &nbsp;
+                                                            <a href="pro?accion=desactivar&id=${profesional.id}"><img src="img/delete.png" onclick="return confirm('¿Desea desactivar este profesional?')" title="Desactivar" heght="20" width="20"></a> &nbsp;
                                                         </c:when>
                                                         <c:otherwise>
-                                                            <a href="pro?accion=activar&id=${profesional.id}"><img src="img/correcto.png" heght="20" width="20"></a> &nbsp;
+                                                            <a href="pro?accion=activar&id=${profesional.id}"><img src="img/correcto.png" onclick="return confirm('¿Desea activar este profesional?')" title="Activar" heght="20" width="20"></a> &nbsp;
                                                         </c:otherwise>
                                                     </c:choose>
-                                                    <a href="pro?accion=gModificar&id=${profesional.id}"><img src="img/edit.png" heght="20" width="20"></a>
+                                                    <a href="pro?accion=gModificar&id=${profesional.id}"><img src="img/edit.png" title="Modificar" heght="20" width="20"></a>
                                                 </div>
                                             </td>
                                         </tr>                                        

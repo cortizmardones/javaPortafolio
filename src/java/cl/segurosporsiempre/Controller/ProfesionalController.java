@@ -44,8 +44,22 @@ public class ProfesionalController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         
+        String accion = request.getParameter("accion");
         
-               
+        switch (accion) {
+            
+            case "activar":
+                this.activarProfesional(request, response);
+                break;
+            case "desactivar":
+                this.desactivarProfesional(request, response);
+                break;   
+            case "gModificar":
+                this.gatillarModificacion(request, response);
+                break;             
+            default:
+                throw new AssertionError();
+        }            
     }
 
     /**
@@ -125,7 +139,7 @@ public class ProfesionalController extends HttpServlet {
         }
     }
     
-    private String subirFoto(Part archivo, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
+    private String subirFoto(Part archivo, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
         String applicationPath = request.getServletContext().getRealPath("");
 
@@ -142,5 +156,60 @@ public class ProfesionalController extends HttpServlet {
         
         return "https://www.segurosporsiempre.cl/fotosPro/"+ nombre;
     }       
+
+    private void activarProfesional(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
+        Long id = Long.parseLong(request.getParameter("id"));
+        
+        Conexion conn = new Conexion();
+        ProfesionalDao pDto = new ProfesionalDao(conn);
+        
+        boolean resultado = pDto.activarProfesional(id);
+        
+        conn.cerrarConexion();
+        
+        if (resultado)
+        {
+            request.setAttribute("mensaje", "activarProfesionalExito");
+            Common.setProfesionalesSession(request, response);
+            request.getRequestDispatcher("adminProfesionales.jsp").forward(request, response);
+        }
+        else
+        {
+            request.setAttribute("mensaje", "activarProfesionalFracaso");
+            Common.setProfesionalesSession(request, response);
+            request.getRequestDispatcher("adminProfesionales.jsp").forward(request, response);        
+        }
+    }
+
+    private void desactivarProfesional(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
+        Long id = Long.parseLong(request.getParameter("id"));
+        
+        Conexion conn = new Conexion();
+        ProfesionalDao pDto = new ProfesionalDao(conn);
+        
+        boolean resultado = pDto.desactivarProfesional(id);
+        
+        conn.cerrarConexion();
+        
+        if (resultado)
+        {
+            request.setAttribute("mensaje", "desactivarProfesionalExito");
+            Common.setProfesionalesSession(request, response);
+            request.getRequestDispatcher("adminProfesionales.jsp").forward(request, response);
+        }
+        else
+        {
+            request.setAttribute("mensaje", "desactivarProfesionalFracaso");
+            Common.setProfesionalesSession(request, response);
+            request.getRequestDispatcher("adminProfesionales.jsp").forward(request, response);        
+        }        
+    }
+
+    private void gatillarModificacion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
+        
+    }
 
 }
