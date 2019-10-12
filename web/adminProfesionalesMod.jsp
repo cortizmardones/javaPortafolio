@@ -137,120 +137,66 @@
                             </button>
                         </div>
                     </div>
-                </c:if>    
-                <c:if test="${mensaje eq 'gatillarModFracaso'}">
-                    <div class="col-md-12">
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            No se pudo encontrar el profesional
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                    </div>
                 </c:if>                   
             </div>
             <div class="row no-gutters pt-3" id="clienteData">
                 <div class="col-md-12">
                     <div class="card mb-3">
                         <div class="card-header text-white bg-dark"> Datos del profesional </div>
-                        <div class="card-body" onmouseover="limpiarRutAlFallar()">                           
+                        <div class="card-body" onmouseover="limpiarRutAlFallar()" onload="validarActualizarFoto()">                           
                             <form action="pro" method="post" enctype="multipart/form-data">                     
 
                                 <label for="nombres">Nombres:</label><br>
-                                <input type="text" class="form-control" id="nombres" name="nombres" onblur="validaNombres(this.value)" required>  <div id="mjNombres"></div>  <br>
+                                <input type="text" class="form-control" id="nombres" name="nombres" onblur="validaNombres(this.value)" value="${proActivo.nombres}" required>  <div id="mjNombres"></div>  <br>
 
                                 <label for="apellidos">Apellidos:</label><br>
-                                <input type="text" class="form-control" id="apellidos" name="apellidos" onblur="validaApellidos(this.value)" required>  <div id="mjApellidos"></div>  <br>
+                                <input type="text" class="form-control" id="apellidos" name="apellidos" onblur="validaApellidos(this.value)" value="${proActivo.apellidos}" required>  <div id="mjApellidos"></div>  <br>
 
-                                <label for="rut">RUT:</label><br>
-                                <input type="text" class="form-control input_rut" id="rut" name="rut"
-                                       placeholder="16.432.567-K" required> <span id="rut-error" style="color: red"></span>  <div id="mjRut"></div>   <br>
-
-                                <label for="foto">Foto:</label><br>
-                                <input type="file" class="form-control-file" id="foto" name="foto" accept=".gif,.jpg,.jpeg" required>  <div id="mjLogo"></div>  <br>                                   
-
-                                <label for="fechaContrato">Fecha de contrato</label><br>
-                                <input type="datetime" class="form-control" name="fechaContrato"  id="fechaContrato"  required>  <div id="mjFechaContrato"></div>  <br> 
+                                ¿Desea actualizar foto? <br>
+                                <input type="radio" id="r10" name="actualizarFoto" onclick="validarActualizarFoto()" value="indefinido"> Sí &nbsp;
+                                <input type="radio" id="r11" name="actualizarFoto" onclick="validarActualizarFoto()" value="definido" checked> No &nbsp;
+                                <input type="hidden" name="urlFoto" value="${proActivo.avatar}">
                                 
-
-                                <label for="fechaNacimiento">Fecha de nacimiento</label><br>
-                                <input type="datetime" class="form-control" name="fechaNacimiento"  id="fechaNacimiento"  required>  <div id="mjFechaNacimiento"></div>  <br>                                 
-
+                                <div id="baha-fotoupdate">
+                                    <input type="hidden" name="status" value="non-part">
+                                </div>
 
                                 <label for="direccion">Dirección:</label><br>
-                                <input type="text" class="form-control" id="direccion" name="direccion" onblur="validaDireccion(this.value)" required> <div id="mjDireccion"></div> <br>            
+                                <input type="text" class="form-control" id="direccion" name="direccion" onblur="validaDireccion(this.value)"  value="${proActivo.direccion}" required> <div id="mjDireccion"></div> <br>            
 
                                 <label for="fono">Fono:</label><br>
-                                <input type="text" class="form-control" id="fono" name="fono" onblur="validaFono(this.value)" minlength="9" maxlength="9" required> <div id="mjFono"></div> <br>  
+                                <input type="text" class="form-control" id="fono" name="fono" onblur="validaFono(this.value)" minlength="9" maxlength="9"  value="${proActivo.fono}" required> <div id="mjFono"></div> <br>                                  
 
-                                <input type="hidden" name="accion" value="agregarProfesional">
-                                
-                                <input type="submit" class="btn btn-primary" value="Agregar Profesional">
+                                <label for="fechaNacimiento">Fecha de nacimiento</label><br>
+                                <input type="datetime" class="form-control" name="fechaNacimiento"  id="fechaNacimiento"  value="${proActivo.fechaNacimiento}"  required>  <div id="mjFechaNacimiento"></div>  <br>     
+
+                                <label for="fechaContrato">Fecha de contrato</label><br>
+                                <input type="datetime" class="form-control" name="fechaContrato"  id="fechaContrato"  value="${proActivo.contrato.fechaContrato}"  required>  <div id="mjFechaContrato"></div>  <br> 
+
+                                <label for="fechaTermino">Fecha de término</label><br>                               
+                                <c:if test="${proActivo.contrato.fechaTermino != 'INDEFINIDO'}">
+                                    <input type="radio" id="r1" name="indefinido" onclick="cambiarEstadoFechaTermino()" value="indefinido"> Sin fecha de termino &nbsp;
+                                    <input type="radio" id="r2"  name="indefinido" onclick="cambiarEstadoFechaTermino()" checked value="definido"> Con fecha de termino                                    
+                                </c:if>
+                                <c:if test="${proActivo.contrato.fechaTermino == 'INDEFINIDO'}">
+                                    <input type="radio" id="r1" name="indefinido" onclick="cambiarEstadoFechaTermino()" checked value="indefinido"> Sin fecha de termino &nbsp;
+                                    <input type="radio" id="r2"  name="indefinido" onclick="cambiarEstadoFechaTermino()" value="definido"> Con fecha de termino                                     
+                                </c:if>
+
+                                <input type="hidden" name="fechaTerminoReservada" id="fechaTerminoReservada" value="${proActivo.contrato.fechaTermino}" >
+
+                                <c:if test="${proActivo.contrato.fechaTermino != 'INDEFINIDO'}">
+                                    <input type="datetime" class="form-control" name="fechaTermino"  id="fechaTermino"  value="${proActivo.contrato.fechaTermino}"  required>  <div id="mjFechaTermino"></div>  <br>                                        
+                                </c:if>
+                                <c:if test="${proActivo.contrato.fechaTermino == 'INDEFINIDO'}">
+                                    <input type="datetime" class="form-control" name="fechaTermino" disabled  id="fechaTermino"  value="${proActivo.contrato.fechaTermino}"  required>  <div id="mjFechaTermino"></div>  <br>                                    
+                                </c:if>                                
+
+                                <input type="hidden" name="accion" value="modificarProfesional">
+                                <input type="hidden" name="id" value="${proActivo.id}">
+
+                                <input type="submit" class="btn btn-primary" value="Modificar Profesional">
                             </form>                       
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row no-gutters pt-2" id="insercion">
-                <div class="col-md-12">
-                    <div class="card mb-3">
-                        <div class="card-header text-white bg-dark"> Lista de profesionales </div>
-                        <div class="card-body">
-                            <table id="t2" class="table table-hover table-responsive-xl  table-dark ts">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">ID de profesional</th>
-                                        <th scope="col">Nombre completo</th>
-                                        <th scope="col">RUT</th>                                       
-                                        <th scope="col">Fecha de contrato</th>
-                                        <th scope="col">Fecha de ingreso</th>
-                                        <th scope="col">Fecha de término</th>
-                                        <th scope="col">Fecha de nacimiento</th>                                        
-                                        <th scope="col">Estado</th>
-                                        <th scope="col">Fono</th>                                        
-                                        <th scope="col">Dirección</th>
-                                        <th scope="col">Operaciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <c:forEach items="${profesionales}" var="profesional">
-                                        <tr>
-                                            <th scope="row"> ${profesional.id} </th>
-                                            <td>${profesional.nombres} ${profesional.apellidos}</td>                                       
-                                            <td>${profesional.rut}</td>                                      
-                                            <td>${profesional.contrato.fechaContrato}</td>
-                                            <td>${profesional.contrato.fechaIngreso}</td>
-                                            <td>${profesional.contrato.fechaTermino}</td>
-                                            <td>${profesional.fechaNacimiento}</td>                                        
-                                            <td>
-                                                <c:choose>
-                                                    <c:when test="${profesional.estado}">
-                                                        <span style="color: greenyellow;">ACTIVO</span>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <span style="color: red;">INACTIVO</span>
-                                                    </c:otherwise>
-                                                </c:choose>                                            
-                                            </td>
-                                            <td>${profesional.fono}</td>                                        
-                                            <td>${profesional.direccion}</td>
-                                            <td>
-                                                <div align="center">
-                                                    <c:choose>
-                                                        <c:when test="${profesional.estado}">
-                                                            <a href="pro?accion=desactivar&id=${profesional.id}"><img src="img/delete.png" onclick="return confirm('¿Desea desactivar este profesional?')" title="Desactivar" heght="20" width="20"></a> &nbsp;
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            <a href="pro?accion=activar&id=${profesional.id}"><img src="img/correcto.png" onclick="return confirm('¿Desea activar este profesional?')" title="Activar" heght="20" width="20"></a> &nbsp;
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                    <a href="pro?accion=gModificar&id=${profesional.id}"><img src="img/edit.png" title="Modificar" heght="20" width="20"></a>
-                                                </div>
-                                            </td>
-                                        </tr>                                        
-                                    </c:forEach>
-                                </tbody>
-                            </table>
                         </div>
                     </div>
                 </div>
@@ -325,6 +271,13 @@
         </script> 
         <script>
             $("#fechaNacimiento").datetimepicker({
+                isRTL: false,
+                autoclose: true,
+                language: 'es'
+            });
+        </script>  
+        <script>
+            $("#fechaTermino").datetimepicker({
                 isRTL: false,
                 autoclose: true,
                 language: 'es'

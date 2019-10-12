@@ -336,3 +336,30 @@ function validaApellidos(input)
         document.getElementById('mjApellidos').innerHTML = "";
     }
 }
+
+function cambiarEstadoFechaTermino()
+{ 
+    if (document.getElementById('r2').checked) 
+    {
+        var valorReservado = document.getElementById("fechaTerminoReservada").value;
+        document.getElementById("fechaTermino").value =  valorReservado;  
+        document.getElementById("fechaTermino").disabled = false;
+    }
+    else if (document.getElementById('r1').checked)
+    {
+        document.getElementById("fechaTermino").setAttribute("disabled", "");
+        document.getElementById("fechaTermino").value = "INDEFINIDO";        
+    }
+}
+
+function validarActualizarFoto()
+{
+    if (document.getElementById('r10').checked) 
+    {
+        document.getElementById("baha-fotoupdate").innerHTML = '<br><input type="hidden" name="status" value="part"> <label for="foto">Foto:</label><br><input type="file" class="form-control-file" id="foto" name="foto" accept=".gif,.jpg,.jpeg" required> <div id="mjLogo"></div><br>';
+    }
+    else if (document.getElementById('r11').checked)
+    {
+        document.getElementById("baha-fotoupdate").innerHTML = '<input type="hidden" name="status" value="non-part"> <br>';        
+    }   
+}
