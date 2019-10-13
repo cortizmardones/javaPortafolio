@@ -37,12 +37,9 @@ public class Common extends HttpServlet {
         }
         else
         {
-            
-            
             HttpSession sesion = request.getSession();
             List<Profesional> pros = new LinkedList<>();
             sesion.setAttribute("profesionales", pros);
         }
-        
     }
 }

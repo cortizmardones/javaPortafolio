@@ -224,8 +224,115 @@ public class ProfesionalController extends HttpServlet {
         switch (tipoDeTransaccion) {
             case "part":
                 
+                String direccion = request.getParameter("direccion");
+                String nombres = request.getParameter("nombres");
+                String apellidos = request.getParameter("apellidos");
+                String foto = this.subirFoto(request.getPart("foto"), request, response);
+                String fechaNacimiento = Utils.FECHATRANSFORMADA(request.getParameter("fechaNacimiento"));
+                int fono = Integer.parseInt(request.getParameter("fono"));
+                String formularioFechaTermino = request.getParameter("fechaTermino");
+                Long id = Long.parseLong(request.getParameter("id"));
+                String fechaTermino;
+                
+                
+                if (formularioFechaTermino.equals("INDEFINIDO"))
+                {
+                    fechaTermino = null;
+                }
+                else
+                {
+                    fechaTermino = Utils.FECHATRANSFORMADA(formularioFechaTermino);                    
+                }
+                                        
+                Profesional p = new Profesional();
+                ContratoProfesional c = new ContratoProfesional();
+                
+                c.setFechaTermino(fechaTermino);
+                
+                p.setApellidos(apellidos);
+                p.setAvatar(foto);
+                p.setFechaNacimiento(fechaNacimiento);
+                p.setFono(fono);
+                p.setDireccion(direccion);
+                p.setNombres(nombres);
+                p.setContrato(c);
+                p.setId(id);
+                
+                Conexion conn = new Conexion();
+                ProfesionalDao pDto = new ProfesionalDao(conn);
+                
+                boolean resultado = pDto.modificarProfesional(p);
+                
+                conn.cerrarConexion();
+                
+                if (resultado)
+                {
+                    request.setAttribute("mensaje", "modificarProfesionalExito");
+                    request.getRequestDispatcher("adminProfesional.jsp").forward(request, response);
+                }
+                else
+                {
+                    request.setAttribute("mensaje", "modificarProfesionalFracaso");
+                    request.getRequestDispatcher("adminProfesional.jsp").forward(request, response);                
+                }
+                
                 break;
             case "non-part":
+
+                String direccionDos = request.getParameter("direccion");
+                String nombresDos = request.getParameter("nombres");
+                String apellidosDos = request.getParameter("apellidos");
+                String fotoDos = request.getParameter("urlFoto");
+                String fechaNacimientoDos = Utils.FECHATRANSFORMADA(request.getParameter("fechaNacimiento"));
+                String fechaContrato = Utils.FECHATRANSFORMADA(request.getParameter("fechaContrato"));
+                int fonoDos = Integer.parseInt(request.getParameter("fono"));
+                String formularioFechaTerminoDos = request.getParameter("fechaTermino");
+                Long idDos = Long.parseLong(request.getParameter("id"));
+                String fechaTerminoDos;
+                
+                if (formularioFechaTerminoDos.equals("INDEFINIDO"))
+                {
+                    fechaTerminoDos = null;
+                }
+                else
+                {
+                    fechaTerminoDos = Utils.FECHATRANSFORMADA(formularioFechaTerminoDos);                    
+                }                
+                
+                Profesional pDos = new Profesional();
+                ContratoProfesional cDos = new ContratoProfesional();
+                
+                cDos.setFechaTermino(fechaTerminoDos);
+                cDos.setFechaContrato(fechaContrato);
+                
+                pDos.setApellidos(apellidosDos);
+                pDos.setAvatar(fotoDos);
+                pDos.setFechaNacimiento(fechaNacimientoDos);
+                pDos.setFono(fonoDos);
+                pDos.setDireccion(direccionDos);
+                pDos.setNombres(nombresDos);
+                pDos.setContrato(cDos); 
+                pDos.setId(idDos);
+                
+                Conexion connDos = new Conexion();
+                ProfesionalDao pDtoDos = new ProfesionalDao(connDos);
+                
+                boolean resultadoDos = pDtoDos.modificarProfesional(pDos);
+                
+                connDos.cerrarConexion();
+                
+                if (resultadoDos)
+                {
+                    request.setAttribute("mensaje", "modificarProfesionalExito");
+                    Common.setProfesionalesSession(request, response);
+                    request.getRequestDispatcher("adminProfesionales.jsp").forward(request, response);
+                }
+                else
+                {
+                    request.setAttribute("mensaje", "modificarProfesionalFracaso");
+                    Common.setProfesionalesSession(request, response);
+                    request.getRequestDispatcher("adminProfesionalesMod.jsp").forward(request, response);                
+                }                
                 
                 break;
             default:

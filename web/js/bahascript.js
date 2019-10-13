@@ -347,7 +347,6 @@ function cambiarEstadoFechaTermino()
     }
     else if (document.getElementById('r1').checked)
     {
-        document.getElementById("fechaTermino").setAttribute("disabled", "");
         document.getElementById("fechaTermino").value = "INDEFINIDO";        
     }
 }

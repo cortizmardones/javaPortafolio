@@ -147,7 +147,17 @@
                             </button>
                         </div>
                     </div>
-                </c:if>                   
+                </c:if> 
+                <c:if test="${mensaje eq 'modificarProfesionalExito'}">
+                    <div class="col-md-12">
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            El profesional se modificó exitosamente
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                </c:if>                
             </div>
             <div class="row no-gutters pt-3" id="clienteData">
                 <div class="col-md-12">

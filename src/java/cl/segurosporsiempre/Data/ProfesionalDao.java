@@ -172,12 +172,12 @@ public class ProfesionalDao {
             profesional.setDireccion(rs.getString("direccion"));
             profesional.setAvatar(rs.getString("avatar"));
             profesional.setFono(rs.getInt("fono"));
-            profesional.setFechaNacimiento(Utils.FECHATRANSFORMADA(rs.getString("fecha_nacimiento").substring(0, 16)));
+            profesional.setFechaNacimiento(rs.getString("fecha_nacimiento").substring(0, 16));
 
             contrato = new ContratoProfesional();
             contrato.setEstado(rs.getBoolean("estado_contrato"));
-            contrato.setFechaContrato(Utils.FECHATRANSFORMADA(rs.getString("fecha_contrato").substring(0, 16)));
-            contrato.setFechaIngreso(Utils.FECHATRANSFORMADA(rs.getString("fecha_ingreso").substring(0, 16)));
+            contrato.setFechaContrato(rs.getString("fecha_contrato").substring(0, 16));
+            contrato.setFechaIngreso(rs.getString("fecha_ingreso").substring(0, 16));
             contrato.setId(rs.getLong("id_contrato"));
 
             String termino = rs.getString("fecha_termino");

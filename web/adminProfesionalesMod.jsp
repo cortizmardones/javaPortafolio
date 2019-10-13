@@ -137,7 +137,17 @@
                             </button>
                         </div>
                     </div>
-                </c:if>                   
+                </c:if> 
+                <c:if test="${mensaje eq 'modificarProfesionalFracaso'}">
+                    <div class="col-md-12">
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            El profesional no se pudo modificar
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                </c:if>                 
             </div>
             <div class="row no-gutters pt-3" id="clienteData">
                 <div class="col-md-12">
@@ -189,7 +199,7 @@
                                     <input type="datetime" class="form-control" name="fechaTermino"  id="fechaTermino"  value="${proActivo.contrato.fechaTermino}"  required>  <div id="mjFechaTermino"></div>  <br>                                        
                                 </c:if>
                                 <c:if test="${proActivo.contrato.fechaTermino == 'INDEFINIDO'}">
-                                    <input type="datetime" class="form-control" name="fechaTermino" disabled  id="fechaTermino"  value="${proActivo.contrato.fechaTermino}"  required>  <div id="mjFechaTermino"></div>  <br>                                    
+                                    <input type="datetime" class="form-control" name="fechaTermino"  id="fechaTermino"  value="${proActivo.contrato.fechaTermino}"  required>  <div id="mjFechaTermino"></div>  <br>                                    
                                 </c:if>                                
 
                                 <input type="hidden" name="accion" value="modificarProfesional">
