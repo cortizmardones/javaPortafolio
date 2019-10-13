@@ -183,7 +183,7 @@ public class ProfesionalDao {
             String termino = rs.getString("fecha_termino");
 
             if (termino != null) {
-                contrato.setFechaTermino(Utils.FECHATRANSFORMADA(termino.substring(0, 16)));
+                contrato.setFechaTermino(termino.substring(0, 16));
             } else {
                 contrato.setFechaTermino("INDEFINIDO");
             }

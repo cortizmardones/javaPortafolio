@@ -229,11 +229,11 @@ public class ProfesionalController extends HttpServlet {
                 String apellidos = request.getParameter("apellidos");
                 String foto = this.subirFoto(request.getPart("foto"), request, response);
                 String fechaNacimiento = Utils.FECHATRANSFORMADA(request.getParameter("fechaNacimiento"));
+                String fechaContratoS = Utils.FECHATRANSFORMADA(request.getParameter("fechaContrato"));
                 int fono = Integer.parseInt(request.getParameter("fono"));
                 String formularioFechaTermino = request.getParameter("fechaTermino");
                 Long id = Long.parseLong(request.getParameter("id"));
                 String fechaTermino;
-                
                 
                 if (formularioFechaTermino.equals("INDEFINIDO"))
                 {
@@ -242,12 +242,13 @@ public class ProfesionalController extends HttpServlet {
                 else
                 {
                     fechaTermino = Utils.FECHATRANSFORMADA(formularioFechaTermino);                    
-                }
-                                        
+                }                
+                
                 Profesional p = new Profesional();
                 ContratoProfesional c = new ContratoProfesional();
                 
                 c.setFechaTermino(fechaTermino);
+                c.setFechaContrato(fechaContratoS);
                 
                 p.setApellidos(apellidos);
                 p.setAvatar(foto);
@@ -255,7 +256,7 @@ public class ProfesionalController extends HttpServlet {
                 p.setFono(fono);
                 p.setDireccion(direccion);
                 p.setNombres(nombres);
-                p.setContrato(c);
+                p.setContrato(c); 
                 p.setId(id);
                 
                 Conexion conn = new Conexion();
@@ -268,13 +269,15 @@ public class ProfesionalController extends HttpServlet {
                 if (resultado)
                 {
                     request.setAttribute("mensaje", "modificarProfesionalExito");
-                    request.getRequestDispatcher("adminProfesional.jsp").forward(request, response);
+                    Common.setProfesionalesSession(request, response);
+                    request.getRequestDispatcher("adminProfesionales.jsp").forward(request, response);
                 }
                 else
                 {
                     request.setAttribute("mensaje", "modificarProfesionalFracaso");
-                    request.getRequestDispatcher("adminProfesional.jsp").forward(request, response);                
-                }
+                    Common.setProfesionalesSession(request, response);
+                    request.getRequestDispatcher("adminProfesionalesMod.jsp").forward(request, response);                
+                }    
                 
                 break;
             case "non-part":
