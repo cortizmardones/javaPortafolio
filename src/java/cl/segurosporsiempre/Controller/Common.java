@@ -5,8 +5,10 @@
 package cl.segurosporsiempre.Controller;
 
 import cl.segurosporsiempre.Connection.Conexion;
+import cl.segurosporsiempre.Data.LoginDao;
 import cl.segurosporsiempre.Data.ProfesionalDao;
 import cl.segurosporsiempre.Model.Profesional;
+import cl.segurosporsiempre.Model.Usuario;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
@@ -42,4 +44,12 @@ public class Common extends HttpServlet {
             sesion.setAttribute("profesionales", pros);
         }
     }
+    
+    
+    public static void setUsuarioActivoSession(Usuario usu, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {            
+        HttpSession sesion = request.getSession();
+        sesion.setAttribute("usuarioActivo", usu);        
+    }
+    
 }
