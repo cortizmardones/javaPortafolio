@@ -123,12 +123,14 @@ public class LoginController extends HttpServlet {
         usu.setId(id);
         usu.setPassword(password);
         
-        boolean resultado = lDto.modificarPassLogin(usu);        
+        boolean resultado = lDto.modificarPassLogin(usu);
+        
+        conn.cerrarConexion();
         
         if (resultado)
         {
-            this.redirigirSegunPerfil(lDto.obtenerUsuario(login), request, response);
-            conn.cerrarConexion();
+           request.setAttribute("mensaje", "Contraseña cambiada exitosamente. Puede iniciar nuevamente");
+           request.getRequestDispatcher("index.jsp").forward(request, response);
         }
         else
         {
