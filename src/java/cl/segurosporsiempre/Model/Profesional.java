@@ -12,6 +12,7 @@ package cl.segurosporsiempre.Model;
 public class Profesional {
     
     private Long id;
+    private UsuarioProfesional usuario;
     private String nombres;
     private String apellidos;
     private String direccion;
@@ -29,8 +30,9 @@ public class Profesional {
         this.id = id;
     }
 
-    public Profesional(Long id, String nombres, String apellidos, String direccion, Integer fono, String rut, String avatar, ContratoProfesional contrato, String fechaNacimiento, Boolean estado) {
+    public Profesional(Long id, UsuarioProfesional usuario, String nombres, String apellidos, String direccion, Integer fono, String rut, String avatar, ContratoProfesional contrato, String fechaNacimiento, Boolean estado) {
         this.id = id;
+        this.usuario = usuario;
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.direccion = direccion;
@@ -48,6 +50,14 @@ public class Profesional {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public UsuarioProfesional getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(UsuarioProfesional usuario) {
+        this.usuario = usuario;
     }
 
     public String getNombres() {
@@ -124,8 +134,6 @@ public class Profesional {
 
     @Override
     public String toString() {
-        return "Profesional{" + "id=" + id + ", nombres=" + nombres + ", apellidos=" + apellidos + ", direccion=" + direccion + ", fono=" + fono + ", rut=" + rut + ", avatar=" + avatar + ", contrato=" + contrato + ", fechaNacimiento=" + fechaNacimiento + ", estado=" + estado + '}';
+        return "Profesional{" + "id=" + id + ", usuario=" + usuario + ", nombres=" + nombres + ", apellidos=" + apellidos + ", direccion=" + direccion + ", fono=" + fono + ", rut=" + rut + ", avatar=" + avatar + ", contrato=" + contrato + ", fechaNacimiento=" + fechaNacimiento + ", estado=" + estado + '}';
     }
-
-   
 }

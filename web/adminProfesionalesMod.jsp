@@ -172,7 +172,13 @@
                                 </div>
 
                                 <label for="direccion">Dirección:</label><br>
-                                <input type="text" class="form-control" id="direccion" name="direccion" onblur="validaDireccion(this.value)"  value="${proActivo.direccion}" required> <div id="mjDireccion"></div> <br>            
+                                <input type="text" class="form-control" id="direccion" name="direccion" onblur="validaDireccion(this.value)"  value="${proActivo.direccion}" required> <div id="mjDireccion"></div> <br> 
+                                
+
+                                <label for="correo">Correo (login):</label><br>
+                                <input type="text" class="form-control" id="correo" name="correo" value="${proActivo.usuario.correo}"
+                                       onblur="validarCorreo(this.value)" required>
+                                <div id="mjCorreo"></div><br>                                
 
                                 <label for="fono">Fono:</label><br>
                                 <input type="text" class="form-control" id="fono" name="fono" onblur="validaFono(this.value)" minlength="9" maxlength="9"  value="${proActivo.fono}" required> <div id="mjFono"></div> <br>                                  

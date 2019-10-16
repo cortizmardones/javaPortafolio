@@ -9,6 +9,7 @@ import cl.segurosporsiempre.Connection.Conexion;
 import cl.segurosporsiempre.Data.ProfesionalDao;
 import cl.segurosporsiempre.Model.ContratoProfesional;
 import cl.segurosporsiempre.Model.Profesional;
+import cl.segurosporsiempre.Model.UsuarioProfesional;
 import cl.segurosporsiempre.Model.Utils;
 import java.io.File;
 import java.io.IOException;
@@ -100,12 +101,18 @@ public class ProfesionalController extends HttpServlet {
         String fechaNacimiento = Utils.FECHATRANSFORMADA(request.getParameter("fechaNacimiento"));
         String direccion = request.getParameter("direccion");
         int fono = Integer.parseInt(request.getParameter("fono"));
+        String correo = request.getParameter("correo");
+        String password = Utils.MD5(request.getParameter("password"));
 
         System.out.println(fechaContrato);
         System.out.println(fechaNacimiento);
 
         ContratoProfesional c = new ContratoProfesional();
         c.setFechaContrato(fechaContrato);
+        
+        UsuarioProfesional u = new UsuarioProfesional();
+        u.setCorreo(correo);
+        u.setPassword(password);
 
         Profesional pro = new Profesional();
         pro.setNombres(nombres);
@@ -115,8 +122,10 @@ public class ProfesionalController extends HttpServlet {
         pro.setFono(fono);
         pro.setFechaNacimiento(fechaNacimiento);
         pro.setAvatar(avatar);
+        
 
         pro.setContrato(c);
+        pro.setUsuario(u);
 
         Conexion conn = new Conexion();
         ProfesionalDao pDto = new ProfesionalDao(conn);
@@ -225,6 +234,7 @@ public class ProfesionalController extends HttpServlet {
             case "part":
                 
                 String direccion = request.getParameter("direccion");
+                String correo = request.getParameter("correo");
                 String nombres = request.getParameter("nombres");
                 String apellidos = request.getParameter("apellidos");
                 String foto = this.subirFoto(request.getPart("foto"), request, response);
@@ -246,9 +256,12 @@ public class ProfesionalController extends HttpServlet {
                 
                 Profesional p = new Profesional();
                 ContratoProfesional c = new ContratoProfesional();
+                UsuarioProfesional up = new UsuarioProfesional();
                 
                 c.setFechaTermino(fechaTermino);
                 c.setFechaContrato(fechaContratoS);
+                
+                up.setCorreo(correo);
                 
                 p.setApellidos(apellidos);
                 p.setAvatar(foto);
@@ -256,7 +269,8 @@ public class ProfesionalController extends HttpServlet {
                 p.setFono(fono);
                 p.setDireccion(direccion);
                 p.setNombres(nombres);
-                p.setContrato(c); 
+                p.setContrato(c);
+                p.setUsuario(up);
                 p.setId(id);
                 
                 Conexion conn = new Conexion();
@@ -283,6 +297,7 @@ public class ProfesionalController extends HttpServlet {
             case "non-part":
 
                 String direccionDos = request.getParameter("direccion");
+                String correoDos = request.getParameter("correo");
                 String nombresDos = request.getParameter("nombres");
                 String apellidosDos = request.getParameter("apellidos");
                 String fotoDos = request.getParameter("urlFoto");
@@ -304,9 +319,12 @@ public class ProfesionalController extends HttpServlet {
                 
                 Profesional pDos = new Profesional();
                 ContratoProfesional cDos = new ContratoProfesional();
+                UsuarioProfesional upo = new UsuarioProfesional();
                 
                 cDos.setFechaTermino(fechaTerminoDos);
                 cDos.setFechaContrato(fechaContrato);
+                
+                upo.setCorreo(correoDos);
                 
                 pDos.setApellidos(apellidosDos);
                 pDos.setAvatar(fotoDos);
@@ -315,6 +333,7 @@ public class ProfesionalController extends HttpServlet {
                 pDos.setDireccion(direccionDos);
                 pDos.setNombres(nombresDos);
                 pDos.setContrato(cDos); 
+                pDos.setUsuario(upo);
                 pDos.setId(idDos);
                 
                 Conexion connDos = new Conexion();

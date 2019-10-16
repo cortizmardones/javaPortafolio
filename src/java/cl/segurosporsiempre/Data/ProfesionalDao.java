@@ -2,7 +2,9 @@ package cl.segurosporsiempre.Data;
 
 import cl.segurosporsiempre.Connection.Conexion;
 import cl.segurosporsiempre.Model.ContratoProfesional;
+import cl.segurosporsiempre.Model.Perfil;
 import cl.segurosporsiempre.Model.Profesional;
+import cl.segurosporsiempre.Model.UsuarioProfesional;
 import cl.segurosporsiempre.Model.Utils;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
@@ -28,7 +30,7 @@ public class ProfesionalDao {
     public boolean agregarProfesional(Profesional p) {
         try {
 
-            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_AGREGAR_PROFESIONAL(?,?,?,?,?,?,?,?) }");
+            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_AGREGAR_PROFESIONAL(?,?,?,?,?,?,?,?,?,?) }");
             cst.setString(1, p.getNombres());
             cst.setString(2, p.getApellidos());
             cst.setString(3, p.getRut());
@@ -37,6 +39,8 @@ public class ProfesionalDao {
             cst.setInt(6, p.getFono());
             cst.setString(7, p.getFechaNacimiento());
             cst.setString(8, p.getContrato().getFechaContrato());
+            cst.setString(9, p.getUsuario().getCorreo());
+            cst.setString(10, p.getUsuario().getPassword());
 
             cst.execute();
 
@@ -55,6 +59,7 @@ public class ProfesionalDao {
         List<Profesional> profesionales = new LinkedList<>();
         Profesional profesional;
         ContratoProfesional contrato;
+        UsuarioProfesional usuario;
 
         try {
 
@@ -77,6 +82,14 @@ public class ProfesionalDao {
                 profesional.setFono(rs.getInt("fono"));
                 profesional.setFechaNacimiento(Utils.FECHATRANSFORMADA(rs.getString("fecha_nacimiento").substring(0, 16)));
 
+                usuario = new UsuarioProfesional();
+                usuario.setId(rs.getLong("id_usuario"));
+                usuario.setPassword(rs.getString("clave"));
+                usuario.setCorreo(rs.getString("correo_electronico"));
+                usuario.setEstado(rs.getBoolean("ESTADO_USUARIO_PROFESIONAL"));
+                usuario.setPerfil(new Perfil(rs.getInt("id_perfil")));
+                usuario.setPrimeraVez(rs.getBoolean("primera_vez"));
+
                 contrato = new ContratoProfesional();
                 contrato.setEstado(rs.getBoolean("estado_contrato"));
                 contrato.setFechaContrato(Utils.FECHATRANSFORMADA(rs.getString("fecha_contrato").substring(0, 16)));
@@ -92,6 +105,7 @@ public class ProfesionalDao {
                 }
 
                 profesional.setContrato(contrato);
+                profesional.setUsuario(usuario);
 
                 profesionales.add(profesional);
             }
@@ -147,9 +161,10 @@ public class ProfesionalDao {
     }
 
     public Profesional obtenerProfesionalPorId(Long id) {
-        
+
         Profesional profesional;
         ContratoProfesional contrato;
+        UsuarioProfesional usuario;
 
         try {
 
@@ -174,6 +189,14 @@ public class ProfesionalDao {
             profesional.setFono(rs.getInt("fono"));
             profesional.setFechaNacimiento(rs.getString("fecha_nacimiento").substring(0, 16));
 
+            usuario = new UsuarioProfesional();
+            usuario.setId(rs.getLong("id_usuario"));
+            usuario.setPassword(rs.getString("clave"));
+            usuario.setCorreo(rs.getString("correo_electronico"));
+            usuario.setEstado(rs.getBoolean("ESTADO_USUARIO_PROFESIONAL"));
+            usuario.setPerfil(new Perfil(rs.getInt("id_perfil")));
+            usuario.setPrimeraVez(rs.getBoolean("primera_vez"));
+
             contrato = new ContratoProfesional();
             contrato.setEstado(rs.getBoolean("estado_contrato"));
             contrato.setFechaContrato(rs.getString("fecha_contrato").substring(0, 16));
@@ -189,6 +212,7 @@ public class ProfesionalDao {
             }
 
             profesional.setContrato(contrato);
+            profesional.setUsuario(usuario);
 
             return profesional;
 
@@ -200,13 +224,11 @@ public class ProfesionalDao {
             return null;
         }
     }
-    
-    
-    public boolean modificarProfesional(Profesional p)
-    {
+
+    public boolean modificarProfesional(Profesional p) {
         try {
 
-            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_ACTUALIZAR_PROFESIONAL(?,?,?,?,?,?,?,?,?) }");
+            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_ACTUALIZAR_PROFESIONAL(?,?,?,?,?,?,?,?,?,?) }");
             cst.setLong(1, p.getId());
             cst.setString(2, p.getNombres());
             cst.setString(3, p.getApellidos());
@@ -216,7 +238,8 @@ public class ProfesionalDao {
             cst.setString(7, p.getFechaNacimiento());
             cst.setString(8, p.getContrato().getFechaContrato());
             cst.setString(9, p.getContrato().getFechaTermino());
-            
+            cst.setString(10, p.getUsuario().getCorreo());
+
             cst.execute();
 
             return true;
@@ -227,6 +250,6 @@ public class ProfesionalDao {
         } catch (Exception ex) {
             Logger.getLogger(ProfesionalDao.class.getName()).log(Level.SEVERE, null, ex);
             return false;
-        }        
+        }
     }
 }

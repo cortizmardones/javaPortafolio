@@ -48,7 +48,14 @@
             <div class="form-label-group">
                 <input type="password" id="inputPassword" name="contrasenia" class="form-control" placeholder="Contraseña" required="" autocomplete="off">
                 <label for="inputPassword">Contraseña</label>
+            </div> 
+            
+            <div id="categorias" align="center">
+                <input type="radio" value="administrador" name="categoria" checked> Administrador &nbsp;
+                <input type="radio" value="profesional" name="categoria"> Profesional &nbsp;
+                <input type="radio" value="empresa" name="categoria"> Empresa &nbsp; <br> <br>
             </div>
+                   
             <input type="hidden" name="accion" value="login">    
             <button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
             <p style="color: red;">${mensaje}</p>
@@ -86,7 +93,8 @@
                             
                             <input type="hidden" name="accion" value="ingresarPrimeraVez" >
                             <input type="hidden" name="id" value="${idTemporal}" > 
-                            <input type="hidden" name="loginTemporal" value="${loginTemporal}" >                            
+                            <input type="hidden" name="loginTemporal" value="${loginTemporal}" >       
+                            <input type="hidden" name="categoria" value="${categoria}" >                              
                             
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>

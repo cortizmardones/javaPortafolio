@@ -191,7 +191,24 @@
                                 <input type="text" class="form-control" id="direccion" name="direccion" onblur="validaDireccion(this.value)" required> <div id="mjDireccion"></div> <br>            
 
                                 <label for="fono">Fono:</label><br>
-                                <input type="text" class="form-control" id="fono" name="fono" onblur="validaFono(this.value)" minlength="9" maxlength="9" required> <div id="mjFono"></div> <br>  
+                                <input type="text" class="form-control" id="fono" name="fono" onblur="validaFono(this.value)" minlength="9" maxlength="9" required> <div id="mjFono"></div> <br> 
+
+                                <label for="correo">Correo (login):</label><br>
+                                <input type="text" class="form-control" id="correo" name="correo"
+                                       onblur="validarCorreo(this.value)" required>
+                                <div id="mjCorreo"></div><br>
+
+                                <label for="password">Ingrese contraseña</label>
+                                <input id="password" name="password" class="form-control" type="password" pattern="^\S{6,}$"
+                                       onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Debe tener al menos 6 caracteres' : '');
+                                        if (this.checkValidity())
+                                         form.password_two.pattern = this.value;" placeholder="Contraseña" required>
+                                <br>
+                                <label for="password_two">Repita contraseña</label>
+                                <input id="password_two" name="password_two" class="form-control" type="password"
+                                       pattern="^\S{6,}$"
+                                       onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Debe ingresar la misma contraseña de arriba' : '');"
+                                       placeholder="Confirmar contraseña" required> <br>                     
 
                                 <input type="hidden" name="accion" value="agregarProfesional">
                                 

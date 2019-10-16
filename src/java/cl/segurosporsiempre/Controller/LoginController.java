@@ -8,6 +8,7 @@ package cl.segurosporsiempre.Controller;
 import cl.segurosporsiempre.Connection.Conexion;
 import cl.segurosporsiempre.Data.LoginDao;
 import cl.segurosporsiempre.Model.Usuario;
+import cl.segurosporsiempre.Model.UsuarioProfesional;
 import cl.segurosporsiempre.Model.Utils;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -60,6 +61,7 @@ public class LoginController extends HttpServlet {
                 break;
             case "ingresarPrimeraVez":
                 this.primerIngreso(request, response);
+                break;
             default:
                 throw new AssertionError();
         }
@@ -72,23 +74,34 @@ public class LoginController extends HttpServlet {
         
         String login = request.getParameter("correo");
         String password = Utils.MD5(request.getParameter("contrasenia"));
+        String categoria = request.getParameter("categoria");
               
         Conexion conn = new Conexion();
         LoginDao lDto = new LoginDao(conn);
         
-        Usuario usu = lDto.obtenerUsuario(login);
+        Usuario usu;
+        
+        if (categoria.equals("profesional"))
+        {          
+            usu = lDto.obtenerUsuarioProfesional(login); 
+        }
+        else
+        {
+            usu = lDto.obtenerUsuario(login);
+        }
         
         conn.cerrarConexion();
         
         if (usu != null)
         {
-            if (login.equals(usu.getCorreo()) && password.equals(usu.getPassword()))
+            if (login.equals(usu.getCorreo()) && password.equals(usu.getPassword()) && usu.getEstado())
             {
                 if (usu.getPrimeraVez())
                 {
                     request.setAttribute("modal", "cambiarPass");
                     request.setAttribute("idTemporal", usu.getId());
-                    request.setAttribute("loginTemporal", usu.getCorreo());                    
+                    request.setAttribute("loginTemporal", usu.getCorreo()); 
+                    request.setAttribute("categoria", categoria);                     
                     request.getRequestDispatcher("index.jsp").forward(request, response);
                 }
                 else
@@ -98,8 +111,16 @@ public class LoginController extends HttpServlet {
             }
             else
             {
-                request.setAttribute("mensaje", "Credenciales incorrectas");
-                request.getRequestDispatcher("index.jsp").forward(request, response);
+                if (!usu.getEstado())
+                {
+                    request.setAttribute("mensaje", "El usuario se encuentra desactivado, contacte con un administrador");
+                    request.getRequestDispatcher("index.jsp").forward(request, response);
+                }
+                else
+                {
+                    request.setAttribute("mensaje", "Credenciales incorrectas");
+                    request.getRequestDispatcher("index.jsp").forward(request, response);                    
+                }
             }
         }
         else
@@ -115,15 +136,29 @@ public class LoginController extends HttpServlet {
         String password = Utils.MD5(request.getParameter("password"));
         Long id = Long.parseLong(request.getParameter("id"));
         String login = request.getParameter("loginTemporal");
+        String categoria = request.getParameter("categoria");
         
         Conexion conn = new Conexion();
         LoginDao lDto = new LoginDao(conn);
         
-        Usuario usu = new Usuario();
-        usu.setId(id);
-        usu.setPassword(password);
+        boolean resultado;
         
-        boolean resultado = lDto.modificarPassLogin(usu);
+        if (categoria.equals("profesional"))
+        {
+            UsuarioProfesional usu = new UsuarioProfesional();
+            usu.setId(id);
+            usu.setPassword(password);
+            
+            resultado = lDto.modificarPassLogin(usu);
+        }
+        else
+        {
+            Usuario usu = new Usuario();
+            usu.setId(id);
+            usu.setPassword(password);
+            
+            resultado = lDto.modificarPassLogin(usu);            
+        }      
         
         conn.cerrarConexion();
         
