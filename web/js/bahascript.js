@@ -362,3 +362,32 @@ function validarActualizarFoto()
         document.getElementById("baha-fotoupdate").innerHTML = '<input type="hidden" name="status" value="non-part"> <br>';        
     }   
 }
+
+function validaCausa(input)
+{
+    var patron = /^[a-zñáéíóúüA-ZÑÁÉÍÓÚÜ0-9 ]+$/i;
+    var patron2 = /^[^\s].+[^\s]$/
+
+    nom = input.search(patron);
+    nom2 = input.search(patron2);
+
+    if (nom || nom2) {
+
+        var novalido;
+
+        if (nom)
+        {
+            novalido = '<span style="color: red;">La causa debe contener solo letras o números</span>';
+        }
+        if (nom2)
+        {
+            novalido = '<span style="color: red;">La causa no puede comenzar ni terminar con espacios</span>';
+        }
+
+        document.getElementById('causa').value = "";
+        document.getElementById('mjCausa').innerHTML = novalido;
+    } else
+    {
+        document.getElementById('mjCausa').innerHTML = "";
+    }
+}

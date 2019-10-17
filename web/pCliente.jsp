@@ -29,7 +29,10 @@
 
         <!-- Start of  Zendesk Widget script -->
         <script id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=b79f88eb-4907-4e36-80ad-d601fb67032c"></script>
-        <!-- End of  Zendesk Widget script -->        
+        <!-- End of  Zendesk Widget script --> 
+        <link href="css/jquery.datetimepicker.css" rel="stylesheet" />
+        <link href="css/bootstrap-datetimepicker.css" rel="stylesheet" type="text/css"/>          
+       
     </head>
 
     <body>
@@ -55,6 +58,7 @@
                                 <li class="nav-item"> <a class="nav-link" href="baha?nav=cSolicitudes">Solicitudes</a> </li>
                                 <li class="nav-item"> <a class="nav-link" href="baha?nav=cPagos">Pagos</a> </li>
                                 <li class="nav-item"> <a class="nav-link" href="baha?nav=cReportes">Reportes</a> </li>
+                                <li class="nav-item"> <a class="nav-link" href="accidente?accion=reportarAccidente"><img src="img/reportar.png" title="Reportar accidente" height="25" width="25"></a> </li>
                             </ul>
                         </div>
                     </nav>
@@ -142,6 +146,55 @@
                 </div>
             </div>
         </div>
+        
+
+        <!-- Modal -->
+        <div class="modal fade" id="reporteAccidente" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalCenterTitle">Reporte accidente</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="accidente" method="POST">
+                        <div class="modal-body">
+                            
+                            <label for="causa">Causa:</label><br>
+                            <input type="text" class="form-control" id="causa" name="causa" onblur="validaCausa(this.value)" required> <div id="mjCausa"></div> <br>  
+
+                            <label for="detalle">Detalle:</label><br>
+                            <textarea id="detalle" class="form-control" name="detalle"></textarea> <br>  
+
+                            <label for="fecha">Fecha de ocurrencia</label><br>
+                            <input type="datetime" class="form-control" name="fecha"  id="fecha"  required>  <div id="mjFechaOcurrencia"></div>  <br>                             
+
+
+                            <label for="tipo">Tipo:</label><br>
+                            <select name="tipo" id="tipo" class="form-control" required>
+                                <option value="a1">Grave</option>
+                                <option value="a2">No grave</option>
+                            </select>  <br>
+                             
+                             <label for="empresa">Empresa:</label><br>
+                            <select name="empresa" id="empresa" class="form-control" required>
+                                <option value="a1">IBM</option>
+                                <option value="a2">Asquerosin</option>
+                            </select> <br>                                
+                             
+                            <input type="hidden" name="idCliente" value="${usuarioActivo.id}">
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            <input type="submit" class="btn btn-danger" value="Reportar accidente">
+                        </div>                        
+                    </form>
+                </div>
+            </div>          
+        </div>                    
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -183,6 +236,21 @@ $(document).ready(function () {
         }
     });
 });
-        </script>        
+        </script>
+        
+        <script src="js/bootstrap-datetimepicker.js" type="text/javascript"></script>
+        <script src="js/locales/bootstrap-datetimepicker.es.js" type="text/javascript"></script>          
+        <script type="text/javascript">
+            $(window).on('load', function () {
+                $('#${modal}').modal('show');
+            });
+        </script>  
+        <script>
+            $("#fecha").datetimepicker({
+                isRTL: false,
+                autoclose: true,
+                language: 'es'
+            });
+        </script>         
     </body>
 </html>

@@ -55,6 +55,7 @@
                                             class="sr-only">(current)</span></a> </li>
                                 <li class="nav-item"> <a class="nav-link" href="baha?nav=cPagos">Pagos</a> </li>
                                 <li class="nav-item"> <a class="nav-link" href="baha?nav=cReportes">Reportes</a> </li>
+                                <li class="nav-item"> <a class="nav-link" href="accidente?accion=reportarAccidente"><img src="img/reportar.png" title="Reportar accidente" height="25" width="25"></a> </li>                                
                             </ul>
                         </div>
                     </nav>
