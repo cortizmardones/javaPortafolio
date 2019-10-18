@@ -80,7 +80,29 @@
                         </div>
                     </div>
                 </c:if>
-            </div>            
+            </div>
+            <div class="row no-gutters pt-4">
+                <c:if test="${mensaje eq 'accidenteReportarExito'}">
+                    <div class="col-md-12">
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            Accidente reportado, un profesional de Segurita se comunicará con Ud. en la brevedad
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                </c:if>
+                <c:if test="${mensaje eq 'accidenteReportarFracaso'}">
+                    <div class="col-md-12">
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            No se pudo reportar accidente, contacte con un profesional de Segurita.
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                </c:if>                
+            </div>
             <div class="row no-gutters pt-3" id="cli">
                 <div class="col-md-12">
                     <div class="card mb-3">
@@ -174,17 +196,17 @@
 
                             <label for="tipo">Tipo:</label><br>
                             <select name="tipo" id="tipo" class="form-control" required>
-                                <option value="a1">Grave</option>
-                                <option value="a2">No grave</option>
-                            </select>  <br>
-                             
-                             <label for="empresa">Empresa:</label><br>
-                            <select name="empresa" id="empresa" class="form-control" required>
-                                <option value="a1">IBM</option>
-                                <option value="a2">Asquerosin</option>
-                            </select> <br>                                
-                             
+                                <c:forEach items="${tiposAccidente}" var="ta">
+                                    <option value="${ta.id}">${ta.nombre}</option>
+                                </c:forEach>
+                            </select>  <br>                             
+                            
+                            <!-- empre -->
+                            <input type="hidden" name="idEmpresa" value="${usuarioActivo.empresa.id}">  
+                            <!-- idusu -->
                             <input type="hidden" name="idCliente" value="${usuarioActivo.id}">
+                            
+                            <input type="hidden" name="accion" value="consolidarReporte">
                             
                         </div>
                         <div class="modal-footer">

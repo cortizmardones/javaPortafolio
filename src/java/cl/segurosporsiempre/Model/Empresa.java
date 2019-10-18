@@ -15,6 +15,7 @@ public class Empresa {
     
     private Long id;
     private Rubro rubro;
+    private ContratoEmpresa contrato;
     private List<Usuario> usuarios;
     private String razonSocial;
     private String rut;
@@ -25,6 +26,7 @@ public class Empresa {
     private Integer numeroTrabajadores;
     private Boolean estado;
 
+
     public Empresa() {
     }
 
@@ -32,9 +34,10 @@ public class Empresa {
         this.id = id;
     }
 
-    public Empresa(Long id, Rubro rubro, List<Usuario> usuarios, String razonSocial, String rut, String logo, String email, String direccion, Integer fono, Integer numeroTrabajadores, Boolean estado) {
+    public Empresa(Long id, Rubro rubro, ContratoEmpresa contrato, List<Usuario> usuarios, String razonSocial, String rut, String logo, String email, String direccion, Integer fono, Integer numeroTrabajadores, Boolean estado) {
         this.id = id;
         this.rubro = rubro;
+        this.contrato = contrato;
         this.usuarios = usuarios;
         this.razonSocial = razonSocial;
         this.rut = rut;
@@ -45,6 +48,8 @@ public class Empresa {
         this.numeroTrabajadores = numeroTrabajadores;
         this.estado = estado;
     }
+
+
 
     public Long getId() {
         return id;
@@ -134,8 +139,16 @@ public class Empresa {
         this.estado = estado;
     }
 
+    public ContratoEmpresa getContrato() {
+        return contrato;
+    }
+
+    public void setContrato(ContratoEmpresa contrato) {
+        this.contrato = contrato;
+    }
+
     @Override
     public String toString() {
-        return "Empresa{" + "id=" + id + ", rubro=" + rubro + ", usuarios=" + usuarios + ", razonSocial=" + razonSocial + ", rut=" + rut + ", logo=" + logo + ", email=" + email + ", direccion=" + direccion + ", fono=" + fono + ", numeroTrabajadores=" + numeroTrabajadores + ", estado=" + estado + '}';
+        return "Empresa{" + "id=" + id + ", rubro=" + rubro + ", contrato=" + contrato + ", usuarios=" + usuarios + ", razonSocial=" + razonSocial + ", rut=" + rut + ", logo=" + logo + ", email=" + email + ", direccion=" + direccion + ", fono=" + fono + ", numeroTrabajadores=" + numeroTrabajadores + ", estado=" + estado + '}';
     }
 }

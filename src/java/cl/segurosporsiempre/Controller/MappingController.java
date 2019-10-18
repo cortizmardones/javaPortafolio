@@ -47,6 +47,8 @@ public class MappingController extends HttpServlet {
                 request.getRequestDispatcher("pAdmin.jsp").forward(request, response);
                 break;
             case "aClientes":
+                Common.setRubrosSession(request, response);
+                Common.setEmpresasSession2(request, response);
                 request.getRequestDispatcher("adminClientes.jsp").forward(request, response);
                 break;
             case "aProfesionales":
@@ -60,6 +62,8 @@ public class MappingController extends HttpServlet {
                 request.getRequestDispatcher("adminHistorial.jsp").forward(request, response);
                 break;
             case "aCredenciales":
+                Common.setCredencialesSession(request, response);
+                Common.setEmpresasSession(request, response);                
                 request.getRequestDispatcher("adminPersonas.jsp").forward(request, response);
                 break;
             case "cPanel":

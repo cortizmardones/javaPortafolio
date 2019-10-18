@@ -20,6 +20,14 @@
         <servlet-name>ReportarAccidenteController</servlet-name>
         <servlet-class>cl.segurosporsiempre.Controller.ReportarAccidenteController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UsuarioController</servlet-name>
+        <servlet-class>cl.segurosporsiempre.Controller.UsuarioController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EmpresaController</servlet-name>
+        <servlet-class>cl.segurosporsiempre.Controller.EmpresaController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MappingController</servlet-name>
         <url-pattern>/baha</url-pattern>
@@ -40,12 +48,20 @@
         <servlet-name>ReportarAccidenteController</servlet-name>
         <url-pattern>/accidente</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UsuarioController</servlet-name>
+        <url-pattern>/credencial</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EmpresaController</servlet-name>
+        <url-pattern>/empresa</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             120
         </session-timeout>
     </session-config>
-    <!--
+    
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>securedapp</web-resource-name>
@@ -55,5 +71,5 @@
             <transport-guarantee>CONFIDENTIAL</transport-guarantee>
         </user-data-constraint>
     </security-constraint>    
-    -->
+  
 </web-app>

@@ -154,32 +154,24 @@
                         onblur="validarCorreo(this.value)" value="${tCredencial.correo}" required>
                      <div id="mjCorreo"></div>
                      <br>
-                     <label for="nombre">Nombre del representate/profesional:</label><br>
-                     <input type="text" class="form-control" id="nombre" name="nombre"
-                        onblur="validaNombrePersona(this.value)" value="${tCredencial.respresentante.nombre}" required>
-                     <div id="mjNombre"></div>
-                     <br>
-                     <label for="rut">RUT:</label><br>
-                     <input type="text" class="form-control input_rut" id="rut" name="rut" placeholder="16.432.567-K" value="${tCredencial.respresentante.rut}" required> <span id="rut-error" style="color: red"></span>
-                     <div id="mjRut"></div>
-                     <br>                   
-                     <label for="empresa">Empresa/Perfil:</label><br>${tCredencial.cliente.idCliete}
-                     <select id="empresa" class="form-control" name="empresa" required>
-                        <c:forEach items="${rClientes}" var="empresa">
-                            <c:choose>
-                                <c:when test="${tCredencial.cliente.nombre eq empresa.nombre}">
-                                    <option value="${empresa.idCliete}" selected>${empresa.nombre}</option>
-                                </c:when>
-                                <c:otherwise>
-                                    <option value="${empresa.idCliete}">${empresa.nombre}</option>
-                                </c:otherwise>
-                            </c:choose>
-                        </c:forEach>
-                     </select>
+                                     
+                      <label for="empresa">Empresa/Perfil:</label><br>
+                                <select id="empresa" class="form-control" name="empresa" required>
+                                    <c:forEach items="${emp}" var="empresa">
+                                        <c:choose>
+                                            <c:when test="${tCredencial.empresa.id eq empresa.id}">
+                                                <option value="${empresa.id}" selected>${empresa.razonSocial}</option>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <option value="${empresa.id}">${empresa.razonSocial}</option>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:forEach>
+                                </select>
                      <div id="mjRubro"></div>
                      <br>
                      <input type="hidden" name="accion" value="modificarPersona">
-                     <input type="hidden" name="id" value="${tCredencial.idLogin}">
+                     <input type="hidden" name="id" value="${tCredencial.id}">
                      <input type="submit" class="btn btn-primary" value="Modificar persona">
                   </form>
                </div>

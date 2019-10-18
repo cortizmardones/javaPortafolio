@@ -1,7 +1,7 @@
 <%-- 
     Document   : adminClientes
-    Created on : 11-10-2019, 12:31
-    Author     : Carlos Ortiz Mardones
+    Created on : 17-10-2019, 20:07:03
+    Author     : Carlos Ortiz
 --%>
 
 <%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
@@ -27,12 +27,12 @@
         <link href="css/bootstrap-datetimepicker.css" rel="stylesheet" type="text/css"/>   
         <link rel="stylesheet" href="css/bahastyles.css">
 
-        <title>Seguros por siempre - Administración de clientes</title>
+        <title>Seguros por siempre - Administración de profesionales</title>
     </head>
 
     <body>
         <div class="container">
-
+            
             <div class="row">
                 <div class="col-xl-12">
                     <img src="img/spsbanner.png" alt="Seguros por siempre - Dashboard Administrador" class="img-fluid">
@@ -52,8 +52,7 @@
                             <ul class="navbar-nav mr-auto">
                                 <li class="nav-item"> <a class="nav-link" href="baha?nav=aPanel">Inicio </a> </li>
                                 <li class="nav-item"> <a class="nav-link" href="baha?nav=aProfesionales">Profesionales </a> </li>
-                                <li class="nav-item active"> <a class="nav-link" href="baha?nav=aClientes">Clientes <span
-                                            class="sr-only">(current)</span></a> </li>
+                                <li class="nav-item active"> <a class="nav-link" href="baha?nav=aClientes">Clientes <span class="sr-only">(current)</span> </a> </li>
                                 <li class="nav-item"> <a class="nav-link" href="baha?nav=aPagos">Pagos</a> </li>
                                 <li class="nav-item"> <a class="nav-link" href="baha?nav=aOperaciones">Operaciones</a> </li>
                                 <li class="nav-item"> <a class="nav-link" href="baha?nav=aCredenciales">Credenciales</a></li>                                 
@@ -73,13 +72,11 @@
                         </div>
                     </nav>
                 </div>
-                
                 <div class="col-xl-2 pt-2 pr-2 bg-dark">
                     <div align="right">
                         <a href="logout" class="btn btn-danger">Salir</a>
                     </div>
-                </div>
-                
+                </div>                  
             </div>
             
             <div class="row no-gutters pt-4">
@@ -154,156 +151,73 @@
                     </div>
                 </c:if>                   
             </div>
-
-            <div class="row no-gutters pt-3" id="insercion">
-                <div class="col-md-12">
-                    <div class="card mb-3">
-                        <div class="card-header text-white bg-dark"> Datos del cliente </div>
-                        <div class="card-body" onmouseover="limpiarRutAlFallar()">
-
-
-                            <form action="empresa" method="POST" enctype="multipart/form-data">                       
-                                
-                                <label for="rut">RUT:</label><br>
-                                <input type="text" class="form-control input_rut" id="rut" name="rut" placeholder="70.432.567-K" autocomplete="off" required> 
-                                <span id="rut-error" style="color: red"></span>  <div id="mjRut"></div>   <br>
-
-                                <label for="razonSocial">Razón social:</label><br>
-                                <input type="text" class="form-control" id="razonSocial" name="razonSocial" onblur="validaRazonSocialEmpresa(this.value)" autocomplete="off" required>  <div id="mjRazonSocial"></div>  <br>
-
-                                <label for="logo">Logo Empresa:</label><br>
-                                <input type="file" class="form-control-file" id="logo" name="logo" accept=".gif,.jpg,.jpeg"  required><div id="mjLogo"></div><br>
-
-                                <label for="correo">Correo Electrónico :</label><br>
-                                <input type="text" class="form-control" id="correo" name="correo" onblur="validarCorreo(this.value)" autocomplete="off" required> <div id="mjCorreo"></div><br>
-
-                                <label for="direccion">Dirección:</label><br>
-                                <input type="text" class="form-control" id="direccion" name="direccion" onblur="validaDireccion(this.value)" autocomplete="off" required> <div id="mjDireccion"></div> <br>
-
-                                <label for="fono">Fono:</label><br>
-                                <input type="text" class="form-control" id="fono" name="fono" onblur="validaFono(this.value)" minlength="9" maxlength="9" required> <div id="mjFono"></div><br>
-
-                                <label for="cantidad">Número de trabajadores:</label><br>
-                                <input type="number" class="form-control" id="cantidad" name="cantidad" onblur="" min="0" required> <div id="mjCantidad"></div> <br>
-                                
-                                <label>Rubro:</label><br>
-                                <select id="rubro" class="form-control" name="rubro" required>
-                                    <c:forEach items="${rRubros}" var="rubro">
-                                        <option value="${rubro.id}">${rubro.nombre}</option>                                        
-                                    </c:forEach>
-                                </select>                                 
-                                <div id="mjRubro"></div> <br>
-                                
-                                <label for="fecha_for">Fecha Contrato: </label><br>
-                                <input type="datetime" class="form-control" name="fecha_Contrato" id="fecha_Contrato"><br>
-                                
-                                <input type="hidden" name="accion" value="agregarEmpresa">
-                                                                                              
-                                <input type="submit" class="btn btn-primary" value="Agregar Empresa">
-                                
-                            </form>
-
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+            
+            
+            
+            
             <div class="row no-gutters pt-3" id="clienteData">
                 <div class="col-md-12">
                     <div class="card mb-3">
-                        <div class="card-header text-white bg-dark"> Lista de clientes </div>
-                        <div class="card-body">
-                            <table id="t2" class="table table-hover table-responsive-xl  table-dark ts">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">ID Empresa</th>
-                                        <th scope="col">Rut Empresa</th>
-                                        <th scope="col">Razón Social</th>
-                                        <th scope="col">Logo</th>
-                                        <th scope="col">Correo Electrónico</th>
-                                        <th scope="col">Dirección</th>
-                                        <th scope="col">Fono</th>
-                                        <th scope="col">N° trabajadores</th>
-                                        <th scope="col">Estado</th>
-                                        <th scope="col">Operaciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <c:forEach items="${empresas}" var="empresas">
-                                    <tr>
-                                        <th scope="row"> ${empresas.id} </th>
-                                        <td> ${empresas.rut} </td>
-                                        <td> ${empresas.razonSocial} </td>
-                                        <td> <img src="${empresas.logo}" alt=""> </td> 
-                                        <td> ${empresas.email} </td>
-                                        <td> ${empresas.direccion} </td>
-                                        <td> ${empresas.fono} </td>
-                                        <td> ${empresas.numeroTrabajadores} </td>
-                                        <td>
-                                            <c:choose>
-                                                <c:when test="${empresas.estado}">
-                                                    <span style="color: greenyellow;">ACTIVO</span>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <span style="color: red;">INACTIVO</span>
-                                                </c:otherwise>
-                                            </c:choose>  
-                                        </td>
-                                        <td>
-                                            <div align="center">
-                                            <c:choose>
-                                                        <c:when test="${empresas.estado}">
-                                                            <a href="empresa?accion=desactivar&id=${empresas.id}"><img src="img/delete.png" onclick="return confirm('¿Desea desactivar esta empresa?')" title="Desactivar" heght="20" width="20"></a> &nbsp;
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            <a href="empresa?accion=activar&id=${empresas.id}"><img src="img/correcto.png" onclick="return confirm('¿Desea activar esta empresa?')" title="Activar" heght="20" width="20"></a> &nbsp;
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                    <a href="empresa?accion=gModificar&id=${empresas.id}"><img src="img/edit.png" title="Modificar" heght="20" width="20"></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                      </c:forEach>
-                                </tbody>
-                            </table>
+                        <div class="card-header text-white bg-dark"> Datos de la empresa </div>
+                        <div class="card-body">                           
+                            <form action="empresa" method="post" enctype="multipart/form-data">                     
+                                                                
+                                <label>Rut Empresa:</label><br>
+                                <input type="text" class="form-control" id="rut" name="rut"  value="${proActivo.rut}" autocomplete="off" required>  <div id="mjRut"></div>  <br>
+
+                                <label>Razón Social:</label><br>
+                                <input type="text" class="form-control" id="razon" name="razon"  value="${proActivo.razonSocial}" required>  <div id="mjRazonSocial"></div>  <br>
+
+                                <label>Correo Electrónico:</label><br>
+                                <input type="text" class="form-control" id="correo" name="correo" value="${proActivo.email}" required> <div id="mjCorreo"></div> <br>            
+
+                                <label>Dirección:</label><br>
+                                <input type="text" class="form-control" id="direccion" name="direccion" value="${proActivo.direccion}" required> <div id="mjDireccion"></div> <br>                                  
+
+                                <label>Fono:</label><br>
+                                <input type="text" class="form-control" name="fono"  id="fono"  value="${proActivo.fono}"  required>  <div id="mjFono"></div>  <br>     
+
+                                <label>N° de trabajadores:</label><br>
+                                <input type="text" class="form-control" name="numTraba"  id="numTraba"  value="${proActivo.numeroTrabajadores}"  required>  <div id="mjNumTraba"></div>  <br> 
+                                                      
+                                <input type="hidden" name="accion" value="modificarEmpresa">
+                                <input type="hidden" name="id" name="id" value="${proActivo.id}">
+
+                                <input type="submit" class="btn btn-primary" value="Modificar Empresa">
+                            </form>                       
                         </div>
                     </div>
                 </div>
             </div>
-
             <div class="row no-gutters pt-3" id="footer">
                 <div class="col-md-12 bg-dark text-white text-center py-4">
                     Copyright &copy;Seguros por siempre
                 </div>
             </div>
-
         </div>
-
-
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        
-        <!--<script src="js/jquery.rut.chileno.js"></script>-->
-        
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+                integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+        <script src="js/jquery.rut.chileno.js"></script>
         <!--<script type="text/javascript">
-            jQuery(document).ready(function ($) {
-                $('.input_rut').rut();
-            });
+                                    jQuery(document).ready(function ($) {
+                                        $('.input_rut').rut();
+                                    });
         </script>
-
         <script type="text/javascript">
             jQuery(document).ready(function ($) {
                 $('.rut_rep').rut();
             });
-        </script>-->
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        </script>   -->     
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+                integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
-
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+                integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.js"></script>
-        
         <script type="text/javascript">
             $(document).ready(function () {
                 $('#t2').DataTable({
@@ -334,22 +248,30 @@
                 });
             });
         </script>
-        
         <script src="js/bootstrap-datetimepicker.js" type="text/javascript"></script>
-        
         <script src="js/locales/bootstrap-datetimepicker.es.js" type="text/javascript"></script>          
-        
         <script>
-            $("#fecha_Contrato").datetimepicker({
+            $("#fechaContrato").datetimepicker({
                 isRTL: false,
                 autoclose: true,
                 language: 'es'
             });
         </script> 
-        
-        
-        <script src="js/bahascript.js"></script>
-    
+        <script>
+            $("#fechaNacimiento").datetimepicker({
+                isRTL: false,
+                autoclose: true,
+                language: 'es'
+            });
+        </script>  
+        <script>
+            $("#fechaTermino").datetimepicker({
+                isRTL: false,
+                autoclose: true,
+                language: 'es'
+            });
+        </script>        
+        <script src="js/bahascript.js"></script>        
     </body>
 
 </html>

@@ -5,12 +5,17 @@
  */
 package cl.segurosporsiempre.Controller;
 
+import cl.segurosporsiempre.Connection.Conexion;
+import cl.segurosporsiempre.Data.AccidenteDao;
+import cl.segurosporsiempre.Model.Accidente;
+import cl.segurosporsiempre.Model.Empresa;
+import cl.segurosporsiempre.Model.TipoAccidente;
+import cl.segurosporsiempre.Model.Utils;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -74,11 +79,41 @@ public class ReportarAccidenteController extends HttpServlet {
     private void reportarAccidente(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
         request.setAttribute("modal", "reporteAccidente");
+        Common.setTiposAccidenteRequest(request, response);
         request.getRequestDispatcher("pCliente.jsp").forward(request, response);
         
     }
 
     private void consolidarReporte(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        String causa = request.getParameter("causa");
+        String detalle = request.getParameter("detalle");
+        String fecha = Utils.FECHATRANSFORMADA(request.getParameter("fecha"));
+        int idTipo = Integer.parseInt(request.getParameter("tipo"));
+        long idEmpresa = Long.parseLong(request.getParameter("idEmpresa"));
+        long idCliente = Long.parseLong(request.getParameter("idCliente"));
+        
+        Accidente acc = new Accidente();
+        acc.setCausa(causa);
+        acc.setDetalle(detalle);
+        acc.setFecha(fecha);
+        acc.setTipo(new TipoAccidente(idTipo));
+        acc.setEmprea(new Empresa(idEmpresa));
+        
+        Conexion conn = new Conexion();
+        AccidenteDao aDto = new AccidenteDao(conn);
+        
+        boolean resultado = aDto.agregarAccidente(acc);
+        
+        if (resultado)
+        {
+            request.setAttribute("mensaje", "accidenteReportarExito");
+            request.getRequestDispatcher("pCliente.jsp").forward(request, response);
+        }
+        else
+        {
+            request.setAttribute("mensaje", "accidenteReportarFracaso");
+            request.getRequestDispatcher("pCliente.jsp").forward(request, response);            
+        }
     }
 }

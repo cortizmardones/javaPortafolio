@@ -54,6 +54,7 @@ public class LoginDao {
 
             emp = new Empresa();
             emp.setRazonSocial(rs.getString("nombre_empresa"));
+            emp.setId(rs.getLong("id_empresa"));
 
             lsp = new Usuario();
             lsp.setId(rs.getLong("id_usuario"));
