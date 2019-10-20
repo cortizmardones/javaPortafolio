@@ -6,6 +6,7 @@ package cl.segurosporsiempre.Controller;
 
 import cl.segurosporsiempre.Connection.Conexion;
 import cl.segurosporsiempre.Data.AccidenteDao;
+import cl.segurosporsiempre.Data.CapacitacionDao;
 import cl.segurosporsiempre.Data.CheckListDAO;
 import cl.segurosporsiempre.Data.EmpresaDAO;
 import cl.segurosporsiempre.Data.LoginDao;
@@ -13,6 +14,7 @@ import cl.segurosporsiempre.Data.ProfesionalDao;
 import cl.segurosporsiempre.Data.RubroDAO;
 import cl.segurosporsiempre.Data.UsuarioDao;
 import cl.segurosporsiempre.Data.VisitaDAO;
+import cl.segurosporsiempre.Model.Capacitacion;
 import cl.segurosporsiempre.Model.CheckList;
 import cl.segurosporsiempre.Model.Empresa;
 import cl.segurosporsiempre.Model.Profesional;
@@ -175,6 +177,27 @@ public class Common extends HttpServlet {
             List<CheckList> checklists2 = new LinkedList<>();
             sesion.setAttribute("checklists", checklists2);
         }
-
+    }
+    
+    public static void setCapacitaicionesSession(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+    {
+        Conexion conn = new Conexion();
+        CapacitacionDao cDto = new CapacitacionDao(conn);
+        
+        List<Capacitacion> capacitaciones = cDto.obtenerCapacitaciones();
+        
+        conn.cerrarConexion();
+        
+        if (capacitaciones != null && capacitaciones.size() > 0)
+        {
+            HttpSession sesion = request.getSession();
+            sesion.setAttribute("capacitaciones", capacitaciones);
+        }
+        else
+        {
+            List<Capacitacion> caps = new LinkedList<>();
+            HttpSession sesion = request.getSession();
+            sesion.setAttribute("capacitaciones", caps);            
+        }
     }
 }

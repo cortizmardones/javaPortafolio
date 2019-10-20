@@ -81,7 +81,7 @@
                     </div>
                 </c:if>
             </div>
-            <div class="row no-gutters pt-4">
+            <div class="row no-gutters pt-2">
                 <c:if test="${mensaje eq 'accidenteReportarExito'}">
                     <div class="col-md-12">
                         <div class="alert alert-success alert-dismissible fade show" role="alert">

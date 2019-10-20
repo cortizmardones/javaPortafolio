@@ -74,34 +74,43 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">ID Capacitación</th>
-                                            <th scope="col">RUT</th>                                       
-                                            <th scope="col">Nombre Empresa</th>
-                                            <th scope="col">Fecha de ingreso</th>
-                                            <th scope="col">Fecha estimada realización</th>
-                                            <th scope="col">Estado</th>
-                                            <th scope="col">Correo</th>
-                                            <th scope="col">Dirección</th>
-                                            <th scope="col">Rubro</th>
+                                            <th scope="col">Profesional</th>                                       
+                                            <th scope="col">Empresa</th>
+                                            <th scope="col">Número de asistentes</th>
+                                            <th scope="col">Fecha a realizar</th>
+                                            <th scope="col">Materiales</th>
+                                            <th scope="col">Tema</th>
+                                            <th scope="col">Operaciones</th>                                            
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <th scope="row"> 1 </th>
-                                            <td>76.876.234-K</td>                                      
-                                            <td>Aramark S.A.</td>
-                                            <td>11-07-2019</td>
-                                            <td>15-07-2019 10:00</td>
-                                            <td>Pendiente</td>
-                                            <td>r.pardo@aramark.cl</td>
-                                            <td>Los Siameses #765</td>
-                                            <td>PYME</td>
-                                            <td>
-                                                <div align="center">
-                                                    <a href=""><img src="img/delete.png" heght="20" width="20"></a> &nbsp;
-                                                    <a href=""><img src="img/edit.png" heght="20" width="20"></a>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                        <c:forEach items="${capacitaciones}" var="cap">
+                                            <tr>
+                                                <th scope="row"> ${cap.id} </th>
+                                                <td>${cap.profesional.nombres} ${cap.profesional.apellidos}</td>                                      
+                                                <td>${cap.empresa.razonSocial}</td>
+                                                <td>${cap.cantidadAsistentes}</td>
+                                                <td>${cap.fecha}</td>
+                                                <td>${cap.material}</td>
+                                                <td>${cap.tema}</td>
+                                                <td>
+                                                    <c:choose>
+                                                        <c:when test="${cap.estado}">
+                                                           SIN PROFESIONAL
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                           CON PROFESIONAL
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </td>
+                                                <td>
+                                                    <div align="center">
+                                                        <a href=""><img src="img/delete.png" heght="20" width="20"></a> &nbsp;
+                                                        <a href=""><img src="img/edit.png" heght="20" width="20"></a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
                                     </tbody>
                                 </table>
                             </div>                                   

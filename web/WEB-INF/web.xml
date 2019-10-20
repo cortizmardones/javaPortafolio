@@ -28,6 +28,10 @@
         <servlet-name>EmpresaController</servlet-name>
         <servlet-class>cl.segurosporsiempre.Controller.EmpresaController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CapacitacionController</servlet-name>
+        <servlet-class>cl.segurosporsiempre.Controller.CapacitacionController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MappingController</servlet-name>
         <url-pattern>/baha</url-pattern>
@@ -56,12 +60,16 @@
         <servlet-name>EmpresaController</servlet-name>
         <url-pattern>/empresa</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CapacitacionController</servlet-name>
+        <url-pattern>/capacitacion</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             120
         </session-timeout>
     </session-config>
-    
+    <!--
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>securedapp</web-resource-name>
@@ -71,5 +79,5 @@
             <transport-guarantee>CONFIDENTIAL</transport-guarantee>
         </user-data-constraint>
     </security-constraint>    
-  
+    -->
 </web-app>

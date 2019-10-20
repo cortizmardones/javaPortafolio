@@ -29,7 +29,9 @@
 
         <!-- Start of  Zendesk Widget script -->
         <script id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=b79f88eb-4907-4e36-80ad-d601fb67032c"></script>
-        <!-- End of  Zendesk Widget script -->        
+        <!-- End of  Zendesk Widget script --> 
+        <link href="css/jquery.datetimepicker.css" rel="stylesheet" />
+        <link href="css/bootstrap-datetimepicker.css" rel="stylesheet" type="text/css"/>         
     </head>
 
     <body>
@@ -66,6 +68,28 @@
                     </div>
                 </div>                  
             </div>
+            <div class="row no-gutters pt-2">
+                <c:if test="${mensaje eq 'agregarCapacitacionExito'}">
+                    <div class="col-md-12">
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            Capacitación solicitada, espere confirmación de un prevensionista de Segurita.
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                </c:if>
+                <c:if test="${mensaje eq 'agregarCapacitacionFracaso'}">
+                    <div class="col-md-12">
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            La capacitación no se pudo agendar, intente nuevamente o hable con un profesional
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                </c:if>                
+            </div>            
             <div class="row no-gutters pt-3" id="cli1">
                 <div class="col-md-12">
                     <div class="card mb-3">
@@ -129,12 +153,27 @@
             <div class="row no-gutters pt-3" id="cli3">
                 <div class="col-md-12">
                     <div class="card mb-3">
-                        <div class="card-header text-white bg-success">Solicitud de capacitación extra</div>
+                        <div class="card-header text-white bg-success">Solicitud de capacitación</div>
                         <div class="card-body">
-                            <label for="descCapExtra">Descripción:</label><br>
-                            <input type="text" class="form-control" id="descCapExtra" name="descCapExtra" onblur="" required> <div id="mj"></div><br>  
-                           
-                            <a href="#" class="btn btn-success">Solicitar</a>                             
+                            <form action="capacitacion" method="POST">
+                                <label for="fechaCapacitacion">Fecha:</label><br>
+                                <input type="datetime" class="form-control" id="fechaCapacitacion" name="fechaCapacitacion" onblur="" required> <div id="mj"></div><br>  
+
+                                <label for="material">Material:</label><br>
+                                <input type="text" class="form-control" id="material" name="materiales" onblur="" required> <div id="mj"></div><br>
+
+                                <label for="asistentes">Número de asistentes:</label><br>
+                                <input type="number" class="form-control" id="asistentes" name="asistentes" onblur="" required> <div id="mj"></div><br>
+
+                                <label for="tema">Tema:</label><br>
+                                <input type="text" class="form-control" id="tema" name="tema" onblur="" required> <div id="mj"></div><br> 
+                                
+                                <input type="hidden" name="accion" value="agregarCapacitacion">
+                                <input type="hidden" name="idEmpresa" value="${usuarioActivo.empresa.id}">
+                                <input type="hidden" name="correo" value="${usuarioActivo.correo}">
+                                
+                                <input type="submit" class="btn btn-success" value="Solicitar capacitacion">
+                            </form>                            
                         </div>
                     </div>
                 </div>
@@ -146,7 +185,7 @@
                         <div class="card-body">
                             <label for="descInforme">Descripción:</label><br>
                             <input type="text" class="form-control" id="descInforme" name="descInforme" onblur="" required> <div id="mj"></div><br>  
-                           
+
                             <a href="#" class="btn btn-success">Solicitar</a> 
                         </div>
                     </div>
@@ -158,10 +197,10 @@
                         <div class="card-header text-white bg-success">Solicitud de asesoría</div>                     
                         <div class="card-body">
                             Asesorías concretadas: 5 <br> <br>
-                            
+
                             <label for="descAsesoria">Descripción:</label><br>
                             <input type="text" class="form-control" id="descAsesoria" name="descAsesoria" onblur="" required> <div id="mj"></div><br>  
-                            
+
                             <label for="mot">Motivo:</label><br>
                             <select name="mot" class="form-control">
                                 <option value="a1">Accidente</option>
@@ -220,6 +259,20 @@
                     }
                 });
             });
-        </script>        
+        </script> 
+        <script src="js/bootstrap-datetimepicker.js" type="text/javascript"></script>
+        <script src="js/locales/bootstrap-datetimepicker.es.js" type="text/javascript"></script>          
+        <script type="text/javascript">
+            $(window).on('load', function () {
+                $('#${modal}').modal('show');
+            });
+        </script>  
+        <script>
+            $("#fechaCapacitacion").datetimepicker({
+                isRTL: false,
+                autoclose: true,
+                language: 'es'
+            });
+        </script>           
     </body>
 </html>
