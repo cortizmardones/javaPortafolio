@@ -87,26 +87,33 @@
                                         <c:forEach items="${capacitaciones}" var="cap">
                                             <tr>
                                                 <th scope="row"> ${cap.id} </th>
-                                                <td>${cap.profesional.nombres} ${cap.profesional.apellidos}</td>                                      
+                                                <td>
+                                                    <c:choose>
+                                                        <c:when test="${cap.profesional.nombres != null}">
+                                                            ${cap.profesional.nombres} ${cap.profesional.apellidos}
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <span style="color: red;">SIN PROFESIONAL</span>
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </td>                                      
                                                 <td>${cap.empresa.razonSocial}</td>
                                                 <td>${cap.cantidadAsistentes}</td>
                                                 <td>${cap.fecha}</td>
                                                 <td>${cap.material}</td>
                                                 <td>${cap.tema}</td>
                                                 <td>
-                                                    <c:choose>
-                                                        <c:when test="${cap.estado}">
-                                                           SIN PROFESIONAL
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                           CON PROFESIONAL
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                </td>
-                                                <td>
                                                     <div align="center">
-                                                        <a href=""><img src="img/delete.png" heght="20" width="20"></a> &nbsp;
-                                                        <a href=""><img src="img/edit.png" heght="20" width="20"></a>
+                                                        <c:choose>
+                                                            <c:when test="${cap.estado}">
+                                                                <a href="capacitacion?id=${cap.id}&accion=desactivarCapacitacion" onclick="return confirm('¿Desea desactivar esta capacitación?')"><img title="Desactivar" src="img/delete.png" heght="20" width="20"></a> &nbsp;
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <a href="capacitacion?id=${cap.id}&accion=activarCapacitacion" onclick="return confirm('¿Desea activar esta capacitación?')"><img title="Activar" src="img/correcto.png" heght="20" width="20"></a> &nbsp;
+                                                            </c:otherwise>
+                                                        </c:choose>                                                        
+                                                        <a href="capacitacion?id=${cap.id}&accion=gModificarCapacitacion"><img title="Modificar" src="img/edit.png" heght="20" width="20"></a> &nbsp;
+                                                        <a href="capacitacion?id=${cap.id}&accion=tomarCapacitacion" title="Tomar" onclick="return confirm('¿Está seguro que desea adjudicarse esta capacitación?')"><img src="img/mantener.png" heght="20" width="20"></a> &nbsp; 
                                                     </div>
                                                 </td>
                                             </tr>
@@ -115,99 +122,6 @@
                                 </table>
                             </div>                                   
                         </div>
-                        <!--<div class="card-body" onmouseover="limpiarRutAlFallar()">
-                            <form action="index.jsp" method="POST" enctype="multipart/form-data">                       
-                                
-                                <label for="nombre">Nombre de la empresa:</label><br>
-                                <input type="text" class="form-control" id="nombre" name="nombre" onblur="validaNombreEmpresa(this.value)" required>  <div id="mjNombre"></div>  <br>
-
-                                <label for="rut">RUT:</label><br>
-                                <input type="text" class="form-control input_rut" id="rut" name="rut"
-                                       placeholder="16.432.567-K" required> <span id="rut-error" style="color: red"></span>  <div id="mjRut"></div>   <br>
-
-                                <label for="razonSocial">Razón social:</label><br>
-                                <input type="text" class="form-control" id="razonSocial" name="razonSocial" onblur="validaRazonSocialEmpresa(this.value)"  required>  <div id="mjRazonSocial"></div>  <br>
-
-                                <label for="logo">Logo:</label><br>
-                                <input type="file" class="form-control-file" id="logo" name="logo" accept=".gif,.jpg,.jpeg"  required>  <div id="mjLogo"></div>  <br>                               
-
-                                <label for="fechaContrato">Fecha de contrato</label><br>
-                                <input type="datetime" class="form-control" name="fechaContrato"  id="fechaContrato"  required>  <div id="mjFechaContrato"></div>  <br> 
-
-                                <label for="correo">Correo:</label><br>
-                                <input type="text" class="form-control" id="correo" name="correo" onblur="validarCorreo(this.value)" required> <div id="mjCorreo"></div> <br>  
-                                
-                                <label for="direccion">Dirección:</label><br>
-                                <input type="text" class="form-control" id="direccion" name="direccion" onblur="validaDireccion(this.value)" required> <div id="mjDireccion"></div> <br>            
-                                
-                                <label for="fono">Fono:</label><br>
-                                <input type="text" class="form-control" id="fono" name="fono" onblur="validaFono(this.value)" minlength="9" maxlength="9" required> <div id="mjFono"></div> <br> 
-                                
-                                <label for="cantidad">Número de trabajadores:</label><br>
-                                <input type="number" class="form-control" id="cantidad" name="cantidad" onblur="" min="0" required> <div id="mjCantidad"></div> <br>                                  
-                                
-                                <label for="rubro">Rubro:</label><br>
-                                <select id="rubro" class="form-control" name="rubro" required>
-                        <c:forEach items="${rRubros}" var="rubro">
-                            <option value="${rubro.idRubro}">${rubro.nombre}</option>                                        
-                        </c:forEach>
-                    </select>                                 
-                    <div id="mjRubro"></div> <br>                                  
-                                                                                  
-                    <input type="submit" class="btn btn-primary" value="Agregar Cliente">
-                    
-                </form>
-            </div>-->
-                    </div>
-                </div>
-            </div>
-            <div class="row no-gutters pt-2" id="insercion">
-                <div class="col-md-12">
-                    <div class="card mb-3">
-                        <!--<div class="card-header text-white bg-primary"> Lista de clientes </div>
-                        <div class="card-body">
-                            <table id="t2" class="table table-hover table-responsive-xl  table-dark ts">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">ID de cliente</th>
-                                        <th scope="col">Nombre</th>
-                                        <th scope="col">Logo</th>
-                                        <th scope="col">RUT</th>                                       
-                                        <th scope="col">Razón Social</th>
-                                        <th scope="col">Fecha de contrato</th>
-                                        <th scope="col">Fecha de ingreso</th>
-                                        <th scope="col">Fecha de término</th>
-                                        <th scope="col">Estado</th>
-                                        <th scope="col">Correo</th>
-                                        <th scope="col">Dirección</th>
-                                        <th scope="col">Rubro</th>
-                                        <th scope="col">Operaciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row"> 1 </th>
-                                        <td>Aramark</td>
-                                        <td><img src="https://tecnohoreca.com/wp-content/uploads/2018/06/aramark-1500x789.jpg" width="100" height="40" alt="Aramark"></td>
-                                        <td>76.876.234-K</td>                                      
-                                        <td>Aramark S.A.</td>
-                                        <td>11-07-2019 17:00</td>
-                                        <td>12-07-2019 10:00</td>
-                                        <td>- No Disponible-</td>
-                                        <td>ACTIVO</td>
-                                        <td>r.pardo@aramark.cl</td>
-                                        <td>Los Siameses #765</td>
-                                        <td>PYME</td>
-                                        <td>
-                                            <div align="center">
-                                                <a href=""><img src="img/delete.png" heght="20" width="20"></a> &nbsp;
-                                                <a href=""><img src="img/edit.png" heght="20" width="20"></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>-->
                     </div>
                 </div>
             </div>

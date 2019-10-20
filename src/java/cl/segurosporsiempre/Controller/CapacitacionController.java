@@ -39,6 +39,16 @@ public class CapacitacionController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         
+        String accion = request.getParameter("accion");
+        
+        switch (accion) {
+            case "gModificarCapacitacion":
+                this.gatillarModificacion(request, response);
+                break;
+            default:
+                throw new AssertionError();
+        }
+        
                
     }
 
@@ -103,4 +113,12 @@ public class CapacitacionController extends HttpServlet {
         }
     }
 
+    private void gatillarModificacion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
+        Long id = Long.parseLong(request.getParameter("id"));
+        
+        
+        
+        
+    }
 }
