@@ -9,7 +9,6 @@ import cl.segurosporsiempre.Data.AccidenteDao;
 import cl.segurosporsiempre.Data.CapacitacionDao;
 import cl.segurosporsiempre.Data.CheckListDAO;
 import cl.segurosporsiempre.Data.EmpresaDAO;
-import cl.segurosporsiempre.Data.LoginDao;
 import cl.segurosporsiempre.Data.ProfesionalDao;
 import cl.segurosporsiempre.Data.RubroDAO;
 import cl.segurosporsiempre.Data.UsuarioDao;

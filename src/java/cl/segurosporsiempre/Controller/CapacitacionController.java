@@ -45,6 +45,15 @@ public class CapacitacionController extends HttpServlet {
             case "gModificarCapacitacion":
                 this.gatillarModificacion(request, response);
                 break;
+            case "tomarCapacitacion":
+                this.tomarCapacitacion(request, response);
+                break;  
+            case "activar":
+                this.activarCapacitacion(request, response);
+                break;
+            case "desactivar":
+                this.desactivarCapacitacion(request, response);
+                break;                
             default:
                 throw new AssertionError();
         }
@@ -104,11 +113,13 @@ public class CapacitacionController extends HttpServlet {
         if (resultado)
         {
             request.setAttribute("mensaje", "agregarCapacitacionExito");
+            Common.setCapacitaicionesSession(request, response);
             request.getRequestDispatcher("cliSolicitudes.jsp").forward(request, response);
         }
         else
         {
             request.setAttribute("mensaje", "agregarCapacitacionFracaso");
+            Common.setCapacitaicionesSession(request, response);            
             request.getRequestDispatcher("cliSolicitudes.jsp").forward(request, response);            
         }
     }
@@ -116,9 +127,82 @@ public class CapacitacionController extends HttpServlet {
     private void gatillarModificacion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
         Long id = Long.parseLong(request.getParameter("id"));
+
+    }
+
+    private void tomarCapacitacion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
+        long idCapacitacion = Long.parseLong(request.getParameter("id"));
+        long idProfesional = Long.parseLong(request.getParameter("pro"));
         
+        Conexion conn = new Conexion();
+        CapacitacionDao cDto = new CapacitacionDao(conn);
         
+        boolean resultado = cDto.tomarCapacitacion(idCapacitacion, idProfesional);
         
+        conn.cerrarConexion();
+        
+        if (resultado)
+        {
+            request.setAttribute("mensaje", "tomarCapacitacionExito");
+            Common.setCapacitaicionesSession(request, response);            
+            request.getRequestDispatcher("proCapacitaciones.jsp").forward(request, response);
+        }
+        else
+        {
+            request.setAttribute("mensaje", "tomarCapacitacionFracaso");
+            Common.setCapacitaicionesSession(request, response);            
+            request.getRequestDispatcher("proCapacitaciones.jsp").forward(request, response);            
+        }
+    }
+
+    private void activarCapacitacion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
+        Long id = Long.parseLong(request.getParameter("id"));
+        
+        Conexion conn = new Conexion();
+        CapacitacionDao cDto = new CapacitacionDao(conn);
+        
+        boolean resultado = cDto.activarCapaciontacion(id);
+        
+        conn.cerrarConexion();
+        
+        if (resultado)
+        {
+            request.setAttribute("mensaje", "activarCapacitacionExito");
+            Common.setCapacitaicionesSession(request, response);
+            request.getRequestDispatcher("proCapacitaciones.jsp").forward(request, response);
+        }
+        else
+        {
+            request.setAttribute("mensaje", "activarCapacitacionFracaso");
+            Common.setCapacitaicionesSession(request, response);
+            request.getRequestDispatcher("proCapacitaciones.jsp").forward(request, response);            
+        }
+    }
+
+    private void desactivarCapacitacion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
+        Long id = Long.parseLong(request.getParameter("id"));
+        
+        Conexion conn = new Conexion();
+        CapacitacionDao cDto = new CapacitacionDao(conn);
+        
+        boolean resultado = cDto.desactivarCapaciontacion(id);
+        
+        conn.cerrarConexion();
+        
+        if (resultado)
+        {
+            request.setAttribute("mensaje", "desactivarCapacitacionExito");
+            Common.setCapacitaicionesSession(request, response);
+            request.getRequestDispatcher("proCapacitaciones.jsp").forward(request, response);
+        }
+        else
+        {
+            request.setAttribute("mensaje", "desactivarCapacitacionFracaso");
+            Common.setCapacitaicionesSession(request, response);
+            request.getRequestDispatcher("proCapacitaciones.jsp").forward(request, response);            
+        }        
     }
 }

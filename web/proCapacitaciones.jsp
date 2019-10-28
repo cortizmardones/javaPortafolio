@@ -63,11 +63,73 @@
                         <a href="logout" class="btn btn-danger">Salir</a>
                     </div>
                 </div>                  
-            </div>           
-            <div class="row no-gutters pt-3" id="clienteData">
+            </div> 
+            <div class="row no-gutters pt-2">
+                <c:if test="${mensaje eq 'tomarCapacitacionExito'}">
+                    <div class="col-md-12">
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            Capacitación aceptada
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                </c:if>
+                <c:if test="${mensaje eq 'tomarCapacitacionFracaso'}">
+                    <div class="col-md-12">
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            Capacitación rechazada
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                </c:if>   
+                <c:if test="${mensaje eq 'activarCapacitacionExito'}">
+                    <div class="col-md-12">
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            La capacitación se activó.
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                </c:if>  
+                <c:if test="${mensaje eq 'desactivarCapacitacionExito'}">
+                    <div class="col-md-12">
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            La capacitación se desactivó
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                </c:if>
+                <c:if test="${mensaje eq 'desactivarCapacitacionFracaso'}">
+                    <div class="col-md-12">
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            La capacitación no se pudo desactivar
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                </c:if> 
+                <c:if test="${mensaje eq 'activarCapacitacionFracaso'}">
+                    <div class="col-md-12">
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            La capacitación no se pudo activar
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                </c:if>                 
+            </div>     
+            <div class="row no-gutters pt-3" id="sdtga">
                 <div class="col-md-12">
                     <div class="card mb-3">
-                        <div class="card-header text-white bg-primary"> Listado Capacitaciones </div>
+                        <div class="card-header text-white bg-primary"> Mis capacitaciones </div>
                         <div class="row no-gutters pt-2" id="insercion">
                             <div class="card-body">
                                 <table id="t2" class="table table-hover table-responsive-xl  table-dark ts">
@@ -85,38 +147,93 @@
                                     </thead>
                                     <tbody>
                                         <c:forEach items="${capacitaciones}" var="cap">
-                                            <tr>
-                                                <th scope="row"> ${cap.id} </th>
-                                                <td>
-                                                    <c:choose>
-                                                        <c:when test="${cap.profesional.nombres != null}">
-                                                            ${cap.profesional.nombres} ${cap.profesional.apellidos}
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            <span style="color: red;">SIN PROFESIONAL</span>
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                </td>                                      
-                                                <td>${cap.empresa.razonSocial}</td>
-                                                <td>${cap.cantidadAsistentes}</td>
-                                                <td>${cap.fecha}</td>
-                                                <td>${cap.material}</td>
-                                                <td>${cap.tema}</td>
-                                                <td>
-                                                    <div align="center">
+                                            <c:if test="${usuarioActivo.profesional.id eq cap.profesional.id}">
+                                                <tr>
+                                                    <th scope="row"> ${cap.id} </th>
+                                                    <td>
                                                         <c:choose>
-                                                            <c:when test="${cap.estado}">
-                                                                <a href="capacitacion?id=${cap.id}&accion=desactivarCapacitacion" onclick="return confirm('¿Desea desactivar esta capacitación?')"><img title="Desactivar" src="img/delete.png" heght="20" width="20"></a> &nbsp;
+                                                            <c:when test="${cap.profesional.nombres != null}">
+                                                                ${cap.profesional.nombres} ${cap.profesional.apellidos}
                                                             </c:when>
                                                             <c:otherwise>
-                                                                <a href="capacitacion?id=${cap.id}&accion=activarCapacitacion" onclick="return confirm('¿Desea activar esta capacitación?')"><img title="Activar" src="img/correcto.png" heght="20" width="20"></a> &nbsp;
+                                                                <span style="color: red;">SIN PROFESIONAL</span>
                                                             </c:otherwise>
-                                                        </c:choose>                                                        
-                                                        <a href="capacitacion?id=${cap.id}&accion=gModificarCapacitacion"><img title="Modificar" src="img/edit.png" heght="20" width="20"></a> &nbsp;
-                                                        <a href="capacitacion?id=${cap.id}&accion=tomarCapacitacion" title="Tomar" onclick="return confirm('¿Está seguro que desea adjudicarse esta capacitación?')"><img src="img/mantener.png" heght="20" width="20"></a> &nbsp; 
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                                        </c:choose>
+                                                    </td>                                      
+                                                    <td>${cap.empresa.razonSocial}</td>
+                                                    <td>${cap.cantidadAsistentes}</td>
+                                                    <td>${cap.fecha}</td>
+                                                    <td>${cap.material}</td>
+                                                    <td>${cap.tema}</td>
+                                                    <td>
+                                                        <div align="center">
+                                                            <c:choose>
+                                                                <c:when test="${cap.estado}">
+                                                                    <a href="capacitacion?id=${cap.id}&accion=desactivar" onclick="return confirm('¿Desea desactivar esta capacitación?')"><img title="Desactivar" src="img/delete.png" heght="20" width="20"></a> &nbsp;
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                    <a href="capacitacion?id=${cap.id}&accion=activar" onclick="return confirm('¿Desea activar esta capacitación?')"><img title="Activar" src="img/correcto.png" heght="20" width="20"></a> &nbsp;
+                                                                    </c:otherwise>
+                                                                </c:choose>                                                        
+                                                            <a href="capacitacion?id=${cap.id}&accion=gModificarCapacitacion"><img title="Modificar" src="img/edit.png" heght="20" width="20"></a> &nbsp; 
+                                                        </div>
+                                                    </td>
+                                                </tr>                                                
+                                            </c:if>
+                                        </c:forEach>
+                                    </tbody>
+                                </table>
+                            </div>                                   
+                        </div>
+                    </div>
+                </div>
+            </div>            
+            <div class="row no-gutters pt-3" id="sdtg">
+                <div class="col-md-12">
+                    <div class="card mb-3">
+                        <div class="card-header text-white bg-primary"> Listado Capacitaciones </div>
+                        <div class="row no-gutters pt-2" id="insercion">
+                            <div class="card-body">
+                                <table id="t5" class="table table-hover table-responsive-xl  table-dark ts">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">ID Capacitación</th>
+                                            <th scope="col">Profesional</th>                                       
+                                            <th scope="col">Empresa</th>
+                                            <th scope="col">Número de asistentes</th>
+                                            <th scope="col">Fecha a realizar</th>
+                                            <th scope="col">Materiales</th>
+                                            <th scope="col">Tema</th>
+                                            <th scope="col">Operaciones</th>                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <c:forEach items="${capacitaciones}" var="cap">
+                                            <c:if test="${cap.profesional.nombres eq null}">
+                                                <tr>
+                                                    <th scope="row"> ${cap.id} </th>
+                                                    <td>
+                                                        <c:choose>
+                                                            <c:when test="${cap.profesional.nombres != null}">
+                                                                ${cap.profesional.nombres} ${cap.profesional.apellidos}
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <span style="color: red;">SIN PROFESIONAL</span>
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                    </td>                                      
+                                                    <td>${cap.empresa.razonSocial}</td>
+                                                    <td>${cap.cantidadAsistentes}</td>
+                                                    <td>${cap.fecha}</td>
+                                                    <td>${cap.material}</td>
+                                                    <td>${cap.tema}</td>
+                                                    <td>
+                                                        <div align="center">
+                                                            <a href="capacitacion?id=${cap.id}&accion=tomarCapacitacion&id=${cap.id}&pro=${usuarioActivo.profesional.id}" title="Tomar" onclick="return confirm('¿Está seguro que desea adjudicarse esta capacitación?')"><img src="img/mantener.png" heght="20" width="20"></a> &nbsp;
+                                                        </div>
+                                                    </td>
+                                                </tr>                                                
+                                            </c:if>
                                         </c:forEach>
                                     </tbody>
                                 </table>
@@ -183,6 +300,34 @@
                     }
                 });
             });
+            $(document).ready(function () {
+                $('#t5').DataTable({
+                    "language": {
+                        "sProcessing": "Procesando...",
+                        "sLengthMenu": "Mostrar _MENU_ registros",
+                        "sZeroRecords": "No se encontraron resultados",
+                        "sEmptyTable": "Ningún dato disponible en esta tabla",
+                        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                        "sInfoPostFix": "",
+                        "sSearch": "Buscar:",
+                        "sUrl": "",
+                        "sInfoThousands": ",",
+                        "sLoadingRecords": "Cargando...",
+                        "oPaginate": {
+                            "sFirst": "Primero",
+                            "sLast": "Último",
+                            "sNext": "Siguiente",
+                            "sPrevious": "Anterior"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                        }
+                    }
+                });
+            });            
         </script>
         <script src="js/bootstrap-datetimepicker.js" type="text/javascript"></script>
         <script src="js/locales/bootstrap-datetimepicker.es.js" type="text/javascript"></script>          
