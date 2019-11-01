@@ -167,4 +167,54 @@ public class CapacitacionDao {
             return false;
         }
     }
+
+    public Capacitacion obtenerCapacitacion(Long id) {
+        
+        Capacitacion capacitacion;
+        Profesional p;
+        Empresa emp;
+        
+        try {
+
+            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_BUSCAR_CAPACITACION(?,?) }");
+            cst.setLong(1, id);
+            cst.registerOutParameter(2, OracleTypes.CURSOR);
+
+            cst.execute();
+
+            ResultSet rs = (ResultSet) cst.getObject(2);
+
+            rs.next();
+
+            capacitacion = new Capacitacion();
+            capacitacion.setId(rs.getLong("id_capacitacion"));
+            capacitacion.setFecha(rs.getString("fecha").substring(0,16));
+            capacitacion.setMaterial(rs.getString("material"));
+            capacitacion.setCorreoUsuarioOrigen(rs.getString("correo_usuario_origen"));
+            capacitacion.setEstado(rs.getBoolean("estado"));
+            capacitacion.setCantidadAsistentes(rs.getInt("numero_asistentes"));
+            capacitacion.setTema(rs.getString("tema_capacitacion"));
+
+            emp = new Empresa();
+            emp.setRazonSocial(rs.getString("razon_social"));
+
+            p = new Profesional();
+            p.setId(rs.getLong("id_profesional"));
+            p.setNombres(rs.getString("nombres"));
+            p.setApellidos(rs.getString("apellidos"));
+            p.setEstado(rs.getBoolean("estado_profesional"));
+
+            capacitacion.setProfesional(p);
+            capacitacion.setEmpresa(emp);
+
+            return capacitacion;
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(CapacitacionDao.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } catch (Exception ex) {
+            Logger.getLogger(CapacitacionDao.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
 }

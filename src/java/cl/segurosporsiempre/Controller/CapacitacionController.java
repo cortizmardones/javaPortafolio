@@ -82,6 +82,9 @@ public class CapacitacionController extends HttpServlet {
             case "agregarCapacitacion":
                 this.agregarCapacitacion(request, response);
                 break;
+            case "modificarCapacitacion":
+                this.modificarCapacitacion(request, response);
+                break;                
             default:
                 throw new AssertionError();
         }
@@ -127,7 +130,24 @@ public class CapacitacionController extends HttpServlet {
     private void gatillarModificacion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
         Long id = Long.parseLong(request.getParameter("id"));
-
+        
+        Conexion conn = new Conexion();
+        CapacitacionDao cDto = new CapacitacionDao(conn);
+        
+        Capacitacion c = cDto.obtenerCapacitacion(id);
+        
+        if (c != null)
+        {
+            request.setAttribute("rCapa", c);
+            Common.setProfesionalesSession(request, response);
+            request.getRequestDispatcher("proCapacitacionesMod.jsp").forward(request, response);            
+        }
+        else
+        {
+            request.setAttribute("mensaje", "gatillarModCapFracaso");
+            Common.setProfesionalesSession(request, response);            
+            request.getRequestDispatcher("proCapacitaciones.jsp").forward(request, response);
+        }
     }
 
     private void tomarCapacitacion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -204,5 +224,18 @@ public class CapacitacionController extends HttpServlet {
             Common.setCapacitaicionesSession(request, response);
             request.getRequestDispatcher("proCapacitaciones.jsp").forward(request, response);            
         }        
+    }
+
+    private void modificarCapacitacion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
+        
+        String fechaCapacitacion = Utils.FECHATRANSFORMADA(request.getParameter("fechaCapacitacion"));
+        String pro = request.getParameter("pro");
+        String material = request.getParameter("materiales");
+        String asistentes = request.getParameter("asistentes");
+        String tema = request.getParameter("tema");
+        Long id = Long.parseLong(request.getParameter("id"));
+        
+        System.out.println("");
+                
     }
 }

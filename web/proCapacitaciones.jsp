@@ -170,11 +170,11 @@
                                                             <c:choose>
                                                                 <c:when test="${cap.estado}">
                                                                     <a href="capacitacion?id=${cap.id}&accion=desactivar" onclick="return confirm('¿Desea desactivar esta capacitación?')"><img title="Desactivar" src="img/delete.png" heght="20" width="20"></a> &nbsp;
-                                                                    </c:when>
-                                                                    <c:otherwise>
+                                                                </c:when>
+                                                                <c:otherwise>
                                                                     <a href="capacitacion?id=${cap.id}&accion=activar" onclick="return confirm('¿Desea activar esta capacitación?')"><img title="Activar" src="img/correcto.png" heght="20" width="20"></a> &nbsp;
-                                                                    </c:otherwise>
-                                                                </c:choose>                                                        
+                                                                </c:otherwise>
+                                                            </c:choose>                                                        
                                                             <a href="capacitacion?id=${cap.id}&accion=gModificarCapacitacion"><img title="Modificar" src="img/edit.png" heght="20" width="20"></a> &nbsp; 
                                                         </div>
                                                     </td>
