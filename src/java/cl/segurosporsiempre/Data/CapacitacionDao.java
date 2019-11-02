@@ -217,4 +217,30 @@ public class CapacitacionDao {
             return null;
         }
     }
+
+    public boolean modificarCapacitacion(Capacitacion c) {
+        
+        try {
+            
+            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_MODIFICAR_CAPACITACION(?,?,?,?,?,?) }");
+            cst.setLong(1, c.getId());
+            cst.setLong(2, c.getProfesional().getId());
+            cst.setString(3, c.getMaterial());
+            cst.setString(4, c.getTema());
+            cst.setString(5, c.getFecha());
+            cst.setInt(6, c.getCantidadAsistentes());
+            
+            cst.execute();
+            
+            return true;
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(CapacitacionDao.class.getName()).log(Level.SEVERE, null, ex);
+            return false;           
+        } catch (Exception ex) {
+            Logger.getLogger(CapacitacionDao.class.getName()).log(Level.SEVERE, null, ex);
+            return false;           
+        }
+    }
 }

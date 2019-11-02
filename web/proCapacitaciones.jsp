@@ -124,6 +124,26 @@
                             </button>
                         </div>
                     </div>
+                </c:if>  
+                <c:if test="${mensaje eq 'modificarCapacitacionExito'}">
+                    <div class="col-md-12">
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            Capacitación modificada exitosamente
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                </c:if> 
+                <c:if test="${mensaje eq 'modificarCapacitacionFracaso'}">
+                    <div class="col-md-12">
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            La capacitación no se pudo modificar
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
                 </c:if>                 
             </div>     
             <div class="row no-gutters pt-3" id="sdtga">

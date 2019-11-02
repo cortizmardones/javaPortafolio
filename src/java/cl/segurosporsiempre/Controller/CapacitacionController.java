@@ -9,6 +9,7 @@ import cl.segurosporsiempre.Connection.Conexion;
 import cl.segurosporsiempre.Data.CapacitacionDao;
 import cl.segurosporsiempre.Model.Capacitacion;
 import cl.segurosporsiempre.Model.Empresa;
+import cl.segurosporsiempre.Model.Profesional;
 import cl.segurosporsiempre.Model.Utils;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -235,7 +236,32 @@ public class CapacitacionController extends HttpServlet {
         String tema = request.getParameter("tema");
         Long id = Long.parseLong(request.getParameter("id"));
         
-        System.out.println("");
-                
+        Capacitacion c = new Capacitacion();
+        c.setProfesional(new Profesional(Long.parseLong(pro)));
+        c.setMaterial(material);
+        c.setFecha(fechaCapacitacion);
+        c.setCantidadAsistentes(Integer.parseInt(asistentes));
+        c.setTema(tema);
+        c.setId(id);
+        
+        Conexion conn = new Conexion();
+        CapacitacionDao cDto = new CapacitacionDao(conn);
+        
+        boolean resultado = cDto.modificarCapacitacion(c);
+        
+        if (resultado)
+        {
+            request.setAttribute("mensaje", "modificarCapacitacionExito");
+            Common.setCapacitaicionesSession(request, response);
+            Common.setProfesionalesSession(request, response);
+            request.getRequestDispatcher("proCapacitaciones.jsp").forward(request, response);
+        }
+        else
+        {
+            request.setAttribute("mensaje", "modificarCapacitacionFracaso");
+            Common.setCapacitaicionesSession(request, response);
+            Common.setProfesionalesSession(request, response);            
+            request.getRequestDispatcher("proCapacitaciones.jsp").forward(request, response);            
+        }
     }
 }
