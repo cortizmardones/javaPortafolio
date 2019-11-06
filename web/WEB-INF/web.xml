@@ -29,6 +29,14 @@
         <servlet-class>cl.segurosporsiempre.Controller.ReportarAccidenteController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>AsesoriaController</servlet-name>
+        <servlet-class>cl.segurosporsiempre.Controller.AsesoriaController</servlet-class>
+    </servlet>  
+    <servlet>
+        <servlet-name>AccidenteController</servlet-name>
+        <servlet-class>cl.segurosporsiempre.Controller.AccidenteController</servlet-class>
+    </servlet>      
+    <servlet>
         <servlet-name>UsuarioController</servlet-name>
         <servlet-class>cl.segurosporsiempre.Controller.UsuarioController</servlet-class>
     </servlet>
@@ -43,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>MappingController</servlet-name>
         <url-pattern>/baha</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AsesoriaController</servlet-name>
+        <url-pattern>/asesoria</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LogoutController</servlet-name>
@@ -64,6 +76,10 @@
         <servlet-name>UsuarioController</servlet-name>
         <url-pattern>/credencial</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AccidenteController</servlet-name>
+        <url-pattern>/accidentepro</url-pattern>
+    </servlet-mapping>    
     <servlet-mapping>
         <servlet-name>EmpresaController</servlet-name>
         <url-pattern>/empresa</url-pattern>

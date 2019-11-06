@@ -6,6 +6,7 @@ package cl.segurosporsiempre.Controller;
 
 import cl.segurosporsiempre.Connection.Conexion;
 import cl.segurosporsiempre.Data.AccidenteDao;
+import cl.segurosporsiempre.Data.AsesoriaDao;
 import cl.segurosporsiempre.Data.CapacitacionDao;
 import cl.segurosporsiempre.Data.CheckListDAO;
 import cl.segurosporsiempre.Data.EmpresaDAO;
@@ -13,12 +14,15 @@ import cl.segurosporsiempre.Data.ProfesionalDao;
 import cl.segurosporsiempre.Data.RubroDAO;
 import cl.segurosporsiempre.Data.UsuarioDao;
 import cl.segurosporsiempre.Data.VisitaDAO;
+import cl.segurosporsiempre.Model.Accidente;
+import cl.segurosporsiempre.Model.Asesoria;
 import cl.segurosporsiempre.Model.Capacitacion;
 import cl.segurosporsiempre.Model.CheckList;
 import cl.segurosporsiempre.Model.Empresa;
 import cl.segurosporsiempre.Model.Profesional;
 import cl.segurosporsiempre.Model.Rubro;
 import cl.segurosporsiempre.Model.TipoAccidente;
+import cl.segurosporsiempre.Model.TipoAsesoria;
 import cl.segurosporsiempre.Model.Usuario;
 import cl.segurosporsiempre.Model.Visita;
 import java.io.IOException;
@@ -199,4 +203,63 @@ public class Common extends HttpServlet {
             sesion.setAttribute("capacitaciones", caps);            
         }
     }
+    
+    public static void setAsesoriasSession(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        {
+            //HttpSession sesion = request.getSession();
+            //crear conexion
+            Conexion conn = new Conexion();
+            AsesoriaDao pDto = new AsesoriaDao(conn);
+            List<Asesoria> asesorias = pDto.obtenerAsesorias();
+
+            if (asesorias != null && asesorias.size() > 0) {
+                HttpSession sesion = request.getSession();
+                sesion.setAttribute("asesorias", asesorias);
+            } else {
+                List<Asesoria> lstAsesorias = new LinkedList<>();
+                HttpSession sesion = request.getSession();
+                sesion.setAttribute("asesorias", lstAsesorias);
+            }
+        }
+    }
+    
+    public static void setTipoAsesoriasRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        {            
+            Conexion conn = new Conexion();
+            AsesoriaDao taDto = new AsesoriaDao(conn);
+            List<TipoAsesoria> tase = taDto.obtenerTiposAsesoria();
+            conn.cerrarConexion();
+
+            if (tase != null && tase.size() > 0) {
+                HttpSession sesion = request.getSession();
+                sesion.setAttribute("tiposAsesorias", tase);
+                
+            } else {
+                List<TipoAsesoria> lstase = new LinkedList<>();
+                HttpSession sesion = request.getSession();
+                sesion.setAttribute("tiposAsesorias", lstase);                
+            }
+        }
+    }
+
+    public static void setAccidentesSession(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        HttpSession sesion = request.getSession();
+
+        //crear conexion
+        Conexion conn = new Conexion();
+        AccidenteDao aDto = new AccidenteDao(conn);
+        List<Accidente> accidentes = aDto.obtenerAccidentes();
+
+        if (accidentes != null && accidentes.size() > 0) {
+            //HttpSession sesion = request.getSession();
+            sesion.setAttribute("accidentes", accidentes);
+        } else {
+            List<Accidente> lstAccidente = new LinkedList<>();
+            //HttpSession sesion = request.getSession();
+            sesion.setAttribute("accidentes", lstAccidente);
+        }
+
+    }
+     
 }

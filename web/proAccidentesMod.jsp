@@ -1,7 +1,7 @@
 <%-- 
-    Document   : adminClientes
-    Created on : 17-08-2019, 20:05:06
-    Author     : Raúl Pardo Zurita
+    Document   : proAccidentesMod
+    Created on : 26-10-2019, 02:57:25
+    Author     : Tonino
 --%>
 
 <%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
@@ -27,7 +27,7 @@
         <link href="css/bootstrap-datetimepicker.css" rel="stylesheet" type="text/css"/>   
         <link rel="stylesheet" href="css/bahastyles.css">
 
-        <title>Seguros por siempre - Administración de Asesorias</title>
+        <title>Seguros por siempre - Administración de Accidentes</title>
     </head>
 
     <body>
@@ -50,10 +50,10 @@
                             <ul class="navbar-nav mr-auto">
                                 <li class="nav-item"> <a class="nav-link" href="baha?nav=pPanel">Inicio</a> </li>
                                 <li class="nav-item"> <a class="nav-link" href="baha?nav=pVisitas">Visitas</a> </li>
-                                <li class="nav-item"> <a class="nav-link" href="baha?nav=pAccidentes">Accidentes</a></li>
+                                <li class="nav-item active"> <a class="nav-link active" href="baha?nav=pAccidentes">Accidentes<span
+                                            class="sr-only">(current)</span></a></li>
                                 <li class="nav-item"> <a class="nav-link" href="baha?nav=pCapacitaciones">Capacitaciones</a> </li>
-                                <li class="nav-item active"> <a class="nav-link active" href="baha?nav=pAsesorias">Asesorias<span
-                                            class="sr-only">(current)</span></a> </li>
+                                <li class="nav-item"> <a class="nav-link" href="baha?nav=pAsesorias">Asesorias</a> </li>
                                 <li class="nav-item"> <a class="nav-link" href="https://segurosporsiempre7.zendesk.com/chat/agent?email-id=31423#home" target="_blank">Chat</a> </li>
                             </ul>
                         </div>
@@ -67,80 +67,80 @@
             </div>
 
             <div class="row no-gutters pt-4">
-                <c:if test="${mensaje eq 'agregarAsesoriaPos'}">
+                <c:if test="${mensaje eq 'agregarAccidentePos'}">
                     <div class="col-md-12">
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            Asesoría ingresada con éxito al sistema
+                            Accidente ingresado con éxito al sistema
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                     </div>
                 </c:if>
-                <c:if test="${mensaje eq 'agregarAsesoriaNeg'}">
+                <c:if test="${mensaje eq 'agregarAccidenteNeg'}">
                     <div class="col-md-12">
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            No se pudo agregar la asesoría en el sistema
+                            No se pudo agregar el accidente en el sistema
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                     </div>
                 </c:if>
-                <c:if test="${mensaje eq 'desactivarAsesoriaPos'}">
+                <c:if test="${mensaje eq 'desactivarAccidentePos'}">
                     <div class="col-md-12">
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            Asesoria dejada pendiente exitosamente
+                            Desactivación de accidente exitosa
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                     </div>
                 </c:if>
-                <c:if test="${mensaje eq 'desactivarAsesoriaNeg'}">
+                <c:if test="${mensaje eq 'desactivarAccidenteNeg'}">
                     <div class="col-md-12">
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            La asesoría no se pudo dejar pendiente
+                            El accidente no se pudo desactivar
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                     </div>
                 </c:if>
-                <c:if test="${mensaje eq 'activarAsesoriaPos'}">
+                <c:if test="${mensaje eq 'activarAccidentePos'}">
                     <div class="col-md-12">
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            Asesoría dejada hecha correctamente
+                            Activación de accidente exitosa
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                     </div>
                 </c:if>
-                <c:if test="${mensaje eq 'activarAsesoriaNeg'}">
+                <c:if test="${mensaje eq 'activarAccidenteNeg'}">
                     <div class="col-md-12">
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            La asesoría no se pudo dejar hecha
+                            El accidente no se pudo activar
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                     </div>
                 </c:if>        
-                <c:if test="${mensaje eq 'asesoriaNoEncontradaMod'}">
+                <c:if test="${mensaje eq 'accidenteNoEncontradoMod'}">
                     <div class="col-md-12">
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            No se encontró la asesoría que quiere modificar
+                            No se encontró el accidente a modificar
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                     </div>
                 </c:if>  
-                <c:if test="${mensaje eq 'modificarAsesoriaPos'}">
+                <c:if test="${mensaje eq 'modificarAccidentePos'}">
                     <div class="col-md-12">
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            La asesoría se modificó exitosamente
+                            Modificación de accidente realizada correctamente
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -148,10 +148,10 @@
                     </div>
                 </c:if>
 
-                <c:if test="${mensaje eq 'modificarAsesoriaNeg'}">
+                <c:if test="${mensaje eq 'modificarAccidenteNeg'}">
                     <div class="col-md-12">
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            La asesoría no se pudo modificar
+                            La modificación del accidente no se pudo realizar
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -160,156 +160,69 @@
                 </c:if>           
             </div>
 
-            <div class="row no-gutters pt-3" id="asesoriaData">
+            <div class="row no-gutters pt-3" id="accidenteData">
                 <div class="col-md-12">
                     <div class="card mb-3">
-                        <div class="card-header text-white bg-primary">Ingreso de asesoría</div>
+                        <div class="card-header text-white bg-primary">Ingreso de accidente</div>
 
-                        <form action="asesoria" method="POST">
-
+                        <form action="accidentepro" method="POST">
+                            <br>
                             <label for="empresa">Seleccione empresa: </label> <br>
                             <select id="empresa" class="form-control" name="empresa" required>
                                 <c:forEach items="${emp}" var="empresa">
-                                    <option value="${empresa.id}">${empresa.razonSocial}</option>
+                                    <c:choose>
+                                        <c:when test="${atrAccidente.emprea.id eq empresa.id}">
+                                            <option value="${empresa.id}" selected>${empresa.razonSocial}</option>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <option value="${empresa.id}">${empresa.razonSocial}</option>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
+                            </select> <br>
+
+                            <label for="tipoAccidente">Seleccione el tipo de accidente: </label> <br>
+                            <select id="tipoAccidente" class="form-control" name="tipoAccidente" required>
+                                <c:forEach items="${tiposAccidente}" var="tipoAccidente">
+                                    <c:choose>
+                                        <c:when test="${atrAccidente.tipo.id eq tipoAccidente.id}">
+                                            <option value="${tipoAccidente.id}" selected>${tipoAccidente.nombre}</option>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <option value="${tipoAccidente.id}">${tipoAccidente.nombre}</option>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </c:forEach>
                             </select> <br>
                             
-                            <label for="profesional">Seleccione profesional: </label> <br>
-                            <select id="profesional" class="form-control" name="profesional" required>
-                                <c:forEach items="${profesionales}" var="profesional">
-                                    <option value="${profesional.id}">${profesional.nombres} ${profesional.apellidos}</option>                                    
-                                </c:forEach>                                
-                            </select><br>
+                                                       
+                            <label for="fecha">Fecha del accidente:</label> <br>
+                            <input type="datetime" class="form-control" name="fecha"  id="fecha"  value="${atrAccidente.fecha}" required>  <div id="mjfecha" required></div>  <br>   
                             
-                            <label for="tipoAsesoria">Seleccione tipo de asesoría: </label> <br>
-                            <select id="tipoAsesoria" class="form-control" name="tipoAsesoria" required>
-                                <c:forEach items="${tiposAsesorias}" var="TipoAsesoria">
-                                    <option value="${TipoAsesoria.id}">${TipoAsesoria.nombre}</option>
-                                </c:forEach>
-                            </select> <br>
+                            <label for="causa">Causa del accidente:</label> <br>
+                            <input type="text" class="form-control" id="causa" name="causa" value="${atrAccidente.causa}" required><br>
                             
+                            <label for="detalle">Detalle del accidente:</label> <br>                            
+                            
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Detalle:<BR>(Max.250 caracteres)</span>
+                                </div>
+                                <textarea class="form-control" aria-label="Detalles" title="Detalle accidente"id="detalle" name="detalle" maxlength="250" required>${atrAccidente.detalle}</textarea>
+                            </div>
                             <br>
-
-                            <label for="fechaIngreso">Fecha de ingreso:</label> <br>
-                            <input type="datetime" class="form-control" name="fechaIngreso"  id="fechaIngreso"  required>  <div id="mjfechaIngreso"></div>  <br>                                 
-
-                            <label for="fechaRealizada">Fecha estimada realizada:</label> <br>
-                            <input type="datetime" class="form-control" name="fechaRealizada"  id="fechaRealizada"  required>  <div id="mjfechaRealizada"></div>  <br>                                 
-
-                            <input type="hidden" name="accion" value="agregarAsesoria">
-                            <input type="submit" class="btn btn-primary" value="Agregar asesoría">
+                            
+                            
+                            <input type="hidden" name="accion" value="modificarAccidente">
+                            <input type="hidden" name="id" value="${atrAccidente.id}">
+                            <input type="submit" class="btn btn-primary" value="Modificar accidente">
 
                         </form>
 
                     </div>
                 </div>
             </div>
-            <div class="row no-gutters pt-3" id="clienteData">
-                <div class="col-md-12">
-                    <div class="card mb-3">
-
-                        <div class="card-header text-white bg-primary"> Listado de Asesorías </div>
-                            <div class="card-body" onmouseover="">
-                                <table id="t2" class="table table-hover table-responsive-xl  table-dark ts">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">ID Asesoría</th>
-                                            <th scope="col">RUT</th>                                       
-                                            <th scope="col">Nombre Empresa</th>
-                                            <th scope="col">Fecha de ingreso</th>
-                                            <th scope="col">Fecha estimada realización</th>
-                                            <th scope="col">Estado</th>
-                                            <th scope="col">Dirección</th>
-                                            <th scope="col">Rubro</th>
-                                            <th scope="col">Operaciones</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                         <c:forEach items="${asesorias}" var="asesoria">
-                                        <tr>
-                                            <td>${asesoria.id}</td>
-                                            <td>${asesoria.empresa.rut}</td>                                      
-                                            <td>${asesoria.empresa.razonSocial}</td>
-                                            <td>${asesoria.fechaIngreso}</td>
-                                            <td>${asesoria.fechaEstimadaRealizada}</td>
-                                            <td><c:choose>
-                                                    <c:when test="${asesoria.estado}">
-                                                        <span style="color: greenyellow;">REALIZADA</span>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <span style="color: red;">PENDIENTE</span>
-                                                    </c:otherwise>
-                                                </c:choose>  
-                                            </td>
-                                            <td>${asesoria.empresa.direccion}</td>
-                                            <td>${asesoria.rubro.descripcion}</td>
-                                            <td>
-                                                <div align="center">
-                                                    <c:choose>
-                                                        <c:when test="${asesoria.estado}">
-                                                            <a href="asesoria?accion=dejarPendiente&id=${asesoria.id}"><img src="img/reloj2.png" onclick="return confirm('Dejará esta asesoría como pendiente ¿Está seguro?')" title="Dejar pendiente" heght="20" width="20"></a> &nbsp;
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                            <a href="asesoria?accion=dejarHecha&id=${asesoria.id}"><img src="img/correcto.png" onclick="return confirm('Dejará esta asesoria como hecha, ¿Está seguro?')" title="Dejar hecha" heght="20" width="20"></a> &nbsp;
-                                                            </c:otherwise>
-                                                        </c:choose>
-                                                    <a href="asesoria?accion=gModificarAsesoria&id=${asesoria.id}"><img src="img/edit.png" title="Modificar" heght="20" width="20"></a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                         </c:forEach>
-                                    </tbody>
-                                </table>
-                            </div>
-
-
-                      
-                        <!--<div class="card-body" onmouseover="limpiarRutAlFallar()">
-                            <form action="index.jsp" method="POST" enctype="multipart/form-data">                       
-                                
-                                <label for="nombre">Nombre de la empresa:</label><br>
-                                <input type="text" class="form-control" id="nombre" name="nombre" onblur="validaNombreEmpresa(this.value)" required>  <div id="mjNombre"></div>  <br>
-
-                                <label for="rut">RUT:</label><br>
-                                <input type="text" class="form-control input_rut" id="rut" name="rut"
-                                       placeholder="16.432.567-K" required> <span id="rut-error" style="color: red"></span>  <div id="mjRut"></div>   <br>
-
-                                <label for="razonSocial">Razón social:</label><br>
-                                <input type="text" class="form-control" id="razonSocial" name="razonSocial" onblur="validaRazonSocialEmpresa(this.value)"  required>  <div id="mjRazonSocial"></div>  <br>
-
-                                <label for="logo">Logo:</label><br>
-                                <input type="file" class="form-control-file" id="logo" name="logo" accept=".gif,.jpg,.jpeg"  required>  <div id="mjLogo"></div>  <br>                               
-
-                                <label for="fechaContrato">Fecha de contrato</label><br>
-                                <input type="datetime" class="form-control" name="fechaContrato"  id="fechaContrato"  required>  <div id="mjFechaContrato"></div>  <br> 
-
-                                <label for="correo">Correo:</label><br>
-                                <input type="text" class="form-control" id="correo" name="correo" onblur="validarCorreo(this.value)" required> <div id="mjCorreo"></div> <br>  
-                                
-                                <label for="direccion">Dirección:</label><br>
-                                <input type="text" class="form-control" id="direccion" name="direccion" onblur="validaDireccion(this.value)" required> <div id="mjDireccion"></div> <br>            
-                                
-                                <label for="fono">Fono:</label><br>
-                                <input type="text" class="form-control" id="fono" name="fono" onblur="validaFono(this.value)" minlength="9" maxlength="9" required> <div id="mjFono"></div> <br> 
-                                
-                                <label for="cantidad">Número de trabajadores:</label><br>
-                                <input type="number" class="form-control" id="cantidad" name="cantidad" onblur="" min="0" required> <div id="mjCantidad"></div> <br>                                  
-                                
-                                <label for="rubro">Rubro:</label><br>
-                                <select id="rubro" class="form-control" name="rubro" required>
-                        <c:forEach items="${rRubros}" var="rubro">
-                            <option value="${rubro.idRubro}">${rubro.nombre}</option>                                        
-                        </c:forEach>
-                    </select>                                 
-                    <div id="mjRubro"></div> <br>                                  
-                                                                                  
-                    <input type="submit" class="btn btn-primary" value="Agregar Cliente">
-                    
-                </form>
-            </div>-->
-                    </div>
-                </div>
-            </div>
+            
             <div class="row no-gutters pt-2" id="insercion">
                 <div class="col-md-12">
                     <div class="card mb-3">
@@ -422,21 +335,35 @@
         <script src="js/bootstrap-datetimepicker.js" type="text/javascript"></script>
         <script src="js/locales/bootstrap-datetimepicker.es.js" type="text/javascript"></script>          
         <script>
-            $("#fechaIngreso").datetimepicker({
+            $("#fecha").datetimepicker({
                 isRTL: false,
                 autoclose: true,
                 language: 'es'
             });
         </script> 
         
-         <script>
-            $("#fechaRealizada").datetimepicker({
-                isRTL: false,
-                autoclose: true,
-                language: 'es'
-            });
-        </script> 
-        <script src="js/bahascript.js"></script>        
+        <script src="js/bahascript.js"></script>   
+        
+        <!-- SCRIPT MAXLENGTH -->
+        <script src="js/bootstrap-maxlength.min.js"></script>
+        
+        <script type="text/javascript">
+
+                $('textarea').maxlength({
+
+              alwaysShow: true,
+                  threshold: 10,
+                  warningClass: "label label-success",
+                  limitReachedClass: "label label-danger",
+                  separator: ' de ',
+                  preText: 'Ha escrito ',
+                  postText: ' caracteres disponibles.',
+                  validate: true
+
+        });
+
+        </script>
+        
     </body>
 
 </html>

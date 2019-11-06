@@ -7,6 +7,7 @@ package cl.segurosporsiempre.Data;
 
 import cl.segurosporsiempre.Connection.Conexion;
 import cl.segurosporsiempre.Model.Accidente;
+import cl.segurosporsiempre.Model.Empresa;
 import cl.segurosporsiempre.Model.TipoAccidente;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
@@ -19,7 +20,7 @@ import oracle.jdbc.OracleTypes;
 
 /**
  *
- * @author PFT
+ * @author PFT & Tonino (AUMMMM TROLAZOO)
  */
 public class AccidenteDao {
     
@@ -49,9 +50,7 @@ public class AccidenteDao {
                 ta.setId(rs.getInt("id_tipo_accidente"));
                 ta.setDescripcion(rs.getString("descripcion"));
                 ta.setNombre(rs.getString("nombre"));
-                
                 tas.add(ta);
-                
             }
             
             return tas;
@@ -64,7 +63,8 @@ public class AccidenteDao {
             return null;
         }
     }
-
+    
+    //CODIGO AGREGAR ACCIDENTE (SIRVE PARA EL CLIENTE Y PARA EL PROFESIONAL, SAPBEEEEEEE!!!
     public boolean agregarAccidente(Accidente acc) {
     
         try {
@@ -91,4 +91,145 @@ public class AccidenteDao {
         
         
     }
+    
+    //Listar accidentes
+    public List<Accidente> obtenerAccidentes() {
+        Accidente acc;
+        TipoAccidente tacc;
+        Empresa emp;
+        List<Accidente> accidentes = new LinkedList<>();
+
+        try {
+            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_OBTENER_ACCIDENTE(?) }");
+            cst.registerOutParameter(1, OracleTypes.CURSOR);
+            cst.execute();
+            ResultSet rs = (ResultSet) cst.getObject(1);
+
+            while (rs.next()) {
+                acc = new Accidente();
+                tacc = new TipoAccidente();
+                emp = new Empresa();
+
+                acc.setId(rs.getLong("ID_ACCIDENTE"));
+                tacc.setNombre(rs.getString("TIPO_ACCIDENTE"));
+                acc.setTipo(tacc);
+                emp.setRazonSocial(rs.getString("NOMBRE_EMPRESA"));
+                acc.setEmprea(emp);
+                acc.setFecha(rs.getString("FECHA").substring(0, 16));
+                acc.setCausa(rs.getString("CAUSA"));
+                acc.setDetalle(rs.getString("DETALLE"));
+                acc.setEstado(rs.getBoolean("ESTADO"));
+
+                accidentes.add(acc);
+            }
+
+            return accidentes;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(AccidenteDao.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } catch (Exception ex) {
+            Logger.getLogger(AccidenteDao.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+
+    }
+    
+    
+    //Activar accidente
+    public boolean activarAccidente(Long id) {
+        try {
+            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_ACTIVAR_ACCIDENTE(?)}");
+            cst.setLong(1, id);
+            cst.execute();
+            return true;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(AccidenteDao.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } catch (Exception ex) {
+            Logger.getLogger(AccidenteDao.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
+    //Desactivar accidente
+    public boolean desactivarAccidente(Long id) {
+        try {
+            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_DESACTIVAR_ACCIDENTE(?)}");
+            cst.setLong(1, id);
+            cst.execute();
+            return true;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(AccidenteDao.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } catch (Exception ex) {
+            Logger.getLogger(AccidenteDao.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
+    
+    //Buscar accidente x ID
+    public Accidente buscarAccidentexId(Long id) {
+        Accidente accidente;
+        Empresa empresa;
+        TipoAccidente tipoAccidente;
+        CallableStatement cst;
+
+        try {
+            cst = conn.getConnection().prepareCall("{ call SP_BUSCAR_ACCIDENTE(?,?) }");
+            cst.setLong(1, id);
+            cst.registerOutParameter(2, OracleTypes.CURSOR);
+            cst.execute();
+            ResultSet rs = (ResultSet) cst.getObject(2);
+            rs.next();
+
+            accidente = new Accidente();
+            accidente.setId(rs.getLong("id_accidente"));
+            tipoAccidente = new TipoAccidente();
+            tipoAccidente.setId(rs.getInt("id_tipo_accidente"));
+            accidente.setTipo(tipoAccidente);
+            empresa = new Empresa();
+            empresa.setId(rs.getLong("id_empresa"));
+            accidente.setEmprea(empresa);
+            accidente.setFecha(rs.getString("fecha").substring(0, 16));
+            accidente.setCausa(rs.getString("causa"));
+            accidente.setDetalle(rs.getString("detalle"));
+            return accidente;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(AccidenteDao.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } catch (Exception ex) {
+            Logger.getLogger(AccidenteDao.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+
+    }
+        
+    //Modificar accidente
+    public boolean modificarAccidente(Accidente a) {
+        try {
+            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_ACTUALIZAR_ACCIDENTE(?,?,?,?,?,?) }");
+            cst.setLong(1, a.getId());
+            cst.setLong(2, a.getTipo().getId());
+            cst.setLong(3, a.getEmprea().getId());
+            cst.setString(4, a.getFecha());
+            cst.setString(5, a.getCausa());
+            cst.setString(6, a.getDetalle());
+            cst.execute();
+            return true;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(AccidenteDao.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } catch (Exception ex) {
+            Logger.getLogger(AccidenteDao.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+
+    }
+    
 }

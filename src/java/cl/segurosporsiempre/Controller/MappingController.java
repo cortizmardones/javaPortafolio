@@ -82,8 +82,18 @@ public class MappingController extends HttpServlet {
                 request.getRequestDispatcher("pProfesional.jsp").forward(request, response);
                 break;
             case "pAsesorias":
+                Common.setAsesoriasSession(request, response);
+                Common.setProfesionalesSession(request, response);
+                Common.setEmpresasSession(request, response);    
+                Common.setTipoAsesoriasRequest(request, response); 
                 request.getRequestDispatcher("proAsesorias.jsp").forward(request, response);
                 break;
+            case "pAccidentes":
+                Common.setTiposAccidenteRequest(request, response);
+                Common.setEmpresasSession(request, response);
+                Common.setAccidentesSession(request, response);
+                request.getRequestDispatcher("proAccidentes.jsp").forward(request, response);
+                break;                              
             case "pCapacitaciones":
                 Common.setCapacitaicionesSession(request, response);                
                 request.getRequestDispatcher("proCapacitaciones.jsp").forward(request, response);

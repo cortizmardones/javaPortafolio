@@ -1,7 +1,7 @@
 <%-- 
-    Document   : adminClientes
-    Created on : 17-08-2019, 20:05:06
-    Author     : Raúl Pardo Zurita
+    Document   : proAsesoriasMod
+    Created on : 20-08-2019, 18:12:45
+    Author     : Tonino
 --%>
 
 <%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
@@ -90,7 +90,7 @@
                 <c:if test="${mensaje eq 'desactivarAsesoriaPos'}">
                     <div class="col-md-12">
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            Asesoria dejada pendiente exitosamente
+                            Asesoria desactivada exitosamente
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -100,7 +100,7 @@
                 <c:if test="${mensaje eq 'desactivarAsesoriaNeg'}">
                     <div class="col-md-12">
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            La asesoría no se pudo dejar pendiente
+                            La asesoría no se pudo desactivar
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -110,7 +110,7 @@
                 <c:if test="${mensaje eq 'activarAsesoriaPos'}">
                     <div class="col-md-12">
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            Asesoría dejada hecha correctamente
+                            Asesoría activada correctamente
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -120,7 +120,7 @@
                 <c:if test="${mensaje eq 'activarAsesoriaNeg'}">
                     <div class="col-md-12">
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            La asesoría no se pudo dejar hecha
+                            La asesoría no se pudo activar
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -170,146 +170,61 @@
                             <label for="empresa">Seleccione empresa: </label> <br>
                             <select id="empresa" class="form-control" name="empresa" required>
                                 <c:forEach items="${emp}" var="empresa">
-                                    <option value="${empresa.id}">${empresa.razonSocial}</option>
+                                    <c:choose>
+                                        <c:when test="${atrAsesoria.empresa.id eq empresa.id}">
+                                            <option value="${empresa.id}" selected>${empresa.razonSocial}</option>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <option value="${empresa.id}">${empresa.razonSocial}</option>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </c:forEach>
-                            </select> <br>
+                            </select>							
                             
                             <label for="profesional">Seleccione profesional: </label> <br>
                             <select id="profesional" class="form-control" name="profesional" required>
                                 <c:forEach items="${profesionales}" var="profesional">
-                                    <option value="${profesional.id}">${profesional.nombres} ${profesional.apellidos}</option>                                    
-                                </c:forEach>                                
-                            </select><br>
+                                    <c:choose>
+                                        <c:when test="${atrAsesoria.profesional.id eq profesional.id}">
+                                            <option value="${profesional.id}" selected>${profesional.nombres} ${profesional.apellidos}</option>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <option value="${profesional.id}">${profesional.nombres} ${profesional.apellidos}</option>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
+                            </select>
                             
                             <label for="tipoAsesoria">Seleccione tipo de asesoría: </label> <br>
                             <select id="tipoAsesoria" class="form-control" name="tipoAsesoria" required>
-                                <c:forEach items="${tiposAsesorias}" var="TipoAsesoria">
-                                    <option value="${TipoAsesoria.id}">${TipoAsesoria.nombre}</option>
-                                </c:forEach>
-                            </select> <br>
+                                    <c:forEach items="${tiposAsesorias}" var="TipoAsesoria">
+                                        <c:choose>
+                                            <c:when test="${atrAsesoria.tipoAsesoria.id eq TipoAsesoria.id}">
+                                                <option value="${TipoAsesoria.id}" selected>${TipoAsesoria.nombre}</option>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <option value="${TipoAsesoria.id}">${TipoAsesoria.nombre}</option>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:forEach>
+                                </select>
                             
-                            <br>
-
                             <label for="fechaIngreso">Fecha de ingreso:</label> <br>
-                            <input type="datetime" class="form-control" name="fechaIngreso"  id="fechaIngreso"  required>  <div id="mjfechaIngreso"></div>  <br>                                 
+                            <input type="datetime" class="form-control" name="fechaIngreso"  id="fechaIngreso" value="${atrAsesoria.fechaIngreso}" required>  <div id="mjfechaIngreso"></div>  <br>                                 
 
                             <label for="fechaRealizada">Fecha estimada realizada:</label> <br>
-                            <input type="datetime" class="form-control" name="fechaRealizada"  id="fechaRealizada"  required>  <div id="mjfechaRealizada"></div>  <br>                                 
+                            <input type="datetime" class="form-control" name="fechaRealizada"  id="fechaRealizada" value="${atrAsesoria.fechaEstimadaRealizada}" required>  <div id="mjfechaRealizada"></div>  <br>                                 
 
-                            <input type="hidden" name="accion" value="agregarAsesoria">
-                            <input type="submit" class="btn btn-primary" value="Agregar asesoría">
+                            <input type="hidden" name="accion" value="modificarAsesoria">
+                            <input type="hidden" name="id" value="${atrAsesoria.id}">
+                            <input type="submit" class="btn btn-primary" value="Modificar asesoría">
 
                         </form>
 
                     </div>
                 </div>
             </div>
-            <div class="row no-gutters pt-3" id="clienteData">
-                <div class="col-md-12">
-                    <div class="card mb-3">
-
-                        <div class="card-header text-white bg-primary"> Listado de Asesorías </div>
-                            <div class="card-body" onmouseover="">
-                                <table id="t2" class="table table-hover table-responsive-xl  table-dark ts">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">ID Asesoría</th>
-                                            <th scope="col">RUT</th>                                       
-                                            <th scope="col">Nombre Empresa</th>
-                                            <th scope="col">Fecha de ingreso</th>
-                                            <th scope="col">Fecha estimada realización</th>
-                                            <th scope="col">Estado</th>
-                                            <th scope="col">Dirección</th>
-                                            <th scope="col">Rubro</th>
-                                            <th scope="col">Operaciones</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                         <c:forEach items="${asesorias}" var="asesoria">
-                                        <tr>
-                                            <td>${asesoria.id}</td>
-                                            <td>${asesoria.empresa.rut}</td>                                      
-                                            <td>${asesoria.empresa.razonSocial}</td>
-                                            <td>${asesoria.fechaIngreso}</td>
-                                            <td>${asesoria.fechaEstimadaRealizada}</td>
-                                            <td><c:choose>
-                                                    <c:when test="${asesoria.estado}">
-                                                        <span style="color: greenyellow;">REALIZADA</span>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <span style="color: red;">PENDIENTE</span>
-                                                    </c:otherwise>
-                                                </c:choose>  
-                                            </td>
-                                            <td>${asesoria.empresa.direccion}</td>
-                                            <td>${asesoria.rubro.descripcion}</td>
-                                            <td>
-                                                <div align="center">
-                                                    <c:choose>
-                                                        <c:when test="${asesoria.estado}">
-                                                            <a href="asesoria?accion=dejarPendiente&id=${asesoria.id}"><img src="img/reloj2.png" onclick="return confirm('Dejará esta asesoría como pendiente ¿Está seguro?')" title="Dejar pendiente" heght="20" width="20"></a> &nbsp;
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                            <a href="asesoria?accion=dejarHecha&id=${asesoria.id}"><img src="img/correcto.png" onclick="return confirm('Dejará esta asesoria como hecha, ¿Está seguro?')" title="Dejar hecha" heght="20" width="20"></a> &nbsp;
-                                                            </c:otherwise>
-                                                        </c:choose>
-                                                    <a href="asesoria?accion=gModificarAsesoria&id=${asesoria.id}"><img src="img/edit.png" title="Modificar" heght="20" width="20"></a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                         </c:forEach>
-                                    </tbody>
-                                </table>
-                            </div>
-
-
-                      
-                        <!--<div class="card-body" onmouseover="limpiarRutAlFallar()">
-                            <form action="index.jsp" method="POST" enctype="multipart/form-data">                       
-                                
-                                <label for="nombre">Nombre de la empresa:</label><br>
-                                <input type="text" class="form-control" id="nombre" name="nombre" onblur="validaNombreEmpresa(this.value)" required>  <div id="mjNombre"></div>  <br>
-
-                                <label for="rut">RUT:</label><br>
-                                <input type="text" class="form-control input_rut" id="rut" name="rut"
-                                       placeholder="16.432.567-K" required> <span id="rut-error" style="color: red"></span>  <div id="mjRut"></div>   <br>
-
-                                <label for="razonSocial">Razón social:</label><br>
-                                <input type="text" class="form-control" id="razonSocial" name="razonSocial" onblur="validaRazonSocialEmpresa(this.value)"  required>  <div id="mjRazonSocial"></div>  <br>
-
-                                <label for="logo">Logo:</label><br>
-                                <input type="file" class="form-control-file" id="logo" name="logo" accept=".gif,.jpg,.jpeg"  required>  <div id="mjLogo"></div>  <br>                               
-
-                                <label for="fechaContrato">Fecha de contrato</label><br>
-                                <input type="datetime" class="form-control" name="fechaContrato"  id="fechaContrato"  required>  <div id="mjFechaContrato"></div>  <br> 
-
-                                <label for="correo">Correo:</label><br>
-                                <input type="text" class="form-control" id="correo" name="correo" onblur="validarCorreo(this.value)" required> <div id="mjCorreo"></div> <br>  
-                                
-                                <label for="direccion">Dirección:</label><br>
-                                <input type="text" class="form-control" id="direccion" name="direccion" onblur="validaDireccion(this.value)" required> <div id="mjDireccion"></div> <br>            
-                                
-                                <label for="fono">Fono:</label><br>
-                                <input type="text" class="form-control" id="fono" name="fono" onblur="validaFono(this.value)" minlength="9" maxlength="9" required> <div id="mjFono"></div> <br> 
-                                
-                                <label for="cantidad">Número de trabajadores:</label><br>
-                                <input type="number" class="form-control" id="cantidad" name="cantidad" onblur="" min="0" required> <div id="mjCantidad"></div> <br>                                  
-                                
-                                <label for="rubro">Rubro:</label><br>
-                                <select id="rubro" class="form-control" name="rubro" required>
-                        <c:forEach items="${rRubros}" var="rubro">
-                            <option value="${rubro.idRubro}">${rubro.nombre}</option>                                        
-                        </c:forEach>
-                    </select>                                 
-                    <div id="mjRubro"></div> <br>                                  
-                                                                                  
-                    <input type="submit" class="btn btn-primary" value="Agregar Cliente">
-                    
-                </form>
-            </div>-->
-                    </div>
-                </div>
-            </div>
+           
             <div class="row no-gutters pt-2" id="insercion">
                 <div class="col-md-12">
                     <div class="card mb-3">

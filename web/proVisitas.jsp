@@ -142,9 +142,6 @@
                                 
                                 <label for="rubro">Rubro:</label><br>
                                 <select id="rubro" class="form-control" name="rubro" required>
-                                    <c:forEach items="${rRubros}" var="rubro">
-                                        <option value="${rubro.idRubro}">${rubro.nombre}</option>                                        
-                                    </c:forEach>
                                 </select>                                 
                                 <div id="mjRubro"></div> <br>                                  
                                                                                               
