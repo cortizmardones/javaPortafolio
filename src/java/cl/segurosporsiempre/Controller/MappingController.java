@@ -99,8 +99,12 @@ public class MappingController extends HttpServlet {
                 request.getRequestDispatcher("proCapacitaciones.jsp").forward(request, response);
                 break;
             case "pVisitas":
+                Common.setProfesionalesSession(request, response);
+                Common.setEmpresasSession(request, response);
+                Common.setVisitasSession(request, response);
+                Common.setCheckListSession(request, response);
                 request.getRequestDispatcher("proVisitas.jsp").forward(request, response);
-                break;                
+                break;            
             default:
                 throw new AssertionError();
         }

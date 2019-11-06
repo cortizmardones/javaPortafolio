@@ -1,7 +1,7 @@
-
 package cl.segurosporsiempre.Data;
 
 import cl.segurosporsiempre.Connection.Conexion;
+import cl.segurosporsiempre.Model.CheckList;
 import cl.segurosporsiempre.Model.Empresa;
 import cl.segurosporsiempre.Model.Profesional;
 import cl.segurosporsiempre.Model.Visita;
@@ -15,15 +15,15 @@ import java.util.logging.Logger;
 import oracle.jdbc.OracleTypes;
 
 public class VisitaDAO {
-    
+
     private Conexion conn;
-    
+
     public VisitaDAO(Conexion conn) {
         this.conn = conn;
     }
-       
-    public boolean agregarVisita (Visita v){
-         try {
+
+    public boolean agregarVisita(Visita v) {
+        try {
 
             CallableStatement cst = conn.getConnection().prepareCall("{ call SP_AGREGAR_VISITA(?,?,?) }");
             cst.setLong(1, v.getProfesional().getId());
@@ -41,10 +41,9 @@ public class VisitaDAO {
             Logger.getLogger(VisitaDAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
-     }
-    
-    
-        public List<Visita> obtenerVisitas() {
+    }
+
+    public List<Visita> obtenerVisitas() {
         List<Visita> visitas = new LinkedList<>();
         Visita visita;
         Profesional profesional;
@@ -60,24 +59,24 @@ public class VisitaDAO {
             ResultSet rs = (ResultSet) cst.getObject(1);
 
             while (rs.next()) {
-                
+
                 visita = new Visita();
                 visita.setId(rs.getLong("id_visita"));
-               
+
                 profesional = new Profesional();
                 profesional.setId(rs.getLong("id_profesional"));
                 profesional.setNombres(rs.getString("nombres"));
-                
+
                 empresa = new Empresa();
                 empresa.setId(rs.getLong("id_empresa"));
                 empresa.setRazonSocial(rs.getString("razon_social"));
-               
+
                 visita.setFecha(rs.getString("fecha"));
                 visita.setEstado(rs.getBoolean("Estado"));
-                
+
                 visita.setProfesional(profesional);
                 visita.setEmpresa(empresa);
-                
+
                 visitas.add(visita);
             }
 
@@ -91,21 +90,116 @@ public class VisitaDAO {
             return null;
         }
     }
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
+
+    public boolean activarVisita(Long id) {
+
+        try {
+
+            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_ACTIVAR_VISITA(?) }");
+            cst.setLong(1, id);
+
+            cst.execute();
+
+            return true;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(VisitaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } catch (Exception ex) {
+            Logger.getLogger(VisitaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+
+    public boolean desactivarVisita(Long id) {
+        try {
+
+            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_DESACTIVAR_VISITA(?) }");
+            cst.setLong(1, id);
+
+            cst.execute();
+
+            return true;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(VisitaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } catch (Exception ex) {
+            Logger.getLogger(VisitaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+
+    public Visita obtenerVisitaPorId(Long id) {
+
+        Visita visita;
+        Profesional profesional;
+        Empresa empresa;
+
+
+        try {
+
+            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_BUSCAR_VISITA(?,?) }");
+            cst.setLong(1, id);
+            cst.registerOutParameter(2, OracleTypes.CURSOR);
+
+            cst.execute();
+
+            ResultSet rs = (ResultSet) cst.getObject(2);
+
+            rs.next();
+
+            visita = new Visita();
+            visita.setId(rs.getLong("id_visita"));
+            visita.setFecha(rs.getString("fecha"));
+            visita.setEstado(rs.getBoolean("estado"));
+
+            profesional = new Profesional();
+            profesional.setId(rs.getLong("id_profesional"));
+            profesional.setRut(rs.getString("rut_profesional"));
+            profesional.setNombres(rs.getString("nombres"));
+            profesional.setApellidos(rs.getString("apellidos"));
+            visita.setProfesional(profesional);
+
+            empresa = new Empresa();
+            empresa.setId(rs.getLong("id_empresa"));
+            empresa.setRut(rs.getString("rut_empresa"));
+            empresa.setRazonSocial(rs.getString("razon_social"));
+            visita.setEmpresa(empresa);
+
+            return visita;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(VisitaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } catch (Exception ex) {
+            Logger.getLogger(VisitaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    public boolean modificarVisita(Visita v,CheckList c) {
+        try {
+
+            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_ACTUALIZAR_VISITA(?,?,?) }");
+            cst.setLong(1, v.getId());
+            cst.setString(2, v.getFecha());
+            
+            //CheckList checklist = new CheckList();
+            cst.setString(3, c.getDescripcion());
+
+            cst.execute();
+
+            return true;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(VisitaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } catch (Exception ex) {
+            Logger.getLogger(VisitaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+
+    }
+
 }

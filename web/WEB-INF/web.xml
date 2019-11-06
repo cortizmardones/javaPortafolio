@@ -13,6 +13,10 @@
         <servlet-class>cl.segurosporsiempre.Controller.MappingController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>VisitaController</servlet-name>
+        <servlet-class>cl.segurosporsiempre.Controller.VisitaController</servlet-class>
+    </servlet>    
+    <servlet>
         <servlet-name>LogoutController</servlet-name>
         <servlet-class>cl.segurosporsiempre.Controller.LogoutController</servlet-class>
     </servlet>
@@ -52,6 +56,10 @@
         <servlet-name>MappingController</servlet-name>
         <url-pattern>/baha</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VisitaController</servlet-name>
+        <url-pattern>/VisitaController</url-pattern>
+    </servlet-mapping>    
     <servlet-mapping>
         <servlet-name>AsesoriaController</servlet-name>
         <url-pattern>/asesoria</url-pattern>
