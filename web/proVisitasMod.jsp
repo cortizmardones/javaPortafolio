@@ -44,6 +44,7 @@
                             <ul class="navbar-nav mr-auto">
                                 <li class="nav-item"> <a class="nav-link" href="baha?nav=pPanel">Inicio</a> </li>
                                 <li class="nav-item active"> <a class="nav-link active" href="baha?nav=pVisitas">Visitas<span class="sr-only">(current)</span></a> </li>
+                                <li class="nav-item"> <a class="nav-link" href="baha?nav=pAccidentes">Accidentes</a> </li>
                                 <li class="nav-item"> <a class="nav-link" href="baha?nav=pCapacitaciones">Capacitaciones</a> </li>
                                 <li class="nav-item"> <a class="nav-link" href="baha?nav=pAsesorias">Asesorias</a> </li>
                                 <li class="nav-item"> <a class="nav-link" href="https://segurosporsiempre7.zendesk.com/chat/agent?email-id=31423#home" target="_blank">Chat</a> </li>
@@ -137,7 +138,7 @@
             <div class="row no-gutters pt-3" id="clienteData">
                 <div class="col-md-12">
                     <div class="card mb-3">
-                        <div class="card-header text-white bg-dark"> Datos de la visita </div>
+                        <div class="card-header text-white bg-primary"> Datos de la visita </div>
                         <div class="card-body">                           
                             <form action="VisitaController" method="post" enctype="multipart/form-data">                     
 

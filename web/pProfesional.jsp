@@ -50,6 +50,7 @@
                                 <li class="nav-item active"> <a class="nav-link" href="baha?nav=pPanel">Inicio <span
                                             class="sr-only">(current)</span></a> </li>
                                 <li class="nav-item"> <a class="nav-link" href="baha?nav=pVisitas">Visitas</a> </li>
+                                <li class="nav-item"> <a class="nav-link" href="baha?nav=pAccidentes">Accidentes</a> </li>
                                 <li class="nav-item"> <a class="nav-link" href="baha?nav=pCapacitaciones">Capacitaciones</a> </li>
                                 <li class="nav-item"> <a class="nav-link" href="baha?nav=pAsesorias">Asesorias</a> </li>
                                 <li class="nav-item"> <a class="nav-link" href="https://segurosporsiempre7.zendesk.com/chat/agent?email-id=31423#home" target="_blank">Chat</a> </li>

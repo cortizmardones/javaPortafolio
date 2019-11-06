@@ -44,6 +44,7 @@
                             <ul class="navbar-nav mr-auto">
                                 <li class="nav-item"> <a class="nav-link" href="baha?nav=pPanel">Inicio</a> </li>
                                 <li class="nav-item active"> <a class="nav-link active" href="baha?nav=pVisitas">Visitas<span class="sr-only">(current)</span></a> </li>
+                                <li class="nav-item"> <a class="nav-link" href="baha?nav=pAccidentes">Accidentes</a> </li>
                                 <li class="nav-item"> <a class="nav-link" href="baha?nav=pCapacitaciones">Capacitaciones</a> </li>
                                 <li class="nav-item"> <a class="nav-link" href="baha?nav=pAsesorias">Asesorias</a> </li>
                                 <li class="nav-item"> <a class="nav-link" href="https://segurosporsiempre7.zendesk.com/chat/agent?email-id=31423#home" target="_blank">Chat</a> </li>
@@ -157,7 +158,7 @@
             <div class="row no-gutters pt-3" id="insercion">
                 <div class="col-md-12">
                     <div class="card mb-3 primary">
-                        <div class="card-header text-white bg-dark"> Formulario creación de visitas: </div>
+                        <div class="card-header text-white bg-primary"> Creación de visitas</div>
                         <div class="card-body" onmouseover="limpiarRutAlFallar()">
 
                             <form action="VisitaController" method="POST" enctype="multipart/form-data">
@@ -165,21 +166,21 @@
                                 <label>Profesional: </label><br>
                                 <select id="profesional" class="form-control" name="profesional" required>
                                     <c:forEach items="${profesionales}" var="profesional">
-                                        <option value="${profesional.id}"> ${profesional.nombres} </option>
+                                        <option value="${profesional.id}"> ${profesional.nombres} ${profesional.apellidos} </option>
                                     </c:forEach>
                                 </select>
                                 <br>
 
                                 <label>Empresa: </label><br>
                                 <select id="empresa" class="form-control" name="empresa" required>
-                                    <c:forEach items="${empresas}" var="empresa">
+                                    <c:forEach items="${emp}" var="empresa">
                                         <option value="${empresa.id}">${empresa.razonSocial} </option>
                                     </c:forEach>
                                 </select>
                                 <br>
 
                                 <label for="fecha_for">Fecha: </label><br>
-                                <input type="datetime" class="form-control" name="fecha" id="fecha" autocomplete="off" required>
+                                <input type="datetime" class="form-control" name="fecha" id="fecha_for" autocomplete="off" required>
                                 <br>
 
 
@@ -317,7 +318,7 @@
         <script src="js/bootstrap-datetimepicker.js" type="text/javascript"></script>
         <script src="js/locales/bootstrap-datetimepicker.es.js" type="text/javascript"></script>
         <script>
-            $("#fecha").datetimepicker({
+            $("#fecha_for").datetimepicker({
                 isRTL: false,
                 autoclose: true,
                 language: 'es'

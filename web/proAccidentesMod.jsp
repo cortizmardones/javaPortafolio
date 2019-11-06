@@ -164,61 +164,60 @@
                 <div class="col-md-12">
                     <div class="card mb-3">
                         <div class="card-header text-white bg-primary">Ingreso de accidente</div>
+                        <div class="card-body">
+                            <form action="accidentepro" method="POST">
+                                <br>
+                                <label for="empresa">Seleccione empresa: </label> <br>
+                                <select id="empresa" class="form-control" name="empresa" required>
+                                    <c:forEach items="${emp}" var="empresa">
+                                        <c:choose>
+                                            <c:when test="${atrAccidente.emprea.id eq empresa.id}">
+                                                <option value="${empresa.id}" selected>${empresa.razonSocial}</option>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <option value="${empresa.id}">${empresa.razonSocial}</option>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:forEach>
+                                </select> <br>
 
-                        <form action="accidentepro" method="POST">
-                            <br>
-                            <label for="empresa">Seleccione empresa: </label> <br>
-                            <select id="empresa" class="form-control" name="empresa" required>
-                                <c:forEach items="${emp}" var="empresa">
-                                    <c:choose>
-                                        <c:when test="${atrAccidente.emprea.id eq empresa.id}">
-                                            <option value="${empresa.id}" selected>${empresa.razonSocial}</option>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <option value="${empresa.id}">${empresa.razonSocial}</option>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </c:forEach>
-                            </select> <br>
+                                <label for="tipoAccidente">Seleccione el tipo de accidente: </label> <br>
+                                <select id="tipoAccidente" class="form-control" name="tipoAccidente" required>
+                                    <c:forEach items="${tiposAccidente}" var="tipoAccidente">
+                                        <c:choose>
+                                            <c:when test="${atrAccidente.tipo.id eq tipoAccidente.id}">
+                                                <option value="${tipoAccidente.id}" selected>${tipoAccidente.nombre}</option>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <option value="${tipoAccidente.id}">${tipoAccidente.nombre}</option>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:forEach>
+                                </select> <br>
 
-                            <label for="tipoAccidente">Seleccione el tipo de accidente: </label> <br>
-                            <select id="tipoAccidente" class="form-control" name="tipoAccidente" required>
-                                <c:forEach items="${tiposAccidente}" var="tipoAccidente">
-                                    <c:choose>
-                                        <c:when test="${atrAccidente.tipo.id eq tipoAccidente.id}">
-                                            <option value="${tipoAccidente.id}" selected>${tipoAccidente.nombre}</option>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <option value="${tipoAccidente.id}">${tipoAccidente.nombre}</option>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </c:forEach>
-                            </select> <br>
-                            
-                                                       
-                            <label for="fecha">Fecha del accidente:</label> <br>
-                            <input type="datetime" class="form-control" name="fecha"  id="fecha"  value="${atrAccidente.fecha}" required>  <div id="mjfecha" required></div>  <br>   
-                            
-                            <label for="causa">Causa del accidente:</label> <br>
-                            <input type="text" class="form-control" id="causa" name="causa" value="${atrAccidente.causa}" required><br>
-                            
-                            <label for="detalle">Detalle del accidente:</label> <br>                            
-                            
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">Detalle:<BR>(Max.250 caracteres)</span>
+
+                                <label for="fecha">Fecha del accidente:</label> <br>
+                                <input type="datetime" class="form-control" name="fecha"  id="fecha"  value="${atrAccidente.fecha}" required>  <div id="mjfecha" required></div>  <br>   
+
+                                <label for="causa">Causa del accidente:</label> <br>
+                                <input type="text" class="form-control" id="causa" name="causa" value="${atrAccidente.causa}" required><br>
+
+                                <label for="detalle">Detalle del accidente:</label> <br>                            
+
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Detalle:<BR>(Max.250 caracteres)</span>
+                                    </div>
+                                    <textarea class="form-control" aria-label="Detalles" title="Detalle accidente"id="detalle" name="detalle" maxlength="250" required>${atrAccidente.detalle}</textarea>
                                 </div>
-                                <textarea class="form-control" aria-label="Detalles" title="Detalle accidente"id="detalle" name="detalle" maxlength="250" required>${atrAccidente.detalle}</textarea>
-                            </div>
-                            <br>
-                            
-                            
-                            <input type="hidden" name="accion" value="modificarAccidente">
-                            <input type="hidden" name="id" value="${atrAccidente.id}">
-                            <input type="submit" class="btn btn-primary" value="Modificar accidente">
+                                <br>
 
-                        </form>
 
+                                <input type="hidden" name="accion" value="modificarAccidente">
+                                <input type="hidden" name="id" value="${atrAccidente.id}">
+                                <input type="submit" class="btn btn-primary" value="Modificar accidente">
+                            </form>                            
+                        </div>
                     </div>
                 </div>
             </div>

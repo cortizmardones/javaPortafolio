@@ -50,6 +50,7 @@
                             <ul class="navbar-nav mr-auto">
                                 <li class="nav-item"> <a class="nav-link" href="baha?nav=pPanel">Inicio</a> </li>
                                 <li class="nav-item"> <a class="nav-link" href="baha?nav=pVisitas">Visitas</a> </li>
+                                <li class="nav-item"> <a class="nav-link" href="baha?nav=pAccidentes">Accidentes</a> </li>
                                 <li class="nav-item active"> <a class="nav-link" href="baha?nav=pCapacitaciones">Capacitaciones<span
                                             class="sr-only">(current)</span></a> </li>
                                 <li class="nav-item"> <a class="nav-link" href="baha?nav=pAsesorias">Asesorias</a> </li>

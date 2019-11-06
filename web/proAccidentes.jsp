@@ -26,9 +26,9 @@
         <link href="css/jquery.datetimepicker.css" rel="stylesheet" />
         <link href="css/bootstrap-datetimepicker.css" rel="stylesheet" type="text/css"/>   
         <link rel="stylesheet" href="css/bahastyles.css">
-        
+
         <!-- Importacion Scripts -->
-        
+
         <title>Seguros por siempre - Administración de Accidentes</title>
     </head>
 
@@ -67,7 +67,6 @@
                     </div>
                 </div>                  
             </div>
-
             <div class="row no-gutters pt-4">
                 <c:if test="${mensaje eq 'agregarAccidentePos'}">
                     <div class="col-md-12">
@@ -159,77 +158,78 @@
                             </button>
                         </div>
                     </div>
-                </c:if>           
+                </c:if>
             </div>
-
-            <div class="row no-gutters pt-3" id="asesoriaData">
+            
+            <div class="row pt-3" id="asesoriaData">
                 <div class="col-md-12">
                     <div class="card mb-3">
                         <div class="card-header text-white bg-primary">Ingreso de accidente</div>
+                        <div class="card-body">
+                            <form action="accidentepro" method="POST">
+                                <br>
+                                <label for="empresa">Seleccione empresa: </label> <br>
+                                <select id="empresa" class="form-control" name="empresa" required>
+                                    <c:forEach items="${emp}" var="empresa">
+                                        <option value="${empresa.id}">${empresa.razonSocial}</option>
+                                    </c:forEach>
+                                </select> <br>
 
-                        <form action="accidentepro" method="POST">
-                            <br>
-                            <label for="empresa">Seleccione empresa: </label> <br>
-                            <select id="empresa" class="form-control" name="empresa" required>
-                                <c:forEach items="${emp}" var="empresa">
-                                    <option value="${empresa.id}">${empresa.razonSocial}</option>
-                                </c:forEach>
-                            </select> <br>
+                                <label for="tipoAccidente">Seleccione el tipo de accidente: </label> <br>
+                                <select id="tipoAccidente" class="form-control" name="tipoAccidente" required>
+                                    <c:forEach items="${tiposAccidente}" var="tipoAccidente">
+                                        <option value="${tipoAccidente.id}">${tipoAccidente.nombre}</option>
+                                    </c:forEach>
+                                </select> <br>
 
-                            <label for="tipoAccidente">Seleccione el tipo de accidente: </label> <br>
-                            <select id="tipoAccidente" class="form-control" name="tipoAccidente" required>
-                                <c:forEach items="${tiposAccidente}" var="tipoAccidente">
-                                    <option value="${tipoAccidente.id}">${tipoAccidente.nombre}</option>
-                                </c:forEach>
-                            </select> <br>
-                            
-                                                       
-                            <label for="fecha">Fecha del accidente:</label> <br>
-                            <input type="datetime" class="form-control" name="fecha"  id="fecha"  required>  <div id="mjfecha" required></div>  <br>   
-                            
-                            <label for="causa">Causa del accidente:</label> <br>
-                            <input type="text" class="form-control" id="causa" name="causa" required><br>
-                            
-                            <label for="detalle">Detalle del accidente:</label> <br>                            
-                            
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">Detalle:<BR>(Max.250 caracteres)</span>
+
+                                <label for="fecha">Fecha del accidente:</label> <br>
+                                <input type="datetime" class="form-control" name="fecha"  id="fecha"  required>  <div id="mjfecha" required></div>  <br>   
+
+                                <label for="causa">Causa del accidente:</label> <br>
+                                <input type="text" class="form-control" id="causa" name="causa" required><br>
+
+                                <label for="detalle">Detalle del accidente:</label> <br>                            
+
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Detalle:<BR>(Max.250 caracteres)</span>
+                                    </div>
+                                    <textarea class="form-control" aria-label="Detalles" title="Detalle accidente" id="detalle" name="detalle" maxlength="250" placeholder="Ingrese detalles del accidente en este campo" required></textarea>
                                 </div>
-                                <textarea class="form-control" aria-label="Detalles" title="Detalle accidente" id="detalle" name="detalle" maxlength="250" placeholder="Ingrese detalles del accidente en este campo" required></textarea>
-                            </div>
-                            <br>
-                            
-                            
-                            <input type="hidden" name="accion" value="agregarAccidente">
-                            <input type="submit" class="btn btn-primary" value="Agregar accidente">
+                                <br>
 
-                        </form>
 
+                                <input type="hidden" name="accion" value="agregarAccidente">
+                                <input type="submit" class="btn btn-primary" value="Agregar accidente">
+
+                            </form> 
+                        </div>
                     </div>
                 </div>
             </div>
+
             <div class="row no-gutters pt-3" id="clienteData">
                 <div class="col-md-12">
                     <div class="card mb-3">
 
                         <div class="card-header text-white bg-primary"> Listado de Accidentes </div>
-                            <div class="card-body" onmouseover="">
-                                <table id="t2" class="table table-hover table-responsive-xl  table-dark ts">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">ID Accidente</th>
-                                            <th scope="col">Tipo Accidente</th>                                       
-                                            <th scope="col">Nombre Empresa</th>
-                                            <th scope="col">Fecha</th>
-                                            <th scope="col">Causa</th>
-                                            <th scope="col">Detalle</th>
-                                            <th scope="col">Estado</th>
-                                            <th scope="col">Operaciones</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                         <c:forEach items="${accidentes}" var="accidente">
+                        <div class="card-body" onmouseover="">
+                            <table id="t2" class="table table-hover table-responsive-xl  table-dark ts">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">ID Accidente</th>
+                                        <th scope="col">Tipo Accidente</th>                                       
+                                        <th scope="col">Nombre Empresa</th>
+                                        <th scope="col">Fecha</th>
+                                        <th scope="col">Causa</th>
+                                        <th scope="col">Detalle</th>
+                                        <th scope="col">Estado</th>
+                                        <th scope="col">Operaciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:forEach items="${accidentes}" var="accidente">
                                         <tr>
                                             <td>${accidente.id}</td>
                                             <td>${accidente.tipo.nombre}</td>                                      
@@ -246,7 +246,7 @@
                                                     </c:otherwise>
                                                 </c:choose>  
                                             </td>
-                                            
+
                                             <td>
                                                 <div align="center">
                                                     <c:choose>
@@ -261,10 +261,10 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                         </c:forEach>
-                                    </tbody>
-                                </table>
-                            </div>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -331,9 +331,9 @@
         crossorigin="anonymous"></script>
         <script src="js/jquery.rut.chileno.js"></script>
         <script type="text/javascript">
-            jQuery(document).ready(function ($) {
-                $('.input_rut').rut();
-            });
+                                                                jQuery(document).ready(function ($) {
+                                                                    $('.input_rut').rut();
+                                                                });
         </script>
         <script type="text/javascript">
             jQuery(document).ready(function ($) {
@@ -386,32 +386,32 @@
                 language: 'es'
             });
         </script> 
-        
-        
-        
+
+
+
         <script src="js/bahascript.js"></script>
-        
+
         <!-- SCRIPT MAXLENGTH -->
         <script src="js/bootstrap-maxlength.min.js"></script>
-        
+
         <script type="text/javascript">
 
-		$('textarea').maxlength({
+            $('textarea').maxlength({
 
-              alwaysShow: true,
-	          threshold: 10,
-	          warningClass: "label label-success",
-	          limitReachedClass: "label label-danger",
-	          separator: ' de ',
-	          preText: 'Ha escrito ',
-	          postText: ' caracteres disponibles.',
-	          validate: true
+                alwaysShow: true,
+                threshold: 10,
+                warningClass: "label label-success",
+                limitReachedClass: "label label-danger",
+                separator: ' de ',
+                preText: 'Ha escrito ',
+                postText: ' caracteres disponibles.',
+                validate: true
 
-        });
+            });
 
-	</script>
-        
-        
+        </script>
+
+
     </body>
 
 </html>

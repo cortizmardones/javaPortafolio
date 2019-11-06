@@ -51,7 +51,7 @@
                             <ul class="navbar-nav mr-auto">
                                 <li class="nav-item"> <a class="nav-link" href="baha?nav=cPanel">Inicio</a> </li>
                                 <li class="nav-item"> <a class="nav-link" href="baha?nav=cSolicitudes">Solicitudes</a> </li>
-                                <li class="nav-item active"> <a class="nav-link" href="baha?nav=cPagos">Pagos<span
+                                <li class="nav-item active"> <a class="nav-link" href="baha?nav=cPagos">Finanzas<span
                                             class="sr-only">(current)</span></a> </li>
                                 <li class="nav-item"> <a class="nav-link" href="baha?nav=cReportes">Reportes</a> </li>
                                 <li class="nav-item"> <a class="nav-link" href="accidente?accion=reportarAccidente"><img src="img/reportar.png" title="Reportar accidente" height="25" width="25"></a> </li>                                
@@ -68,7 +68,7 @@
             <div class="row no-gutters pt-3" id="cli1">
                 <div class="col-md-12">
                     <div class="card mb-3">
-                        <div class="card-header text-white bg-success">Mis pagos</div>
+                        <div class="card-header text-white bg-success">Facturación</div>
                         <div class="card-body">                            
                             <table id="t2" class="table table-hover table-responsive-xl  table-dark ts">
                                 <thead>

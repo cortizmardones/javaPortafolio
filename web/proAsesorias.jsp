@@ -164,43 +164,43 @@
                 <div class="col-md-12">
                     <div class="card mb-3">
                         <div class="card-header text-white bg-primary">Ingreso de asesoría</div>
+                        <div class="card-body">
+                            <form action="asesoria" method="POST">
 
-                        <form action="asesoria" method="POST">
+                                <label for="empresa">Seleccione empresa: </label> <br>
+                                <select id="empresa" class="form-control" name="empresa" required>
+                                    <c:forEach items="${emp}" var="empresa">
+                                        <option value="${empresa.id}">${empresa.razonSocial}</option>
+                                    </c:forEach>
+                                </select> <br>
 
-                            <label for="empresa">Seleccione empresa: </label> <br>
-                            <select id="empresa" class="form-control" name="empresa" required>
-                                <c:forEach items="${emp}" var="empresa">
-                                    <option value="${empresa.id}">${empresa.razonSocial}</option>
-                                </c:forEach>
-                            </select> <br>
-                            
-                            <label for="profesional">Seleccione profesional: </label> <br>
-                            <select id="profesional" class="form-control" name="profesional" required>
-                                <c:forEach items="${profesionales}" var="profesional">
-                                    <option value="${profesional.id}">${profesional.nombres} ${profesional.apellidos}</option>                                    
-                                </c:forEach>                                
-                            </select><br>
-                            
-                            <label for="tipoAsesoria">Seleccione tipo de asesoría: </label> <br>
-                            <select id="tipoAsesoria" class="form-control" name="tipoAsesoria" required>
-                                <c:forEach items="${tiposAsesorias}" var="TipoAsesoria">
-                                    <option value="${TipoAsesoria.id}">${TipoAsesoria.nombre}</option>
-                                </c:forEach>
-                            </select> <br>
-                            
-                            <br>
+                                <label for="profesional">Seleccione profesional: </label> <br>
+                                <select id="profesional" class="form-control" name="profesional" required>
+                                    <c:forEach items="${profesionales}" var="profesional">
+                                        <option value="${profesional.id}">${profesional.nombres} ${profesional.apellidos}</option>                                    
+                                    </c:forEach>                                
+                                </select><br>
 
-                            <label for="fechaIngreso">Fecha de ingreso:</label> <br>
-                            <input type="datetime" class="form-control" name="fechaIngreso"  id="fechaIngreso"  required>  <div id="mjfechaIngreso"></div>  <br>                                 
+                                <label for="tipoAsesoria">Seleccione tipo de asesoría: </label> <br>
+                                <select id="tipoAsesoria" class="form-control" name="tipoAsesoria" required>
+                                    <c:forEach items="${tiposAsesorias}" var="TipoAsesoria">
+                                        <option value="${TipoAsesoria.id}">${TipoAsesoria.nombre}</option>
+                                    </c:forEach>
+                                </select> <br>
 
-                            <label for="fechaRealizada">Fecha estimada realizada:</label> <br>
-                            <input type="datetime" class="form-control" name="fechaRealizada"  id="fechaRealizada"  required>  <div id="mjfechaRealizada"></div>  <br>                                 
+                                <br>
 
-                            <input type="hidden" name="accion" value="agregarAsesoria">
-                            <input type="submit" class="btn btn-primary" value="Agregar asesoría">
+                                <label for="fechaIngreso">Fecha de ingreso:</label> <br>
+                                <input type="datetime" class="form-control" name="fechaIngreso"  id="fechaIngreso"  required>  <div id="mjfechaIngreso"></div>  <br>                                 
 
-                        </form>
+                                <label for="fechaRealizada">Fecha estimada realizada:</label> <br>
+                                <input type="datetime" class="form-control" name="fechaRealizada"  id="fechaRealizada"  required>  <div id="mjfechaRealizada"></div>  <br>                                 
 
+                                <input type="hidden" name="accion" value="agregarAsesoria">
+                                <input type="submit" class="btn btn-primary" value="Agregar asesoría">
+
+                            </form> 
+                        </div>
                     </div>
                 </div>
             </div>
