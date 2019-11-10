@@ -38,6 +38,16 @@ public class LoginController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         
+        String accion = request.getParameter("accion");
+        
+        switch (accion) {
+            case "recuperarPass":
+                this.recuperarPass(request, response);
+                break;
+            default:
+                throw new AssertionError();
+        }
+        
 
     }
 
@@ -53,6 +63,9 @@ public class LoginController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");        
+        
         String accion = request.getParameter("accion");
         
         switch (accion) {
@@ -61,7 +74,13 @@ public class LoginController extends HttpServlet {
                 break;
             case "ingresarPrimeraVez":
                 this.primerIngreso(request, response);
-                break;
+                break;           
+            case "pasarSegundaEtapa":
+                this.recuperarPassP1(request, response);
+                break; 
+            case "pasarEtapaMod":
+                this.recuperarPassP2(request, response);
+                break;                               
             default:
                 throw new AssertionError();
         }
@@ -195,4 +214,43 @@ public class LoginController extends HttpServlet {
             request.getRequestDispatcher("pCliente.jsp").forward(request, response);            
         }        
     }
+
+    private void recuperarPass(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException  {
+        
+        request.setAttribute("modal", "pasoUno");
+        request.getRequestDispatcher("index.jsp").forward(request, response);
+    }
+    
+    private void recuperarPassP1(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException  {
+        
+        String correo = request.getParameter("correo");
+        String codigo = Utils.rGen();
+        
+        Conexion conn = new Conexion();
+        LoginDao lDto = new LoginDao(conn);
+        
+        boolean resultado = lDto.registrarCodigo(correo, codigo);
+        
+        conn.cerrarConexion();
+        
+        if (resultado)
+        {
+            String mensaje = "El código para reestablecer su contraseña es: " + codigo;
+            Utils.enviarCorreo("info.segurita@gmail.com", "bahamut77", correo, mensaje, "Recuperación de contraseña");
+            request.setAttribute("modal", "pasoDos");
+            request.setAttribute("activeCorreo", correo);
+            request.getRequestDispatcher("index.jsp").forward(request, response);
+        }
+        else
+        {
+            request.setAttribute("mensaje", "El correo señalado no existe en el sistema");
+            request.getRequestDispatcher("index.jsp").forward(request, response);        
+        }
+    }   
+    
+    private void recuperarPassP2(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException  {
+        
+        //TODO: Revisar codigo, que coincida y que además de eso sea el último, si coincide, llevar a modificar, si no coincide llevar a index con mensaje
+        
+    }      
 }

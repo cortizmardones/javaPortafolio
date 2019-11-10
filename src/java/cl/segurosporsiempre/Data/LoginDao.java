@@ -178,5 +178,26 @@ public class LoginDao {
             Logger.getLogger(LoginDao.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
-    }    
+    }
+
+    public boolean registrarCodigo(String mail, String codigo)
+    {
+        try {
+            
+            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_REGISTRAR_CODIGO(?,?) }");
+            cst.setString(1, mail);
+            cst.setString(2, codigo);
+            
+            cst.execute();
+            
+            return true;
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginDao.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } catch (Exception ex) {
+            Logger.getLogger(LoginDao.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
 }
