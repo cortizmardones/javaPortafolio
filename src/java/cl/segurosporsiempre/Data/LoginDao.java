@@ -200,4 +200,34 @@ public class LoginDao {
             return false;
         }
     }
+    
+    public String[] obtenerCodigo(String correo)
+    {
+        try {
+            
+            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_OBTENER_CODIGO(?,?) }");
+            cst.setString(1, correo);
+            cst.registerOutParameter(2, OracleTypes.CURSOR);
+            
+            cst.execute();
+            
+            ResultSet rs = (ResultSet)cst.getObject(2);
+            
+            rs.next();
+            
+            String[] codigo = new String[2];
+            
+            codigo[0] = rs.getString("correo");
+            codigo[1] = rs.getString("codigo");
+            
+            return codigo;
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginDao.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } catch (Exception ex) {
+            Logger.getLogger(LoginDao.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }        
 }

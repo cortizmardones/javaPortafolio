@@ -250,7 +250,33 @@ public class LoginController extends HttpServlet {
     
     private void recuperarPassP2(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException  {
         
-        //TODO: Revisar codigo, que coincida y que además de eso sea el último, si coincide, llevar a modificar, si no coincide llevar a index con mensaje
+        String correo = request.getParameter("correo");
+        String code = request.getParameter("codigo");
         
+        Conexion conn = new Conexion();
+        LoginDao lDto = new LoginDao(conn);
+        
+        String[] codigo = lDto.obtenerCodigo(correo);
+        
+        conn.cerrarConexion();
+        
+        if (codigo.length > 0 && codigo != null)
+        {
+            if (codigo[0] == correo && codigo[1] == code)
+            {
+                request.setAttribute("modal", "cambiarPass");
+                request.getRequestDispatcher("index.jsp").forward(request, response);
+            }
+            else
+            {
+                request.setAttribute("mensaje", "Código incorrecto");
+                request.getRequestDispatcher("index.jsp").forward(request, response);                
+            }
+        }
+        else
+        {
+            request.setAttribute("mensaje", "Código no se pudo obtener el código, intente nuevamente");
+            request.getRequestDispatcher("index.jsp").forward(request, response);
+        }
     }      
 }
