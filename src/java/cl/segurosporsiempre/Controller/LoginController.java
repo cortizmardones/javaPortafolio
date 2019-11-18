@@ -7,6 +7,7 @@ package cl.segurosporsiempre.Controller;
 
 import cl.segurosporsiempre.Connection.Conexion;
 import cl.segurosporsiempre.Data.LoginDao;
+import cl.segurosporsiempre.Model.Perfil;
 import cl.segurosporsiempre.Model.Usuario;
 import cl.segurosporsiempre.Model.UsuarioProfesional;
 import cl.segurosporsiempre.Model.Utils;
@@ -22,7 +23,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class LoginController extends HttpServlet {
 
-
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -34,12 +34,12 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-        
+
         String accion = request.getParameter("accion");
-        
+
         switch (accion) {
             case "recuperarPass":
                 this.recuperarPass(request, response);
@@ -47,7 +47,6 @@ public class LoginController extends HttpServlet {
             default:
                 throw new AssertionError();
         }
-        
 
     }
 
@@ -62,221 +61,316 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");        
-        
+        response.setCharacterEncoding("UTF-8");
+
         String accion = request.getParameter("accion");
-        
+
         switch (accion) {
             case "login":
                 this.loguear(request, response);
                 break;
             case "ingresarPrimeraVez":
                 this.primerIngreso(request, response);
-                break;           
+                break;
             case "pasarSegundaEtapa":
                 this.recuperarPassP1(request, response);
-                break; 
+                break;
             case "pasarEtapaMod":
                 this.recuperarPassP2(request, response);
-                break;                               
+                break;
+            case "cambiarPassRec":
+                this.cambiarPasswordRecuperacion(request, response);
             default:
                 throw new AssertionError();
         }
     }
 
     private void loguear(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
+
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-        
+
         String login = request.getParameter("correo");
         String password = Utils.MD5(request.getParameter("contrasenia"));
         String categoria = request.getParameter("categoria");
-              
+
         Conexion conn = new Conexion();
         LoginDao lDto = new LoginDao(conn);
-        
+
         Usuario usu;
-        
-        if (categoria.equals("profesional"))
-        {          
-            usu = lDto.obtenerUsuarioProfesional(login); 
-        }
-        else
-        {
+
+        if (categoria.equals("profesional")) {
+            usu = lDto.obtenerUsuarioProfesional(login);
+        } else {
             usu = lDto.obtenerUsuario(login);
         }
-        
+
         conn.cerrarConexion();
-        
-        if (usu != null)
-        {
-            if (login.equals(usu.getCorreo()) && password.equals(usu.getPassword()) && usu.getEstado())
-            {
-                if (usu.getPrimeraVez())
-                {
-                    request.setAttribute("modal", "cambiarPass");
-                    request.setAttribute("idTemporal", usu.getId());
-                    request.setAttribute("loginTemporal", usu.getCorreo()); 
-                    request.setAttribute("categoria", categoria);                     
-                    request.getRequestDispatcher("index.jsp").forward(request, response);
-                }
-                else
-                {
-                    this.redirigirSegunPerfil(usu, request, response);
+
+        if (usu != null) {
+            if (usu.getPerfil().getId() == 1 && !categoria.equals("administrador")) {
+                
+                request.setAttribute("mensaje", "Credenciales incorrectas");
+                request.getRequestDispatcher("index.jsp").forward(request, response);
+
+            } else if (usu.getPerfil().getId() == 2 && !categoria.equals("profesional")) {
+                
+                request.setAttribute("mensaje", "Credenciales incorrectas");
+                request.getRequestDispatcher("index.jsp").forward(request, response);
+                
+            } else if (usu.getPerfil().getId() == 3 && !categoria.equals("empresa")) {
+                
+                request.setAttribute("mensaje", "Credenciales incorrectas");
+                request.getRequestDispatcher("index.jsp").forward(request, response);                
+
+            } else {
+
+                if (login.equals(usu.getCorreo()) && password.equals(usu.getPassword()) && usu.getEstado()) {
+                    if (usu.getPrimeraVez()) {
+                        request.setAttribute("modal", "cambiarPass");
+                        request.setAttribute("idTemporal", usu.getId());
+                        request.setAttribute("loginTemporal", usu.getCorreo());
+                        request.setAttribute("categoria", categoria);
+                        request.getRequestDispatcher("index.jsp").forward(request, response);
+                    } else {
+                        this.redirigirSegunPerfil(usu, request, response);
+                    }
+                } else {
+                    if (!usu.getEstado()) {
+                        request.setAttribute("mensaje", "El usuario se encuentra desactivado, contacte con un administrador");
+                        request.getRequestDispatcher("index.jsp").forward(request, response);
+                    } else {
+                        request.setAttribute("mensaje", "Credenciales incorrectas");
+                        request.getRequestDispatcher("index.jsp").forward(request, response);
+                    }
                 }
             }
-            else
-            {
-                if (!usu.getEstado())
-                {
-                    request.setAttribute("mensaje", "El usuario se encuentra desactivado, contacte con un administrador");
-                    request.getRequestDispatcher("index.jsp").forward(request, response);
-                }
-                else
-                {
-                    request.setAttribute("mensaje", "Credenciales incorrectas");
-                    request.getRequestDispatcher("index.jsp").forward(request, response);                    
-                }
-            }
-        }
-        else
-        {
+        } else {
             request.setAttribute("mensaje", "Credenciales incorrectas");
             request.getRequestDispatcher("index.jsp").forward(request, response);
         }
-        
+
     }
 
     private void primerIngreso(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-       
+
         String password = Utils.MD5(request.getParameter("password"));
         Long id = Long.parseLong(request.getParameter("id"));
         String login = request.getParameter("loginTemporal");
         String categoria = request.getParameter("categoria");
-        
+
         Conexion conn = new Conexion();
         LoginDao lDto = new LoginDao(conn);
-        
+
         boolean resultado;
-        
-        if (categoria.equals("profesional"))
-        {
+
+        if (categoria.equals("profesional")) {
             UsuarioProfesional usu = new UsuarioProfesional();
             usu.setId(id);
             usu.setPassword(password);
-            
+
             resultado = lDto.modificarPassLogin(usu);
-        }
-        else
-        {
+        } else {
             Usuario usu = new Usuario();
             usu.setId(id);
             usu.setPassword(password);
-            
-            resultado = lDto.modificarPassLogin(usu);            
-        }      
-        
-        conn.cerrarConexion();
-        
-        if (resultado)
-        {
-           request.setAttribute("mensaje", "Contraseña cambiada exitosamente. Puede iniciar nuevamente");
-           request.getRequestDispatcher("index.jsp").forward(request, response);
+
+            resultado = lDto.modificarPassLogin(usu);
         }
-        else
-        {
+
+        conn.cerrarConexion();
+
+        if (resultado) {
+            request.setAttribute("mensaje", "Contraseña cambiada exitosamente. Puede iniciar nuevamente");
+            request.getRequestDispatcher("index.jsp").forward(request, response);
+        } else {
             conn.cerrarConexion();
             request.setAttribute("mensaje", "No se pudo cambiar su contraseña, contáctese con un administrador");
             request.getRequestDispatcher("index.jsp").forward(request, response);
         }
     }
-    
-    
-    private void redirigirSegunPerfil(Usuario usu, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException         
-    {
-        
-        if (usu.getPerfil().getId() == 1)
-        {
+
+    private void redirigirSegunPerfil(Usuario usu, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        if (usu.getPerfil().getId() == 1) {
             Common.setUsuarioActivoSession(usu, request, response);
             request.getRequestDispatcher("pAdmin.jsp").forward(request, response);
         }
-        if (usu.getPerfil().getId() == 2)
-        {
+        if (usu.getPerfil().getId() == 2) {
             Common.setUsuarioActivoSession(usu, request, response);
-            request.getRequestDispatcher("pProfesional.jsp").forward(request, response);            
-        }        
-        if (usu.getPerfil().getId() == 3)
-        {
-            Common.setUsuarioActivoSession(usu, request, response); 
-            request.getRequestDispatcher("pCliente.jsp").forward(request, response);            
-        }        
+            request.getRequestDispatcher("pProfesional.jsp").forward(request, response);
+        }
+        if (usu.getPerfil().getId() == 3) {
+            Common.setUsuarioActivoSession(usu, request, response);
+            request.getRequestDispatcher("pCliente.jsp").forward(request, response);
+        }
     }
 
-    private void recuperarPass(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException  {
-        
+    private void recuperarPass(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         request.setAttribute("modal", "pasoUno");
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
-    
-    private void recuperarPassP1(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException  {
-        
+
+    private void recuperarPassP1(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         String correo = request.getParameter("correo");
         String codigo = Utils.rGen();
+        String perfil = request.getParameter("categoria");
+
+        Conexion conn = new Conexion();
+        LoginDao lDto = new LoginDao(conn);
+        
+        if (perfil.equals("administrador"))
+        {
+            Usuario usu = lDto.obtenerUsuario(correo);
+            if (usu != null)
+            {
+                this.enviarCorreoRecuperacion(request, response, correo, codigo, perfil);
+            }
+            else
+            {
+                request.setAttribute("mensaje", "El correo no existe en el sistema");
+                request.getRequestDispatcher("index.jsp").forward(request, response);                
+            }
+        }
+        else if (perfil.equals("profesional"))
+        {
+            UsuarioProfesional usu = lDto.obtenerUsuarioProfesional(correo);
+            if (usu != null)
+            {
+                this.enviarCorreoRecuperacion(request, response, correo, codigo, perfil);
+            }
+            else
+            {
+                request.setAttribute("mensaje", "El correo no existe en el sistema");
+                request.getRequestDispatcher("index.jsp").forward(request, response);                
+            }          
+        }
+        else if (perfil.equals("empresa"))
+        {
+            Usuario usu = lDto.obtenerUsuario(correo);
+            if (usu != null)
+            {
+                this.enviarCorreoRecuperacion(request, response, correo, codigo, perfil);
+            }
+            else
+            {
+                request.setAttribute("mensaje", "El correo no existe en el sistema");
+                request.getRequestDispatcher("index.jsp").forward(request, response);                
+            }           
+        }
+        else
+        {
+            request.setAttribute("mensaje", "Inconcordancia correo - perfil");
+            request.getRequestDispatcher("index.jsp").forward(request, response);
+        }
+    }
+    
+    public void enviarCorreoRecuperacion(HttpServletRequest request, HttpServletResponse response, String correo, String codigo, String perfil) throws ServletException, IOException 
+    {
         
         Conexion conn = new Conexion();
         LoginDao lDto = new LoginDao(conn);
         
         boolean resultado = lDto.registrarCodigo(correo, codigo);
-        
+
         conn.cerrarConexion();
-        
-        if (resultado)
-        {
+
+        if (resultado) {
             String mensaje = "El código para reestablecer su contraseña es: " + codigo;
-            Utils.enviarCorreo("info.segurita@gmail.com", "bahamut77", correo, mensaje, "Recuperación de contraseña");
+            boolean res = Utils.enviarCorreo("info.segurita@gmail.com", "bahamut77*", correo, mensaje, "Recuperación de contraseña");
+            if (res)
+            {
+                Common.setUsuarioActivoRecPassSession(correo, perfil, request, response);
+            }
             request.setAttribute("modal", "pasoDos");
             request.setAttribute("activeCorreo", correo);
             request.getRequestDispatcher("index.jsp").forward(request, response);
-        }
-        else
-        {
+        } else {
             request.setAttribute("mensaje", "El correo señalado no existe en el sistema");
-            request.getRequestDispatcher("index.jsp").forward(request, response);        
-        }
-    }   
-    
-    private void recuperarPassP2(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException  {
-        
+            request.getRequestDispatcher("index.jsp").forward(request, response);
+        }    
+    }
+
+    private void recuperarPassP2(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         String correo = request.getParameter("correo");
         String code = request.getParameter("codigo");
+
+        Conexion conn = new Conexion();
+        LoginDao lDto = new LoginDao(conn);
+
+        String[] codigo = lDto.obtenerCodigo(correo);
+
+        if (codigo.length > 0 && codigo != null) {
+            if (codigo[0].equals(correo) && codigo[1].equals(code)) {
+                request.setAttribute("modal", "cambiarPassFinal");
+                request.setAttribute("correoP3", correo);
+                request.getRequestDispatcher("index.jsp").forward(request, response);
+            } else {
+                request.setAttribute("mensaje", "Código incorrecto");
+                request.getRequestDispatcher("index.jsp").forward(request, response);
+            }
+        } else {
+            request.setAttribute("mensaje", "Código no se pudo obtener el código, intente nuevamente");
+            request.getRequestDispatcher("index.jsp").forward(request, response);
+        }
+    }
+
+    private void cambiarPasswordRecuperacion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
+        
+        Long id = Long.parseLong(request.getParameter("id"));
+        String perfil = request.getParameter("categoria");
+        String pass = Utils.MD5(request.getParameter("password"));
         
         Conexion conn = new Conexion();
         LoginDao lDto = new LoginDao(conn);
+       
+        Usuario usu;
+        UsuarioProfesional usuPro;
         
-        String[] codigo = lDto.obtenerCodigo(correo);
+        boolean resultado;
         
-        conn.cerrarConexion();
-        
-        if (codigo.length > 0 && codigo != null)
+        if (perfil.equalsIgnoreCase("Profesional"))
         {
-            if (codigo[0] == correo && codigo[1] == code)
+            usuPro = new UsuarioProfesional();
+            usuPro.setId(id);
+            usuPro.setPassword(pass);
+
+            resultado = lDto.modificarPassLogin(usuPro);
+            
+            if (resultado)
             {
-                request.setAttribute("modal", "cambiarPass");
+                request.setAttribute("mensaje", "Contraseña cambiada, ingrese nuevamente");
                 request.getRequestDispatcher("index.jsp").forward(request, response);
             }
             else
             {
-                request.setAttribute("mensaje", "Código incorrecto");
+                request.setAttribute("mensaje", "No se pudo cambiar la contraseña");
                 request.getRequestDispatcher("index.jsp").forward(request, response);                
             }
         }
         else
         {
-            request.setAttribute("mensaje", "Código no se pudo obtener el código, intente nuevamente");
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+            usu = new Usuario();
+            usu.setId(id);
+            usu.setPassword(pass);
+
+            resultado = lDto.modificarPassLogin(usu);
+            
+            if (resultado)
+            {
+                request.setAttribute("mensaje", "Contraseña cambiada, ingrese nuevamente");
+                request.getRequestDispatcher("index.jsp").forward(request, response);
+            }
+            else
+            {
+                request.setAttribute("mensaje", "No se pudo cambiar la contraseña");
+                request.getRequestDispatcher("index.jsp").forward(request, response);                
+            }            
         }
-    }      
+    }
 }

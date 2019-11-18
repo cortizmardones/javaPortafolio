@@ -10,6 +10,7 @@ import cl.segurosporsiempre.Data.AsesoriaDao;
 import cl.segurosporsiempre.Data.CapacitacionDao;
 import cl.segurosporsiempre.Data.CheckListDAO;
 import cl.segurosporsiempre.Data.EmpresaDAO;
+import cl.segurosporsiempre.Data.LoginDao;
 import cl.segurosporsiempre.Data.ProfesionalDao;
 import cl.segurosporsiempre.Data.RubroDAO;
 import cl.segurosporsiempre.Data.UsuarioDao;
@@ -24,6 +25,7 @@ import cl.segurosporsiempre.Model.Rubro;
 import cl.segurosporsiempre.Model.TipoAccidente;
 import cl.segurosporsiempre.Model.TipoAsesoria;
 import cl.segurosporsiempre.Model.Usuario;
+import cl.segurosporsiempre.Model.UsuarioProfesional;
 import cl.segurosporsiempre.Model.Visita;
 import java.io.IOException;
 import java.util.LinkedList;
@@ -63,6 +65,26 @@ public class Common extends HttpServlet {
         HttpSession sesion = request.getSession();
         sesion.setAttribute("usuarioActivo", usu);
     }
+    
+    public static void setUsuarioActivoRecPassSession(String correo, String perfil, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession sesion = request.getSession();
+        
+        Conexion conn = new Conexion();
+        LoginDao lDto = new LoginDao(conn);
+        
+        if (perfil.equals("profesional"))
+        {
+            UsuarioProfesional usu = lDto.obtenerUsuarioProfesional(correo);
+            conn.cerrarConexion();
+            sesion.setAttribute("usuRec", usu);
+        }
+        else
+        {
+            Usuario usu = lDto.obtenerUsuario(correo);
+            conn.cerrarConexion();
+            sesion.setAttribute("usuRec", usu);            
+        }
+    }    
 
     public static void setTiposAccidenteRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Conexion conn = new Conexion();

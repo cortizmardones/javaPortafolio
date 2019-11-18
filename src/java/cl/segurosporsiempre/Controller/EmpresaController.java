@@ -131,7 +131,7 @@ public class EmpresaController extends HttpServlet {
 
         archivo.write(uploadFilePath + File.separator + nombre);
 
-        return "https://www.segurosporsiempre.cl/Portafolio_de_Titulo_C4/fotosEmpr/" + nombre;
+        return "https://www.segurosporsiempre.cl/fotosEmpr/" + nombre;
     }
 
     private void activarEmpresa(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

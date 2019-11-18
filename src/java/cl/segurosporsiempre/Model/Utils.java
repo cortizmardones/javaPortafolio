@@ -59,7 +59,7 @@ public class Utils {
         boolean enviado = false;
         try {
 
-            String host = "smtp-mail.outlook.com";
+            String host = "smtp.gmail.com";
 
             Properties prop = System.getProperties();
 

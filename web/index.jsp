@@ -119,13 +119,20 @@
                     </button>
                 </div>
                 <form class="form-signin" action="login" method="POST">
-                        
+                    <div class="modal-body">
+                        Indique su perfil:
+                        <div id="categorias" align="center">
+                            <input type="radio" value="administrador" name="categoria" checked> Administrador &nbsp;
+                            <input type="radio" value="profesional" name="categoria"> Profesional &nbsp;
+                            <input type="radio" value="empresa" name="categoria"> Empresa &nbsp; <br> <br>
+                        </div>  <br> 
                         <label for="correo">Ingrese su correo electrónico:</label>
                         <input type="email" id="correo" name="correo" class="form-control" placeholder="correo@dominio.com" required="" autofocus=""> <br>
                         <input type="hidden" name="accion" value="pasarSegundaEtapa">
                         <div align="center">
                             <input type="submit" class="btn btn-primary" value="Siguiente" >
-                        </div>                      
+                        </div>  
+                    </div>
                 </form>
             </div>
         </div>
@@ -141,20 +148,61 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <h4>Revise su correo electrónico e ingrese abajo el código recibido</h4>
-                <form action="login" method="POST">
-                        
+                <div class="modal-body">
+                    <h4>Revise su correo electrónico e ingrese abajo el código recibido</h4>
+                    <form action="login" method="POST">                 
                         <label for="codigo">Ingrese el código:</label>
-                        <input type="email" id="codigo" name="codigo" class="form-control" placeholder="correo@dominio.com" required="" autofocus=""> <br>
+                        <input type="text" id="codigo" name="codigo" class="form-control"  required="" autofocus=""> <br>
                         <input type="hidden" name="accion" value="pasarEtapaMod">
                         <input type="hidden" name="correo" value="${activeCorreo}">
+                        <input type="hidden" name="categoria" value="${cat}">
                         <div align="center">
                             <input type="submit" class="btn btn-primary" value="Siguiente" >
                         </div>                      
-                </form>
+                    </form>       
+                </div>
             </div>
         </div>
     </div>  
+                        
+    <div class="modal fade" id="cambiarPassFinal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalCenterTitle"><b style="color: blue;">PASO 3 - Cambiar Contraseña</b></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="login" method="POST">
+                        <div class="modal-body">
+                            <label for="password">Ingrese la nueva contraseña</label>
+                            <input id="password" name="password" class="form-control" type="password" pattern="^\S{6,}$"
+                                   onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Debe tener al menos 6 caracteres' : '');
+                                           if (this.checkValidity())
+                                               form.password_two.pattern = this.value;" placeholder="Contraseña" required>
+                            <br>
+
+                            <label for="password_two">Repita contraseña</label>
+                            <input id="password_two" name="password_two" class="form-control" type="password"
+                                   pattern="^\S{6,}$"
+                                   onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Debe ingresar la misma contraseña de arriba' : '');"
+                                   placeholder="Confirmar contraseña" required> <br>
+
+                            <input type="hidden" name="accion" value="cambiarPassRec" >
+                            <input type="hidden" name="id" value="${usuRec.id}" >      
+                            <input type="hidden" name="categoria" value="${usuRec.perfil.nombre}" >                              
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                <input type="submit" class="btn btn-primary" value="Finalizar">
+                            </div>
+                    </form>
+                </div>
+            </div>
+        </div>  
+    </div>                         
                             
 </div>                              
 
