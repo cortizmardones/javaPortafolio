@@ -8,7 +8,10 @@ package cl.segurosporsiempre.Data;
 import cl.segurosporsiempre.Connection.Conexion;
 import cl.segurosporsiempre.Model.Capacitacion;
 import cl.segurosporsiempre.Model.Empresa;
+import cl.segurosporsiempre.Model.EstadoCapacitacion;
 import cl.segurosporsiempre.Model.Profesional;
+import cl.segurosporsiempre.Model.Prueba;
+import cl.segurosporsiempre.Model.Utils;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,37 +32,14 @@ public class CapacitacionDao {
     public CapacitacionDao(Conexion conn) {
         this.conn = conn;
     }
-
-    public boolean agregarCapacitacion(Capacitacion c) {
-        try {
-            
-            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_AGREGAR_CAPACITACION(?,?,?,?,?,?) }"); 
-            
-            cst.setLong(1, c.getEmpresa().getId());
-            cst.setString(2, c.getFecha());
-            cst.setString(3, c.getMaterial());
-            cst.setString(4, c.getCorreoUsuarioOrigen());
-            cst.setInt(5, c.getCantidadAsistentes());
-            cst.setString(6, c.getTema());
-
-            cst.execute();
-            
-            return true;
-
-        } catch (SQLException ex) {
-            Logger.getLogger(CapacitacionDao.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
-        } catch (Exception ex) {
-            Logger.getLogger(CapacitacionDao.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
-        }
-    }
     
     public List<Capacitacion> obtenerCapacitaciones()
     {
         Capacitacion capacitacion;
-        Profesional p;
-        Empresa emp;
+        EstadoCapacitacion estado;
+        Profesional profesional;
+        Empresa empresa;
+        
         List<Capacitacion> capacitaciones = new LinkedList<>();
         
         try {
@@ -69,35 +49,38 @@ public class CapacitacionDao {
             
             cst.execute();
             
-            ResultSet rs = (ResultSet)cst.getObject(1);
+            ResultSet rs = (ResultSet) cst.getObject(1);
             
             while (rs.next())
             {
+                estado = new EstadoCapacitacion();
+                estado.setId(rs.getLong("ID_ESTADO"));
+                estado.setDescripcion(rs.getString("DESCRIPCION"));
+                
+                empresa = new Empresa();
+                empresa.setId(rs.getLong("ID_EMPRESA"));
+                empresa.setRazonSocial(rs.getString("RAZON_SOCIAL"));
+                
+                profesional = new Profesional();
+                profesional.setNombres(rs.getString("NOMBRES"));
+                profesional.setApellidos(rs.getString("APELLIDOS"));
+                profesional.setId(rs.getLong("ID_PROFESIONAL"));
+                
                 capacitacion = new Capacitacion();
-                capacitacion.setId(rs.getLong("id_capacitacion"));
-                capacitacion.setFecha(rs.getString("fecha"));
-                capacitacion.setMaterial(rs.getString("material"));
-                capacitacion.setCorreoUsuarioOrigen(rs.getString("correo_usuario_origen"));
-                capacitacion.setEstado(rs.getBoolean("estado"));
-                capacitacion.setCantidadAsistentes(rs.getInt("numero_asistentes"));
-                capacitacion.setTema(rs.getString("tema_capacitacion"));
-                
-                emp = new Empresa();
-                emp.setRazonSocial(rs.getString("razon_social"));
-                
-                p = new Profesional();
-                p.setId(rs.getLong("id_profesional"));
-                p.setNombres(rs.getString("nombres"));
-                p.setApellidos(rs.getString("apellidos"));
-                p.setEstado(rs.getBoolean("estado_profesional"));
-                
-                capacitacion.setProfesional(p);
-                capacitacion.setEmpresa(emp);
+                capacitacion.setId(rs.getLong("ID_CAPACITACION"));
+                capacitacion.setCorreo(rs.getString("CORREO_USUARIO_ORIGEN"));
+                capacitacion.setFecha(Utils.FECHATRANSFORMADA(rs.getString("FECHA")));
+                capacitacion.setMateriales(rs.getString("MATERIAL"));
+                capacitacion.setNumeroAsistentes(rs.getInt("NUMERO_ASISTENTES"));
+                capacitacion.setEmpresa(empresa);
+                capacitacion.setProfesional(profesional);
+                capacitacion.setEstadoCapacitacion(estado);                
                 
                 capacitaciones.add(capacitacion);
             }
             
             return capacitaciones;
+            
             
         } catch (SQLException ex) {
             Logger.getLogger(CapacitacionDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -108,106 +91,30 @@ public class CapacitacionDao {
         }
     }
     
-    public boolean tomarCapacitacion(long idCap, long idPro)
+    public Prueba obtenerPruebaPorCapacitacion(Long id)
     {
-        try {
-            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_TOMAR_CAPACITACION(?,?) }");
-            cst.setLong(1, idCap);
-            cst.setLong(2, idPro);    
-            
-            cst.execute();
-            
-            return true;
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(CapacitacionDao.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
-        } catch (Exception ex) {
-            Logger.getLogger(CapacitacionDao.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
-        }
-    }
-
-    public boolean activarCapaciontacion(Long id) {
+        Prueba p;
         
         try {
             
-            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_ACTIVAR_CAPACITACION(?) }");
-            cst.setLong(1, id);
-            
-            cst.execute();
-            
-            return true;
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(CapacitacionDao.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
-        } catch (Exception ex) {
-            Logger.getLogger(CapacitacionDao.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
-        }
-    }
-
-    public boolean desactivarCapaciontacion(Long id) {
-        
-        try {
-            
-            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_DESACTIVAR_CAPACITACION(?) }");
-            cst.setLong(1, id);
-            
-            cst.execute();
-            
-            return true;
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(CapacitacionDao.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
-        } catch (Exception ex) {
-            Logger.getLogger(CapacitacionDao.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
-        }
-    }
-
-    public Capacitacion obtenerCapacitacion(Long id) {
-        
-        Capacitacion capacitacion;
-        Profesional p;
-        Empresa emp;
-        
-        try {
-
-            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_BUSCAR_CAPACITACION(?,?) }");
+            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_BUSCAR_PRUEBA_CAPACITACION(?,?) }");
             cst.setLong(1, id);
             cst.registerOutParameter(2, OracleTypes.CURSOR);
-
+            
             cst.execute();
-
-            ResultSet rs = (ResultSet) cst.getObject(2);
+            
+            ResultSet rs = (ResultSet)cst.getObject(2);
 
             rs.next();
 
-            capacitacion = new Capacitacion();
-            capacitacion.setId(rs.getLong("id_capacitacion"));
-            capacitacion.setFecha(rs.getString("fecha").substring(0,16));
-            capacitacion.setMaterial(rs.getString("material"));
-            capacitacion.setCorreoUsuarioOrigen(rs.getString("correo_usuario_origen"));
-            capacitacion.setEstado(rs.getBoolean("estado"));
-            capacitacion.setCantidadAsistentes(rs.getInt("numero_asistentes"));
-            capacitacion.setTema(rs.getString("tema_capacitacion"));
+            p = new Prueba();
+            p.setId(rs.getLong("ID_PRUEBA"));
+            p.setCapacitacion(new Capacitacion(rs.getLong("ID_CAPACITACION")));
+            p.setDescripcion(rs.getString("DESCRIPCION"));
+            p.setFecha(Utils.FECHATRANSFORMADA(rs.getString("FECHA")));
 
-            emp = new Empresa();
-            emp.setRazonSocial(rs.getString("razon_social"));
-
-            p = new Profesional();
-            p.setId(rs.getLong("id_profesional"));
-            p.setNombres(rs.getString("nombres"));
-            p.setApellidos(rs.getString("apellidos"));
-            p.setEstado(rs.getBoolean("estado_profesional"));
-
-            capacitacion.setProfesional(p);
-            capacitacion.setEmpresa(emp);
-
-            return capacitacion;
+            return p;
+            
             
         } catch (SQLException ex) {
             Logger.getLogger(CapacitacionDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -215,32 +122,6 @@ public class CapacitacionDao {
         } catch (Exception ex) {
             Logger.getLogger(CapacitacionDao.class.getName()).log(Level.SEVERE, null, ex);
             return null;
-        }
-    }
-
-    public boolean modificarCapacitacion(Capacitacion c) {
-        
-        try {
-            
-            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_MODIFICAR_CAPACITACION(?,?,?,?,?,?) }");
-            cst.setLong(1, c.getId());
-            cst.setLong(2, c.getProfesional().getId());
-            cst.setString(3, c.getMaterial());
-            cst.setString(4, c.getTema());
-            cst.setString(5, c.getFecha());
-            cst.setInt(6, c.getCantidadAsistentes());
-            
-            cst.execute();
-            
-            return true;
-            
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(CapacitacionDao.class.getName()).log(Level.SEVERE, null, ex);
-            return false;           
-        } catch (Exception ex) {
-            Logger.getLogger(CapacitacionDao.class.getName()).log(Level.SEVERE, null, ex);
-            return false;           
         }
     }
 }

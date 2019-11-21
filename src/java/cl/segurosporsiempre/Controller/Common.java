@@ -21,6 +21,7 @@ import cl.segurosporsiempre.Model.Capacitacion;
 import cl.segurosporsiempre.Model.CheckList;
 import cl.segurosporsiempre.Model.Empresa;
 import cl.segurosporsiempre.Model.Profesional;
+import cl.segurosporsiempre.Model.Prueba;
 import cl.segurosporsiempre.Model.Rubro;
 import cl.segurosporsiempre.Model.TipoAccidente;
 import cl.segurosporsiempre.Model.TipoAsesoria;
@@ -65,26 +66,23 @@ public class Common extends HttpServlet {
         HttpSession sesion = request.getSession();
         sesion.setAttribute("usuarioActivo", usu);
     }
-    
+
     public static void setUsuarioActivoRecPassSession(String correo, String perfil, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession sesion = request.getSession();
-        
+
         Conexion conn = new Conexion();
         LoginDao lDto = new LoginDao(conn);
-        
-        if (perfil.equals("profesional"))
-        {
+
+        if (perfil.equals("profesional")) {
             UsuarioProfesional usu = lDto.obtenerUsuarioProfesional(correo);
             conn.cerrarConexion();
             sesion.setAttribute("usuRec", usu);
-        }
-        else
-        {
+        } else {
             Usuario usu = lDto.obtenerUsuario(correo);
             conn.cerrarConexion();
-            sesion.setAttribute("usuRec", usu);            
+            sesion.setAttribute("usuRec", usu);
         }
-    }    
+    }
 
     public static void setTiposAccidenteRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Conexion conn = new Conexion();
@@ -203,29 +201,25 @@ public class Common extends HttpServlet {
             sesion.setAttribute("checklists", checklists2);
         }
     }
-    
-    public static void setCapacitaicionesSession(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
-    {
+
+    public static void setCapacitaicionesSession(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Conexion conn = new Conexion();
         CapacitacionDao cDto = new CapacitacionDao(conn);
-        
+
         List<Capacitacion> capacitaciones = cDto.obtenerCapacitaciones();
-        
+
         conn.cerrarConexion();
-        
-        if (capacitaciones != null && capacitaciones.size() > 0)
-        {
+
+        if (capacitaciones != null && capacitaciones.size() > 0) {
             HttpSession sesion = request.getSession();
             sesion.setAttribute("capacitaciones", capacitaciones);
-        }
-        else
-        {
+        } else {
             List<Capacitacion> caps = new LinkedList<>();
             HttpSession sesion = request.getSession();
-            sesion.setAttribute("capacitaciones", caps);            
+            sesion.setAttribute("capacitaciones", caps);
         }
     }
-    
+
     public static void setAsesoriasSession(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         {
             //HttpSession sesion = request.getSession();
@@ -244,9 +238,9 @@ public class Common extends HttpServlet {
             }
         }
     }
-    
+
     public static void setTipoAsesoriasRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        {            
+        {
             Conexion conn = new Conexion();
             AsesoriaDao taDto = new AsesoriaDao(conn);
             List<TipoAsesoria> tase = taDto.obtenerTiposAsesoria();
@@ -255,11 +249,11 @@ public class Common extends HttpServlet {
             if (tase != null && tase.size() > 0) {
                 HttpSession sesion = request.getSession();
                 sesion.setAttribute("tiposAsesorias", tase);
-                
+
             } else {
                 List<TipoAsesoria> lstase = new LinkedList<>();
                 HttpSession sesion = request.getSession();
-                sesion.setAttribute("tiposAsesorias", lstase);                
+                sesion.setAttribute("tiposAsesorias", lstase);
             }
         }
     }
@@ -281,7 +275,27 @@ public class Common extends HttpServlet {
             //HttpSession sesion = request.getSession();
             sesion.setAttribute("accidentes", lstAccidente);
         }
-
     }
-     
+
+    public static void setPruebaActivaSession(Long idCapacitacion, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        Conexion conn = new Conexion();
+        CapacitacionDao cDto = new CapacitacionDao(conn);
+
+        Prueba p = cDto.obtenerPruebaPorCapacitacion(idCapacitacion);
+
+        conn.cerrarConexion();
+
+        if (p != null) {
+            HttpSession sesion = request.getSession();
+            sesion.setAttribute("pruebaActiva", p);
+            request.getRequestDispatcher("proCapacitacionesDetalles.jsp").forward(request, response);                 
+            
+        } else {
+            HttpSession sesion = request.getSession();
+            sesion.setAttribute("pruebaActiva", new Prueba());
+            request.getRequestDispatcher("proCapacitaciones.jsp").forward(request, response);            
+        }
+    }
+
 }

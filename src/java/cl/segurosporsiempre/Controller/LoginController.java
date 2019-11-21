@@ -320,57 +320,53 @@ public class LoginController extends HttpServlet {
         }
     }
 
-    private void cambiarPasswordRecuperacion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
-        
+    private void cambiarPasswordRecuperacion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         Long id = Long.parseLong(request.getParameter("id"));
         String perfil = request.getParameter("categoria");
         String pass = Utils.MD5(request.getParameter("password"));
-        
+
         Conexion conn = new Conexion();
         LoginDao lDto = new LoginDao(conn);
-       
+
         Usuario usu;
         UsuarioProfesional usuPro;
-        
+
         boolean resultado;
-        
-        if (perfil.equalsIgnoreCase("Profesional"))
-        {
+        String mensj = "";
+
+        if (perfil.equalsIgnoreCase("Profesional")) {
             usuPro = new UsuarioProfesional();
             usuPro.setId(id);
             usuPro.setPassword(pass);
 
             resultado = lDto.modificarPassLogin(usuPro);
             
-            if (resultado)
-            {
-                request.setAttribute("mensaje", "Contraseña cambiada, ingrese nuevamente");
-                request.getRequestDispatcher("index.jsp").forward(request, response);
+            conn.cerrarConexion();
+
+            if (resultado) {
+                mensj = "Contraseña cambiada, ingrese nuevamente";
+            } else {
+                mensj = "No se pudo cambiar la contraseña";
             }
-            else
-            {
-                request.setAttribute("mensaje", "No se pudo cambiar la contraseña");
-                request.getRequestDispatcher("index.jsp").forward(request, response);                
-            }
-        }
-        else
-        {
+        } else {
             usu = new Usuario();
             usu.setId(id);
             usu.setPassword(pass);
 
             resultado = lDto.modificarPassLogin(usu);
             
-            if (resultado)
-            {
-                request.setAttribute("mensaje", "Contraseña cambiada, ingrese nuevamente");
-                request.getRequestDispatcher("index.jsp").forward(request, response);
+            conn.cerrarConexion();
+
+            if (resultado) {
+                mensj = "Contraseña cambiada, ingrese nuevamente";
+            } else {
+                mensj = "No se pudo cambiar la contraseña";
             }
-            else
-            {
-                request.setAttribute("mensaje", "No se pudo cambiar la contraseña");
-                request.getRequestDispatcher("index.jsp").forward(request, response);                
-            }            
         }
+        
+        request.setAttribute("mensaje", mensj);
+        request.getRequestDispatcher("index.jsp").forward(request, response);
+        
     }
 }

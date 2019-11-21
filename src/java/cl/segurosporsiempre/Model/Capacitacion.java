@@ -5,6 +5,8 @@
  */
 package cl.segurosporsiempre.Model;
 
+import java.util.List;
+
 /**
  *
  * @author raulp
@@ -14,12 +16,13 @@ public class Capacitacion {
     private Long id;
     private Empresa empresa;
     private Profesional profesional;
+    private Prueba prueba;
+    private List<Asistente> asistentes;
     private String fecha;
-    private String material;
-    private String correoUsuarioOrigen;
-    private Boolean estado;
-    private Integer cantidadAsistentes;
-    private String tema;
+    private String materiales;
+    private String correo;
+    private Integer numeroAsistentes;
+    private EstadoCapacitacion estadoCapacitacion;
 
     public Capacitacion() {
     }
@@ -28,64 +31,23 @@ public class Capacitacion {
         this.id = id;
     }
 
-    public Capacitacion(Long id, Empresa empresa, Profesional profesional, String fecha, String material, String correoUsuarioOrigen, Boolean estado, Integer cantidadAsistentes, String tema) {
+    public Capacitacion(Long id, Empresa empresa, Profesional profesional, String fecha, String materiales, String correo, Integer numeroAsistentes, EstadoCapacitacion estadoCapacitacion) {
         this.id = id;
         this.empresa = empresa;
         this.profesional = profesional;
         this.fecha = fecha;
-        this.material = material;
-        this.correoUsuarioOrigen = correoUsuarioOrigen;
-        this.estado = estado;
-        this.cantidadAsistentes = cantidadAsistentes;
-        this.tema = tema;
+        this.materiales = materiales;
+        this.correo = correo;
+        this.numeroAsistentes = numeroAsistentes;
+        this.estadoCapacitacion = estadoCapacitacion;
     }
 
-    public String getTema() {
-        return tema;
+    public EstadoCapacitacion getEstadoCapacitacion() {
+        return estadoCapacitacion;
     }
 
-    public void setTema(String tema) {
-        this.tema = tema;
-    }
-
-    public String getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(String fecha) {
-        this.fecha = fecha;
-    }
-
-    public String getMaterial() {
-        return material;
-    }
-
-    public void setMaterial(String material) {
-        this.material = material;
-    }
-
-    public String getCorreoUsuarioOrigen() {
-        return correoUsuarioOrigen;
-    }
-
-    public void setCorreoUsuarioOrigen(String correoUsuarioOrigen) {
-        this.correoUsuarioOrigen = correoUsuarioOrigen;
-    }
-
-    public Boolean getEstado() {
-        return estado;
-    }
-
-    public void setEstado(Boolean estado) {
-        this.estado = estado;
-    }
-
-    public Integer getCantidadAsistentes() {
-        return cantidadAsistentes;
-    }
-
-    public void setCantidadAsistentes(Integer cantidadAsistentes) {
-        this.cantidadAsistentes = cantidadAsistentes;
+    public void setEstadoCapacitacion(EstadoCapacitacion estadoCapacitacion) {
+        this.estadoCapacitacion = estadoCapacitacion;
     }
 
     public Long getId() {
@@ -112,8 +74,56 @@ public class Capacitacion {
         this.profesional = profesional;
     }
 
+    public Prueba getPrueba() {
+        return prueba;
+    }
+
+    public void setPrueba(Prueba prueba) {
+        this.prueba = prueba;
+    }
+
+    public List<Asistente> getAsistentes() {
+        return asistentes;
+    }
+
+    public void setAsistentes(List<Asistente> asistentes) {
+        this.asistentes = asistentes;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
+    public String getMateriales() {
+        return materiales;
+    }
+
+    public void setMateriales(String materiales) {
+        this.materiales = materiales;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public Integer getNumeroAsistentes() {
+        return numeroAsistentes;
+    }
+
+    public void setNumeroAsistentes(Integer numeroAsistentes) {
+        this.numeroAsistentes = numeroAsistentes;
+    }
+
     @Override
     public String toString() {
-        return "Capacitacion{" + "id=" + id + ", empresa=" + empresa + ", profesional=" + profesional + ", fecha=" + fecha + ", material=" + material + ", correoUsuarioOrigen=" + correoUsuarioOrigen + ", estado=" + estado + ", cantidadAsistentes=" + cantidadAsistentes + ", tema=" + tema + '}';
+        return "Capacitacion{" + "id=" + id + ", empresa=" + empresa + ", profesional=" + profesional + ", prueba=" + prueba + ", asistentes=" + asistentes + ", fecha=" + fecha + ", materiales=" + materiales + ", correo=" + correo + ", numeroAsistentes=" + numeroAsistentes + ", estadoCapacitacion=" + estadoCapacitacion + '}';
     }
 }
