@@ -7,6 +7,45 @@ public class CheckList {
     private Visita visita;
     private String descripcion;
     private Boolean estado;
+    
+    //mas completo
+    private Profesional profesional;
+    private Rubro rubro;
+    private Empresa empresa;
+
+    public CheckList(Long id, Visita visita, String descripcion, Boolean estado, Profesional profesional, Rubro rubro, Empresa empresa) {
+        this.id = id;
+        this.visita = visita;
+        this.descripcion = descripcion;
+        this.estado = estado;
+        this.profesional = profesional;
+        this.rubro = rubro;
+        this.empresa = empresa;
+    }
+
+    public Profesional getProfesional() {
+        return profesional;
+    }
+
+    public void setProfesional(Profesional profesional) {
+        this.profesional = profesional;
+    }
+
+    public Rubro getRubro() {
+        return rubro;
+    }
+
+    public void setRubro(Rubro rubro) {
+        this.rubro = rubro;
+    }
+
+    public Empresa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
+    }
 
     public CheckList() {
     }
@@ -58,6 +97,7 @@ public class CheckList {
     public String toString() {
         return "CheckList{" + "id=" + id + ", visita=" + visita + ", descripcion=" + descripcion + ", estado=" + estado + '}';
     }
+    
     
     
     

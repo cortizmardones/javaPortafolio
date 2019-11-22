@@ -5,13 +5,42 @@
  */
 package cl.segurosporsiempre.Reporting;
 
+import cl.segurosporsiempre.Connection.Conexion;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+
 /**
  *
  * @author raulp
  */
 public class GeneradorReporte {
     
-    public static final String PATH_BASE_FUENTE_SERVIDOR = "/opt/apache-tomcat-8.5.45/webapps/ROOT/sourceRepo";
+    public static final String PATH_BASE_FUENTE_SERVIDOR = "/opt/apache-tomcat-8.5.45/webapps/ROOT/sourceRepo/CapacitacionesPrincipal.jasper";
+    public static final String PATH_BASE_FUENTE_SERVIDOR_W = "C:\\Users\\raulp\\Documents\\NetBeansProjects\\web-segurosporsiempre\\web\\sourceRepo\\CapacitacionesPrincipal.jasper";
     public static final String PATH_BASE_REPORTES_SERVIDOR = "/opt/apache-tomcat-8.5.45/webapps/ROOT/reports";
     
+    public static JasperPrint generarReporteCapacitaciones(){
+        try {
+            Conexion c = new Conexion();
+            JasperPrint reporteLleno = JasperFillManager.fillReport(PATH_BASE_FUENTE_SERVIDOR, new HashMap(), c.getConnection());
+            return reporteLleno;
+        } catch (JRException ex) {
+            Logger.getLogger(GeneradorReporte.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    /*
+    Generar desde el controlador     
+  
+        JasperPrint reporteLeno = ReportGenerator.generarReporteCapacitaciones();
+        JasperExportManager.exportReportToPdfFile(reporteLeno,"reports/ReporteMaestroCapacitaciones.pdf");
+    
+        String url = "https://www.segurosporsiempre.cl/reports/ReporteMaestroCapacitaciones.pdf";
+        
+    */
 }

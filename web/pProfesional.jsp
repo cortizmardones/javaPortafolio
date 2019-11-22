@@ -82,15 +82,16 @@
                         <div class="card-header text-white bg-primary">Mis datos</div>
                         <div class="card-body">
                             <div align="center">
-                                <b><u>Nombre:</u></b> Jose Collio <br> 
-                                <b><u>RUT:</u></b> 7.777.777-8 <br>                                 
-                                <b><u>Dirección:</u></b> Av. Freire 775, San Bernardo <br>
-                                <b><u>Correo:</u></b> jose.collio@seguritas.cl<br> <br>
+                                <img src="${usuarioActivo.profesional.avatar}" class="rounded mx-auto d-block" high="100" width="100">                                
+                                <b><u>Nombre:</u></b> ${usuarioActivo.profesional.nombres} ${usuarioActivo.profesional.apellidos} <br> 
+                                <b><u>RUT:</u></b> ${usuarioActivo.profesional.rut} <br>                                 
+                                <b><u>Dirección:</u></b> ${usuarioActivo.profesional.direccion} <br>
+                                <b><u>Correo:</u></b> ${usuarioActivo.correo}<br> <br>
                             </div>
                             <div align="center">
-                                <a class="btn btn-warning" style="color: black;" href="" role="button">Modificar datos</a>
-                                <a class="btn btn-warning" style="color: black;" href="" role="button">Modificar
-                                    contraseña</a>
+                                <!--<a class="btn btn-warning" style="color: black;" href="" role="button">Modificar datos</a>-->
+                                <a class="btn btn-warning" style="color: black;" href="pro?accion=gatillarModPass" role="button">Modificar contraseña</a>
+
                             </div>
                         </div>
                     </div>

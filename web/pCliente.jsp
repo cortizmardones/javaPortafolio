@@ -110,11 +110,11 @@
                         <div class="card-body">
                             <div align="center">
                                 <div align="center">
-                                    <img src="img/aramark-1500x789.jpg"  height="200"  width="180" alt="" />    
+                                    <img src="https://www.segurosporsiempre.cl/fotosEmpr/shell.png"  height="100"  width="100" alt="" />    
                                 </div>
-                                <b><u>Nombre:</u></b> Aramark <br>                               
-                                <b><u>Dirección:</u></b> Los Aromos 2050 <br>
-                                <b><u>Correo:</u></b> ert.uiy@aramark.cl<br> <br>
+                                <b><u>Empresa:</u></b> ${usuarioActivo.empresa.razonSocial} <br>                               
+                                <b><u>Dirección:</u></b> ${usuarioActivo.empresa.direccion} <br>
+                                <b><u>Correo:</u></b> ${usuarioActivo.correo}<br> <br>
                             </div>
                             <div align="center">
                                 <a class="btn btn-warning" style="color: black;" href="" role="button">Modificar datos</a>

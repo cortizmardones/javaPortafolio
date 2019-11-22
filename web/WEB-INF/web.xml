@@ -15,7 +15,15 @@
     <servlet>
         <servlet-name>VisitaController</servlet-name>
         <servlet-class>cl.segurosporsiempre.Controller.VisitaController</servlet-class>
-    </servlet>    
+    </servlet>
+    <servlet>
+        <servlet-name>ChecklistController</servlet-name>
+        <servlet-class>cl.segurosporsiempre.Controller.ChecklistController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ItemController</servlet-name>
+        <servlet-class>cl.segurosporsiempre.Controller.ItemController</servlet-class>
+    </servlet>        
     <servlet>
         <servlet-name>LogoutController</servlet-name>
         <servlet-class>cl.segurosporsiempre.Controller.LogoutController</servlet-class>
@@ -81,6 +89,14 @@
         <url-pattern>/accidente</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>ChecklistController</servlet-name>
+        <url-pattern>/checklist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ItemController</servlet-name>
+        <url-pattern>/item</url-pattern>
+    </servlet-mapping>    
+    <servlet-mapping>
         <servlet-name>UsuarioController</servlet-name>
         <url-pattern>/credencial</url-pattern>
     </servlet-mapping>
@@ -101,7 +117,7 @@
             120
         </session-timeout>
     </session-config>
-   <!--
+
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>securedapp</web-resource-name>
@@ -111,5 +127,5 @@
             <transport-guarantee>CONFIDENTIAL</transport-guarantee>
         </user-data-constraint>
     </security-constraint>    
-    -->
+
 </web-app>

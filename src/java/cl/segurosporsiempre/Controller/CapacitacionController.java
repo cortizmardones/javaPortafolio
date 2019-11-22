@@ -12,12 +12,18 @@ import cl.segurosporsiempre.Model.Empresa;
 import cl.segurosporsiempre.Model.Profesional;
 import cl.segurosporsiempre.Model.Prueba;
 import cl.segurosporsiempre.Model.Utils;
+import cl.segurosporsiempre.Reporting.GeneradorReporte;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperPrint;
 
 /**
  *
@@ -47,6 +53,9 @@ public class CapacitacionController extends HttpServlet {
             case "explorar":
                 this.explorarCapacitacion(request, response);
                 break;
+            case "generarReporte":
+                this.generarReporte(request, response);
+                break;                
             default:
                 throw new AssertionError();
         }
@@ -73,5 +82,18 @@ public class CapacitacionController extends HttpServlet {
         
         Long id = Long.parseLong(request.getParameter("id"));
         Common.setPruebaActivaSession(id, request, response);
+    }
+
+    private void generarReporte(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
+        try {
+            
+            JasperPrint reporteLeno = GeneradorReporte.generarReporteCapacitaciones();        
+            JasperExportManager.exportReportToPdfFile(reporteLeno, "/opt/apache-tomcat-8.5.45/webapps/ROOT/reports/ReporteMaestroCapacitaciones.pdf");
+            request.setAttribute("senDescargar", "bajarReporte");
+            request.getRequestDispatcher("proCapacitacionesDetalles.jsp").forward(request, response);
+        } catch (JRException ex) {
+            Logger.getLogger(CapacitacionController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

@@ -5,6 +5,7 @@ import cl.segurosporsiempre.Model.CheckList;
 import cl.segurosporsiempre.Model.Empresa;
 import cl.segurosporsiempre.Model.Profesional;
 import cl.segurosporsiempre.Model.Visita;
+import cl.segurosporsiempre.Model.EstadoVisita;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,10 +26,11 @@ public class VisitaDAO {
     public boolean agregarVisita(Visita v) {
         try {
 
-            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_AGREGAR_VISITA(?,?,?) }");
+            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_AGREGAR_VISITA_V2(?,?,?) }");
             cst.setLong(1, v.getProfesional().getId());
             cst.setLong(2, v.getEmpresa().getId());
             cst.setString(3, v.getFecha());
+            
 
             cst.execute();
 
@@ -48,10 +50,11 @@ public class VisitaDAO {
         Visita visita;
         Profesional profesional;
         Empresa empresa;
+        EstadoVisita estado;
 
         try {
 
-            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_OBTENER_VISITAS(?) }");
+            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_OBTENER_VISITAS_V2(?) }");
             cst.registerOutParameter(1, OracleTypes.CURSOR);
 
             cst.execute();
@@ -66,16 +69,25 @@ public class VisitaDAO {
                 profesional = new Profesional();
                 profesional.setId(rs.getLong("id_profesional"));
                 profesional.setNombres(rs.getString("nombres"));
+                profesional.setApellidos(rs.getString("apellidos"));
 
                 empresa = new Empresa();
                 empresa.setId(rs.getLong("id_empresa"));
-                empresa.setRazonSocial(rs.getString("razon_social"));
+                empresa.setRazonSocial(rs.getString("RAZON_SOCIAL"));
 
                 visita.setFecha(rs.getString("fecha"));
-                visita.setEstado(rs.getBoolean("Estado"));
+                
+                //visita.setEstado(rs.getBoolean("Estado"));
+                //visita.setEstado(rs.getLong("id_estado"));
+                
+                estado = new EstadoVisita();
+                estado.setId(rs.getLong("id_estado"));
+                estado.setDescripcion(rs.getString("DESCRIPCION_ESTADO"));
 
+                
                 visita.setProfesional(profesional);
                 visita.setEmpresa(empresa);
+                visita.setEstado(estado);
 
                 visitas.add(visita);
             }
@@ -95,7 +107,7 @@ public class VisitaDAO {
 
         try {
 
-            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_ACTIVAR_VISITA(?) }");
+            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_ACTIVAR_VISITA_V2(?) }");
             cst.setLong(1, id);
 
             cst.execute();
@@ -114,7 +126,7 @@ public class VisitaDAO {
     public boolean desactivarVisita(Long id) {
         try {
 
-            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_DESACTIVAR_VISITA(?) }");
+            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_DESACTIVAR_VISITA_V2(?) }");
             cst.setLong(1, id);
 
             cst.execute();
@@ -139,7 +151,7 @@ public class VisitaDAO {
 
         try {
 
-            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_BUSCAR_VISITA(?,?) }");
+            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_BUSCAR_VISITA_V2(?,?) }");
             cst.setLong(1, id);
             cst.registerOutParameter(2, OracleTypes.CURSOR);
 
@@ -152,7 +164,7 @@ public class VisitaDAO {
             visita = new Visita();
             visita.setId(rs.getLong("id_visita"));
             visita.setFecha(rs.getString("fecha"));
-            visita.setEstado(rs.getBoolean("estado"));
+            //visita.setEstado(rs.getBoolean("estado"));
 
             profesional = new Profesional();
             profesional.setId(rs.getLong("id_profesional"));
@@ -181,7 +193,7 @@ public class VisitaDAO {
     public boolean modificarVisita(Visita v,CheckList c) {
         try {
 
-            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_ACTUALIZAR_VISITA(?,?,?) }");
+            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_ACTUALIZAR_VISITA_V2(?,?,?) }");
             cst.setLong(1, v.getId());
             cst.setString(2, v.getFecha());
             
@@ -200,6 +212,30 @@ public class VisitaDAO {
             return false;
         }
 
+    }
+    
+    
+    //PORCLIENTE
+    public boolean solicitarVisita(Visita v) {
+        try {
+
+            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_AGREGAR_VISITA_V2(?,?,?) }");
+            //DEJARE A ERIKA ELENIAK COMO DEFAULT
+            cst.setLong(1, 241);
+            cst.setLong(2, v.getEmpresa().getId());
+            cst.setString(3, v.getFecha());
+            
+            cst.execute();
+
+            return true;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(VisitaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } catch (Exception ex) {
+            Logger.getLogger(VisitaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
     }
 
 }

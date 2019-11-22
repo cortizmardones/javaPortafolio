@@ -10,6 +10,7 @@ import cl.segurosporsiempre.Data.AsesoriaDao;
 import cl.segurosporsiempre.Data.CapacitacionDao;
 import cl.segurosporsiempre.Data.CheckListDAO;
 import cl.segurosporsiempre.Data.EmpresaDAO;
+import cl.segurosporsiempre.Data.ItemsDAO;
 import cl.segurosporsiempre.Data.LoginDao;
 import cl.segurosporsiempre.Data.ProfesionalDao;
 import cl.segurosporsiempre.Data.RubroDAO;
@@ -20,6 +21,8 @@ import cl.segurosporsiempre.Model.Asesoria;
 import cl.segurosporsiempre.Model.Capacitacion;
 import cl.segurosporsiempre.Model.CheckList;
 import cl.segurosporsiempre.Model.Empresa;
+import cl.segurosporsiempre.Model.Estado;
+import cl.segurosporsiempre.Model.Item;
 import cl.segurosporsiempre.Model.Profesional;
 import cl.segurosporsiempre.Model.Prueba;
 import cl.segurosporsiempre.Model.Rubro;
@@ -297,5 +300,55 @@ public class Common extends HttpServlet {
             request.getRequestDispatcher("proCapacitaciones.jsp").forward(request, response);            
         }
     }
+    
+    public static void setCheckListV2Session(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Conexion conn = new Conexion();
+        CheckListDAO cDto = new CheckListDAO(conn);
+
+        List<CheckList> checklists = cDto.listarCheckList();
+
+        if (checklists != null && checklists.size() > 0) {
+            HttpSession sesion = request.getSession();
+            sesion.setAttribute("checklists", checklists);
+        } else {
+            HttpSession sesion = request.getSession();
+            List<CheckList> checklists2 = new LinkedList<>();
+            sesion.setAttribute("checklists", checklists2);
+        }
+    }
+    
+    
+    public static void setEstadoRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Conexion conn = new Conexion();
+        ItemsDAO iDto = new ItemsDAO(conn);
+
+        List<Estado> edos = iDto.obtenerEstados();
+        conn.cerrarConexion();
+
+        if (edos != null && edos.size() > 0) {
+            request.setAttribute("estadosItem", edos);
+        } else {
+            List<Estado> edos2 = new LinkedList<>();
+            request.setAttribute("estadosItem", edos2);
+        }
+    }
+    
+    public static void setItemSession(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Conexion conn = new Conexion();
+        ItemsDAO iDto = new ItemsDAO(conn);
+
+        List<Item> items = iDto.obtenerItem();
+
+        if (items != null && items.size() > 0) {
+            HttpSession sesion = request.getSession();
+            sesion.setAttribute("items", items);
+        } else {
+            HttpSession sesion = request.getSession();
+            List<Item> item2 = new LinkedList<>();
+            sesion.setAttribute("items", item2);
+        }
+        
+        
+    }    
 
 }

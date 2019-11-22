@@ -70,6 +70,7 @@ public class MappingController extends HttpServlet {
                 request.getRequestDispatcher("pCliente.jsp").forward(request, response);
                 break;
             case "cSolicitudes":
+                Common.setVisitasSession(request, response);                
                 request.getRequestDispatcher("cliSolicitudes.jsp").forward(request, response);
                 break;
             case "cPagos":
@@ -104,7 +105,12 @@ public class MappingController extends HttpServlet {
                 Common.setVisitasSession(request, response);
                 Common.setCheckListSession(request, response);
                 request.getRequestDispatcher("proVisitas.jsp").forward(request, response);
-                break;            
+                break; 
+            case "pChecklists":
+                Common.setVisitasSession(request, response);
+                Common.setCheckListV2Session(request, response);
+                request.getRequestDispatcher("proChecklists.jsp").forward(request, response);
+                break;
             default:
                 throw new AssertionError();
         }

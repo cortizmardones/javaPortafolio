@@ -116,14 +116,13 @@
                                     <div class="card border-danger mb-3" style="max-width: 18rem;">
                                         <div class="card-body text-dark" align="center">
                                             <h5 class="card-title">Reporte</h5>
-                                            <a href="#"><img class="img-fluid" src="img/crecimiento.png" height="41" width="41" title="Generar Reporte" /></a><br>
+                                            <a href="capacitacion?accion=generarReporte"><img class="img-fluid" src="img/crecimiento.png" height="41" width="41" title="Generar Reporte" /></a><br>
                                             <c:if test="${senDescargar eq 'bajarReporte'}">
-                                                <a href="#"><img src="img/descargar1.png" height="15" width="15" title="Descargar reporte" /> </a> 
+                                                <a href="https://www.segurosporsiempre.cl/reports/ReporteMaestroCapacitaciones.pdf"><img src="img/descargar1.png" height="15" width="15" title="Descargar reporte" /> </a> 
                                             </c:if>              
                                         </div>
                                     </div> 
-                                </div>
-                                            
+                                </div>                                        
                             </div>
                         </div>
                     </div>

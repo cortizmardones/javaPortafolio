@@ -7,8 +7,8 @@ public class Visita {
     private Profesional profesional;
     private Empresa empresa;
     private String fecha;
-    private Boolean estado;
-    
+    //private Boolean estado;
+    private EstadoVisita estado;
     public Visita() {
     }
 
@@ -16,7 +16,7 @@ public class Visita {
         this.id = id;
     }
 
-    public Visita(long id, Profesional profesional, Empresa empresa, String fecha, Boolean estado) {
+    public Visita(long id, Profesional profesional, Empresa empresa, String fecha, EstadoVisita estado) {
         this.id = id;
         this.profesional = profesional;
         this.empresa = empresa;
@@ -57,11 +57,11 @@ public class Visita {
     }
 
 
-    public Boolean getEstado() {
+    public EstadoVisita getEstado() {
         return estado;
     }
 
-    public void setEstado(Boolean estado) {
+    public void setEstado(EstadoVisita estado) {
         this.estado = estado;
     }
 
@@ -69,7 +69,8 @@ public class Visita {
     public String toString() {
         return "Visita{" + "id=" + id + ", profesional=" + profesional + ", empresa=" + empresa + ", fecha=" + fecha + ", estado=" + estado + '}';
     }
-     
+
+    
     
     
 }
