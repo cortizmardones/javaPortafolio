@@ -57,6 +57,9 @@ public class ProfesionalController extends HttpServlet {
             case "gModificar":
                 this.gatillarModificacion(request, response);
                 break;
+            case "gatillarModPass":
+                this.modificarContrasenaProf(request, response);
+                break;                
             default:
                 throw new AssertionError();
         }
@@ -225,6 +228,15 @@ public class ProfesionalController extends HttpServlet {
             request.getRequestDispatcher("adminProfesionales.jsp").forward(request, response);
         }
     }
+    
+    private void modificarContrasenaProf(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
+        request.setAttribute("modal", "cambiarPassProfesional");
+        request.getRequestDispatcher("pProfesional.jsp").forward(request, response);
+        
+    }
+    
+    
 
     private void modificarProfesional(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
