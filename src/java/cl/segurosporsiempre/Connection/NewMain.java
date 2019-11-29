@@ -5,11 +5,6 @@
  */
 package cl.segurosporsiempre.Connection;
 
-import cl.segurosporsiempre.Data.ProfesionalDao;
-import cl.segurosporsiempre.Model.ContratoProfesional;
-import cl.segurosporsiempre.Model.Profesional;
-import cl.segurosporsiempre.Model.Utils;
-
 /**
  *
  * @author raulp
@@ -21,33 +16,19 @@ public class NewMain {
      */
     public static void main(String[] args) {
         
-        /*
         
-        Conexion conn = new Conexion();
-        ProfesionalDao pDto = new ProfesionalDao(conn);
+        Character x = 0;
+        boolean y;
         
-        ContratoProfesional c = new ContratoProfesional();
-        c.setFechaContrato("11-11-1985 18:04");
+        if (x == 1)
+        {
+            y = true;
+        }
+        else
+        {
+            y = false;
+        }
         
-        Profesional p = new Profesional();
-        p.setNombres("Raúl");
-        p.setApellidos("Apellidos");
-        p.setRut("16.124.852-K");
-        p.setDireccion("Los tyu 678");
-        p.setFono(234567898);
-        p.setFechaNacimiento("11-11-1987 18:04");
-        p.setAvatar("img.jpg");
-        
-        p.setContrato(c);
-        
-        
-        
-        boolean resultado = pDto.agregarProfesional(p);
-        
-        System.out.println(resultado);
-
-        */
-        
-    }
-    
+        System.out.println(y);
+    } 
 }

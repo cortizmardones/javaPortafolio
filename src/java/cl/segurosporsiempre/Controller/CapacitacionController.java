@@ -81,15 +81,15 @@ public class CapacitacionController extends HttpServlet {
     private void explorarCapacitacion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
         Long id = Long.parseLong(request.getParameter("id"));
-        Common.setPruebaActivaSession(id, request, response);
+        Common.setPruebaCapActivaSession(id, request, response);
     }
 
     private void generarReporte(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
         try {
             
-            JasperPrint reporteLeno = GeneradorReporte.generarReporteCapacitaciones();        
-            JasperExportManager.exportReportToPdfFile(reporteLeno, "/opt/apache-tomcat-8.5.45/webapps/ROOT/reports/ReporteMaestroCapacitaciones.pdf");
+            JasperPrint reporteLeno = GeneradorReporte.generarReporteCapacitaciones(Long.parseLong(request.getParameter("idCapActiva")));        
+            JasperExportManager.exportReportToPdfFile(reporteLeno, "/opt/apache-tomcat-8.5.45/webapps/ROOT/reports/ReporteMaestroCapacitaciones"+ request.getParameter("idCapActiva") + ".pdf");
             request.setAttribute("senDescargar", "bajarReporte");
             request.getRequestDispatcher("proCapacitacionesDetalles.jsp").forward(request, response);
         } catch (JRException ex) {

@@ -280,7 +280,7 @@ public class Common extends HttpServlet {
         }
     }
 
-    public static void setPruebaActivaSession(Long idCapacitacion, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public static void setPruebaCapActivaSession(Long idCapacitacion, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         Conexion conn = new Conexion();
         CapacitacionDao cDto = new CapacitacionDao(conn);
@@ -292,6 +292,7 @@ public class Common extends HttpServlet {
         if (p != null) {
             HttpSession sesion = request.getSession();
             sesion.setAttribute("pruebaActiva", p);
+            sesion.setAttribute("idCapActiva", idCapacitacion);
             request.getRequestDispatcher("proCapacitacionesDetalles.jsp").forward(request, response);                 
             
         } else {

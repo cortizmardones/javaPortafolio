@@ -23,13 +23,24 @@ public class GeneradorReporte {
     public static final String PATH_BASE_FUENTE_SERVIDOR_W = "C:\\Users\\raulp\\Documents\\NetBeansProjects\\web-segurosporsiempre\\web\\sourceRepo\\CapacitacionesPrincipal.jasper";
     public static final String PATH_BASE_REPORTES_SERVIDOR = "/opt/apache-tomcat-8.5.45/webapps/ROOT/reports";
     
-    public static JasperPrint generarReporteCapacitaciones(){
+    public static JasperPrint generarReporteCapacitaciones(Long idCapacitacion){
+        
         try {
+            
+            HashMap<String, Object> params = new HashMap<>();
+            params.put("idCapacitacion", idCapacitacion);
+            
             Conexion c = new Conexion();
-            JasperPrint reporteLleno = JasperFillManager.fillReport(PATH_BASE_FUENTE_SERVIDOR, new HashMap(), c.getConnection());
+            JasperPrint reporteLleno = JasperFillManager.fillReport(PATH_BASE_FUENTE_SERVIDOR, params, c.getConnection());
+            
+            c.cerrarConexion();
+            
             return reporteLleno;
+            
         } catch (JRException ex) {
+            
             Logger.getLogger(GeneradorReporte.class.getName()).log(Level.SEVERE, null, ex);
+            
         }
         return null;
     }
