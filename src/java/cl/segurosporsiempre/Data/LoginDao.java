@@ -33,9 +33,9 @@ public class LoginDao {
 
     public Usuario obtenerUsuario(String login) {
         
-        Usuario lsp;
-        Perfil prf;
-        Empresa emp;
+        Usuario usuario;
+        Perfil perfil;
+        Empresa empresa;
         
         try {
         
@@ -49,23 +49,25 @@ public class LoginDao {
 
             rs.next();
 
-            prf = new Perfil();
-            prf.setId(rs.getInt("id_perfil"));
+            perfil = new Perfil();
+            perfil.setId(rs.getInt("id_perfil"));
+            perfil.setNombre(rs.getString("nombre"));
 
-            emp = new Empresa();
-            emp.setRazonSocial(rs.getString("nombre_empresa"));
-            emp.setId(rs.getLong("id_empresa"));
+            empresa = new Empresa();
+            empresa.setRazonSocial(rs.getString("nombre_empresa"));
+            empresa.setId(rs.getLong("id_empresa"));
+            empresa.setDireccion(rs.getString("DIRECCION_EMPRESA"));
 
-            lsp = new Usuario();
-            lsp.setId(rs.getLong("id_usuario"));
-            lsp.setCorreo(rs.getString("correo_electronico"));
-            lsp.setPerfil(prf);
-            lsp.setEmpresa(emp);
-            lsp.setEstado(rs.getBoolean("estado_usuario"));
-            lsp.setPrimeraVez(rs.getBoolean("primera_vez"));
-            lsp.setPassword(rs.getString("clave"));
+            usuario = new Usuario();
+            usuario.setId(rs.getLong("id_usuario"));
+            usuario.setCorreo(rs.getString("correo_electronico"));
+            usuario.setPerfil(perfil);
+            usuario.setEmpresa(empresa);
+            usuario.setEstado(rs.getBoolean("estado_usuario"));
+            usuario.setPrimeraVez(rs.getBoolean("primera_vez"));
+            usuario.setPassword(rs.getString("clave"));
 
-            return lsp;
+            return usuario;
 
         } catch (SQLException ex) {
             Logger.getLogger(LoginDao.class.getName()).log(Level.SEVERE, null, ex);

@@ -35,15 +35,15 @@ public class MappingController extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
 
         String nav = request.getParameter("nav");
-        
-        if (nav == null)
-        {
-            System.out.println((String)request.getAttribute("nave"));
-            nav = (String)request.getAttribute("nave");
+
+        if (nav == null) {
+            System.out.println((String) request.getAttribute("nave"));
+            nav = (String) request.getAttribute("nave");
         }
 
         switch (nav) {
             case "aPanel":
+                Common.setGraficosAccidentes(request, response);
                 request.getRequestDispatcher("pAdmin.jsp").forward(request, response);
                 break;
             case "aClientes":
@@ -63,14 +63,27 @@ public class MappingController extends HttpServlet {
                 break;
             case "aCredenciales":
                 Common.setCredencialesSession(request, response);
-                Common.setEmpresasSession(request, response);                
+                Common.setEmpresasSession(request, response);
                 request.getRequestDispatcher("adminPersonas.jsp").forward(request, response);
                 break;
             case "cPanel":
+                Common.setContadorVisitasRealizadas(request, response);
+                Common.setContadorVisitasPendientes(request, response);
+                Common.setContadorVisitasCanceladas(request, response);
+                Common.setContadorAccidentesLeves(request, response);
+                Common.setContadorAccidentesMedios(request, response);
+                Common.setContadorAccidentesGraves(request, response);
+                Common.setContadorCapacitacionesRealizadas(request, response);
+                Common.setContadorCapacitacionesPendientes(request, response);
+                Common.setContadorCapacitacionesCanceladas(request, response);
+                Common.setContadorAsesoriasRealizadas(request, response);
+                Common.setContadorAsesoriasPendientes(request, response);
+                Common.setContadorAsesoriasCanceladas(request, response);
+                Common.setGraficosAccidentes(request, response);
                 request.getRequestDispatcher("pCliente.jsp").forward(request, response);
                 break;
             case "cSolicitudes":
-                Common.setVisitasSession(request, response);                
+                Common.setVisitasSession(request, response);
                 request.getRequestDispatcher("cliSolicitudes.jsp").forward(request, response);
                 break;
             case "cPagos":
@@ -85,8 +98,8 @@ public class MappingController extends HttpServlet {
             case "pAsesorias":
                 Common.setAsesoriasSession(request, response);
                 Common.setProfesionalesSession(request, response);
-                Common.setEmpresasSession(request, response);    
-                Common.setTipoAsesoriasRequest(request, response); 
+                Common.setEmpresasSession(request, response);
+                Common.setTipoAsesoriasRequest(request, response);
                 request.getRequestDispatcher("proAsesorias.jsp").forward(request, response);
                 break;
             case "pAccidentes":
@@ -94,9 +107,9 @@ public class MappingController extends HttpServlet {
                 Common.setEmpresasSession(request, response);
                 Common.setAccidentesSession(request, response);
                 request.getRequestDispatcher("proAccidentes.jsp").forward(request, response);
-                break;                              
+                break;
             case "pCapacitaciones":
-                Common.setCapacitaicionesSession(request, response);                
+                Common.setCapacitaicionesSession(request, response);
                 request.getRequestDispatcher("proCapacitaciones.jsp").forward(request, response);
                 break;
             case "pVisitas":
@@ -105,7 +118,7 @@ public class MappingController extends HttpServlet {
                 Common.setVisitasSession(request, response);
                 Common.setCheckListSession(request, response);
                 request.getRequestDispatcher("proVisitas.jsp").forward(request, response);
-                break; 
+                break;
             case "pChecklists":
                 Common.setVisitasSession(request, response);
                 Common.setCheckListV2Session(request, response);

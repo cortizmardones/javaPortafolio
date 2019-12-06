@@ -7,6 +7,7 @@ package cl.segurosporsiempre.Data;
 
 import cl.segurosporsiempre.Connection.Conexion;
 import cl.segurosporsiempre.Model.Asesoria;
+import cl.segurosporsiempre.Model.ContadorAsesoria;
 import cl.segurosporsiempre.Model.Empresa;
 import cl.segurosporsiempre.Model.Profesional;
 import cl.segurosporsiempre.Model.Rubro;
@@ -223,6 +224,102 @@ public class AsesoriaDao {
             asesoria.setFechaEstimadaRealizada(rs.getString("fecha_realizada").substring(0, 16));
 
             return asesoria;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(AsesoriaDao.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } catch (Exception ex) {
+            Logger.getLogger(AsesoriaDao.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    public List<ContadorAsesoria> obtenerCantidadAsesoriasRealizadas() {
+        List<ContadorAsesoria> listaContadorAsesoria = new LinkedList<>();
+        ContadorAsesoria contadorAsesoria;
+
+        try {
+
+            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_CONTADOR_ASES_REALIZADAS(?) }");
+            cst.registerOutParameter(1, OracleTypes.CURSOR);
+
+            cst.execute();
+
+            ResultSet rs = (ResultSet) cst.getObject(1);
+
+            while (rs.next()) {
+
+                contadorAsesoria = new ContadorAsesoria();
+                contadorAsesoria.setContador(rs.getLong("CANTIDAD"));
+
+                listaContadorAsesoria.add(contadorAsesoria);
+            }
+
+            return listaContadorAsesoria;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(AsesoriaDao.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } catch (Exception ex) {
+            Logger.getLogger(AsesoriaDao.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    public List<ContadorAsesoria> obtenerCantidadAsesoriasPendientes() {
+        List<ContadorAsesoria> listaContadorAsesoria = new LinkedList<>();
+        ContadorAsesoria contadorAsesoria;
+
+        try {
+
+            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_CONTADOR_ASES_PENDIENTES(?) }");
+            cst.registerOutParameter(1, OracleTypes.CURSOR);
+
+            cst.execute();
+
+            ResultSet rs = (ResultSet) cst.getObject(1);
+
+            while (rs.next()) {
+
+                contadorAsesoria = new ContadorAsesoria();
+                contadorAsesoria.setContador(rs.getLong("CANTIDAD"));
+
+                listaContadorAsesoria.add(contadorAsesoria);
+            }
+
+            return listaContadorAsesoria;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(AsesoriaDao.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } catch (Exception ex) {
+            Logger.getLogger(AsesoriaDao.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    public List<ContadorAsesoria> obtenerCantidadAsesoriasCanceladas() {
+        List<ContadorAsesoria> listaContadorAsesoria = new LinkedList<>();
+        ContadorAsesoria contadorAsesoria;
+
+        try {
+
+            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_CONTADOR_ASES_CANCELADAS(?) }");
+            cst.registerOutParameter(1, OracleTypes.CURSOR);
+
+            cst.execute();
+
+            ResultSet rs = (ResultSet) cst.getObject(1);
+
+            while (rs.next()) {
+
+                contadorAsesoria = new ContadorAsesoria();
+                contadorAsesoria.setContador(rs.getLong("CANTIDAD"));
+
+                listaContadorAsesoria.add(contadorAsesoria);
+            }
+
+            return listaContadorAsesoria;
 
         } catch (SQLException ex) {
             Logger.getLogger(AsesoriaDao.class.getName()).log(Level.SEVERE, null, ex);

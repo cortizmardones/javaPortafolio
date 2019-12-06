@@ -95,9 +95,9 @@
                             <div align="center">
                                 <img class="border border-success" src="img/nrt.jpg" height="200"
                                      width="180" alt="CP"> <br> <br>
-                                <b><u>Nombre:</u></b> Carlos Pederneras<br>
-                                <b><u>Perfil:</u></b> Administrador <br>
-                                <b><u>Correo:</u></b> carlos.desertor@gmail.com <br> <br>
+                                <!--Esto viene de LoginCOntroller-->
+                                <b><u>Correo:</u></b> ${usuarioActivo.correo}<br>
+                                <b><u>Perfil:</u></b> ${usuarioActivo.perfil.nombre} <br><br>
                             </div>
                             <div align="center">
                                 <a class="btn btn-warning" style="color: black;" href="" role="button">Modificar datos</a>
@@ -133,6 +133,138 @@
                     </div>
                 </div>
             </div>
+
+
+
+            <div class="row" id="clidata">
+
+                <div class="col-md-12">
+                    <div class="card">
+
+                        <div class="card-header text-white bg-dark">
+                            Gráficos de total de accidentes (2019): 
+                        </div>
+
+                        <div class="card-body">
+                            <!--ACÁ VOY A CONSTRUIR EL GRÁFICO-->
+                            <div class="container">
+                                <div class="container">
+                                    <div class="container">
+                                        <div class="container">
+                                            <div class="container">
+                                                <div class="container">
+                                                    <div class="container">
+                                                        <c:forEach items="${graficos}" var="ContadorTotalAccidente">
+                                                            <input type="text" id="enero" value="${ContadorTotalAccidente.enero}" hidden="">
+                                                            <input type="text" id="febrero" value="${ContadorTotalAccidente.febrero}" hidden="">
+                                                            <input type="text" id="marzo" value="${ContadorTotalAccidente.marzo}" hidden="">
+                                                            <input type="text" id="abril" value="${ContadorTotalAccidente.abril}" hidden="">
+                                                            <input type="text" id="mayo" value="${ContadorTotalAccidente.mayo}" hidden="">
+                                                            <input type="text" id="junio" value="${ContadorTotalAccidente.junio}" hidden="">
+                                                            <input type="text" id="julio" value="${ContadorTotalAccidente.julio}" hidden="">
+                                                            <input type="text" id="agosto" value="${ContadorTotalAccidente.agosto}" hidden="">
+                                                            <input type="text" id="septiembre" value="${ContadorTotalAccidente.septiembre}" hidden="">
+                                                            <input type="text" id="octubre" value="${ContadorTotalAccidente.octubre}" hidden="">
+                                                            <input type="text" id="noviembre" value="${ContadorTotalAccidente.noviembre}" hidden="">
+                                                            <input type="text" id="diciembre" value="${ContadorTotalAccidente.diciembre}" hidden="">
+                                                        </c:forEach>
+                                                        <canvas id="myChart" width="auto" height="auto"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <script src="js/grafico/grafico.js" type="text/javascript"></script>
+                            <script src="js/grafico/jquery.js" type="text/javascript"></script>
+
+                            <script>
+                                var enero = $("#enero").val();
+                                var febrero = $("#febrero").val();
+                                var marzo = $("#marzo").val();
+                                var abril = $("#abril").val();
+                                var mayo = $("#mayo").val();
+                                var junio = $("#junio").val();
+                                var julio = $("#julio").val();
+                                var agosto = $("#agosto").val();
+                                var septiembre = $("#septiembre").val();
+                                var octubre = $("#octubre").val();
+                                var noviembre = $("#noviembre").val();
+                                var diciembre = $("#diciembre").val();
+
+                                var ctx = document.getElementById('myChart').getContext('2d');
+                                var myChart = new Chart(ctx, {
+                                    type: 'bar',
+                                    data: {
+                                        labels: ['1.Enero', '2.Febrero', '3.Marzo', '4.Abril', '5.Mayo', '6.Junio', '7.Julio', '8.Agosto', '9.Septiembre', '10.Octubre', '11.Noviembre', '12.Diciembre'],
+                                        datasets: [{
+                                                label: 'Cantidad de accidentes / Meses',
+                                                data: [enero, febrero, marzo, abril, mayo, junio, julio, agosto, septiembre, octubre, noviembre, diciembre],
+                                                backgroundColor: [
+                                                    'rgba(54, 162, 235, 0.6)',
+                                                    'rgba(54, 162, 235, 0.6)',
+                                                    'rgba(54, 162, 235, 0.6)',
+                                                    'rgba(54, 162, 235, 0.6)',
+                                                    'rgba(54, 162, 235, 0.6)',
+                                                    'rgba(54, 162, 235, 0.6)',
+                                                    'rgba(54, 162, 235, 0.6)',
+                                                    'rgba(54, 162, 235, 0.6)',
+                                                    'rgba(54, 162, 235, 0.6)',
+                                                    'rgba(54, 162, 235, 0.6)',
+                                                    'rgba(54, 162, 235, 0.6)',
+                                                    'rgba(255, 99, 132, 0.6)'
+                                                ],
+                                                borderColor: [
+                                                    'rgba(0, 0, 0, 1)',
+                                                    'rgba(0, 0, 0, 1)',
+                                                    'rgba(0, 0, 0, 1)',
+                                                    'rgba(0, 0, 0, 1)',
+                                                    'rgba(0, 0, 0, 1)',
+                                                    'rgba(0, 0, 0, 1)',
+                                                    'rgba(0, 0, 0, 1)',
+                                                    'rgba(0, 0, 0, 1)',
+                                                    'rgba(0, 0, 0, 1)',
+                                                    'rgba(0, 0, 0, 1)',
+                                                    'rgba(0, 0, 0, 1)',
+                                                    'rgba(0, 0, 0, 1)'
+                                                ],
+                                                borderWidth: 1
+                                            }]
+                                    },
+                                    options: {
+                                        scales: {
+                                            yAxes: [{
+                                                    ticks: {
+                                                        beginAtZero: true
+                                                    }
+                                                }]
+                                        }
+                                    }
+                                });
+                            </script>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             <div class="row no-gutters pt-3" id="footer">
                 <div class="col-md-12 bg-dark text-white text-center py-4">
                     Copyright &copy;Seguros por siempre
@@ -152,34 +284,34 @@
         crossorigin="anonymous"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.js"></script>
         <script type="text/javascript">
-            $(document).ready(function () {
-                $('#t2').DataTable({
-                    "language": {
-                        "sProcessing": "Procesando...",
-                        "sLengthMenu": "Mostrar _MENU_ registros",
-                        "sZeroRecords": "No se encontraron resultados",
-                        "sEmptyTable": "Ningún dato disponible en esta tabla",
-                        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-                        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-                        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-                        "sInfoPostFix": "",
-                        "sSearch": "Buscar:",
-                        "sUrl": "",
-                        "sInfoThousands": ",",
-                        "sLoadingRecords": "Cargando...",
-                        "oPaginate": {
-                            "sFirst": "Primero",
-                            "sLast": "Último",
-                            "sNext": "Siguiente",
-                            "sPrevious": "Anterior"
-                        },
-                        "oAria": {
-                            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-                        }
-                    }
-                });
-            });
+                                $(document).ready(function () {
+                                    $('#t2').DataTable({
+                                        "language": {
+                                            "sProcessing": "Procesando...",
+                                            "sLengthMenu": "Mostrar _MENU_ registros",
+                                            "sZeroRecords": "No se encontraron resultados",
+                                            "sEmptyTable": "Ningún dato disponible en esta tabla",
+                                            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                                            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                                            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                                            "sInfoPostFix": "",
+                                            "sSearch": "Buscar:",
+                                            "sUrl": "",
+                                            "sInfoThousands": ",",
+                                            "sLoadingRecords": "Cargando...",
+                                            "oPaginate": {
+                                                "sFirst": "Primero",
+                                                "sLast": "Último",
+                                                "sNext": "Siguiente",
+                                                "sPrevious": "Anterior"
+                                            },
+                                            "oAria": {
+                                                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                                                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                                            }
+                                        }
+                                    });
+                                });
         </script>        
     </body>
 

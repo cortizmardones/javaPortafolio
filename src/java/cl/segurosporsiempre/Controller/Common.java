@@ -20,6 +20,11 @@ import cl.segurosporsiempre.Model.Accidente;
 import cl.segurosporsiempre.Model.Asesoria;
 import cl.segurosporsiempre.Model.Capacitacion;
 import cl.segurosporsiempre.Model.CheckList;
+import cl.segurosporsiempre.Model.ContadorAccidente;
+import cl.segurosporsiempre.Model.ContadorAsesoria;
+import cl.segurosporsiempre.Model.ContadorCapacitacion;
+import cl.segurosporsiempre.Model.ContadorTotalAccidente;
+import cl.segurosporsiempre.Model.ContadorVisita;
 import cl.segurosporsiempre.Model.Empresa;
 import cl.segurosporsiempre.Model.Estado;
 import cl.segurosporsiempre.Model.Item;
@@ -293,15 +298,15 @@ public class Common extends HttpServlet {
             HttpSession sesion = request.getSession();
             sesion.setAttribute("pruebaActiva", p);
             sesion.setAttribute("idCapActiva", idCapacitacion);
-            request.getRequestDispatcher("proCapacitacionesDetalles.jsp").forward(request, response);                 
-            
+            request.getRequestDispatcher("proCapacitacionesDetalles.jsp").forward(request, response);
+
         } else {
             HttpSession sesion = request.getSession();
             sesion.setAttribute("pruebaActiva", new Prueba());
-            request.getRequestDispatcher("proCapacitaciones.jsp").forward(request, response);            
+            request.getRequestDispatcher("proCapacitaciones.jsp").forward(request, response);
         }
     }
-    
+
     public static void setCheckListV2Session(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Conexion conn = new Conexion();
         CheckListDAO cDto = new CheckListDAO(conn);
@@ -317,8 +322,7 @@ public class Common extends HttpServlet {
             sesion.setAttribute("checklists", checklists2);
         }
     }
-    
-    
+
     public static void setEstadoRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Conexion conn = new Conexion();
         ItemsDAO iDto = new ItemsDAO(conn);
@@ -333,7 +337,7 @@ public class Common extends HttpServlet {
             request.setAttribute("estadosItem", edos2);
         }
     }
-    
+
     public static void setItemSession(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Conexion conn = new Conexion();
         ItemsDAO iDto = new ItemsDAO(conn);
@@ -348,8 +352,229 @@ public class Common extends HttpServlet {
             List<Item> item2 = new LinkedList<>();
             sesion.setAttribute("items", item2);
         }
-        
-        
-    }    
 
+    }
+
+    public static void setContadorVisitasRealizadas(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        {
+            Conexion conn = new Conexion();
+            VisitaDAO vDto = new VisitaDAO(conn);
+            List<ContadorVisita> contadorVisitas = vDto.obtenerCantidadVisitasRealizadas();
+
+            if (contadorVisitas != null && contadorVisitas.size() > 0) {
+                HttpSession sesion = request.getSession();
+                sesion.setAttribute("vRealizadas", contadorVisitas);
+            } else {
+                List<ContadorVisita> contadorVisitas2 = new LinkedList<>();
+                HttpSession sesion = request.getSession();
+                sesion.setAttribute("vRealizadas", contadorVisitas2);
+            }
+        }
+    }
+
+    public static void setContadorVisitasPendientes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        {
+            Conexion conn = new Conexion();
+            VisitaDAO vDto = new VisitaDAO(conn);
+            List<ContadorVisita> contadorVisitas = vDto.obtenerCantidadVisitasPendientes();
+
+            if (contadorVisitas != null && contadorVisitas.size() > 0) {
+                HttpSession sesion = request.getSession();
+                sesion.setAttribute("vPendientes", contadorVisitas);
+            } else {
+                List<ContadorVisita> contadorVisitas2 = new LinkedList<>();
+                HttpSession sesion = request.getSession();
+                sesion.setAttribute("vPendientes", contadorVisitas2);
+            }
+        }
+    }
+
+    public static void setContadorVisitasCanceladas(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        {
+            Conexion conn = new Conexion();
+            VisitaDAO vDto = new VisitaDAO(conn);
+            List<ContadorVisita> contadorVisitas = vDto.obtenerCantidadVisitasCanceladas();
+
+            if (contadorVisitas != null && contadorVisitas.size() > 0) {
+                HttpSession sesion = request.getSession();
+                sesion.setAttribute("vCanceladas", contadorVisitas);
+            } else {
+                List<ContadorVisita> contadorVisitas2 = new LinkedList<>();
+                HttpSession sesion = request.getSession();
+                sesion.setAttribute("vCanceladas", contadorVisitas2);
+            }
+        }
+    }
+
+    public static void setContadorAccidentesLeves(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        {
+            Conexion conn = new Conexion();
+            AccidenteDao vDto = new AccidenteDao(conn);
+            List<ContadorAccidente> contadorAccidente = vDto.obtenerCantidadAccidentesLeves();
+
+            if (contadorAccidente != null && contadorAccidente.size() > 0) {
+                HttpSession sesion = request.getSession();
+                sesion.setAttribute("aLeves", contadorAccidente);
+            } else {
+                List<ContadorVisita> contadorAccidente2 = new LinkedList<>();
+                HttpSession sesion = request.getSession();
+                sesion.setAttribute("aLeves", contadorAccidente2);
+            }
+        }
+    }
+
+    public static void setContadorAccidentesMedios(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        {
+            Conexion conn = new Conexion();
+            AccidenteDao vDto = new AccidenteDao(conn);
+            List<ContadorAccidente> contadorAccidente = vDto.obtenerCantidadAccidentesMedios();
+
+            if (contadorAccidente != null && contadorAccidente.size() > 0) {
+                HttpSession sesion = request.getSession();
+                sesion.setAttribute("aMedios", contadorAccidente);
+            } else {
+                List<ContadorVisita> contadorAccidente2 = new LinkedList<>();
+                HttpSession sesion = request.getSession();
+                sesion.setAttribute("aMedios", contadorAccidente2);
+            }
+        }
+    }
+
+    public static void setContadorAccidentesGraves(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        {
+            Conexion conn = new Conexion();
+            AccidenteDao vDto = new AccidenteDao(conn);
+            List<ContadorAccidente> contadorAccidente = vDto.obtenerCantidadAccidentesGraves();
+
+            if (contadorAccidente != null && contadorAccidente.size() > 0) {
+                HttpSession sesion = request.getSession();
+                sesion.setAttribute("aGraves", contadorAccidente);
+            } else {
+                List<ContadorVisita> contadorAccidente2 = new LinkedList<>();
+                HttpSession sesion = request.getSession();
+                sesion.setAttribute("aGraves", contadorAccidente2);
+            }
+        }
+    }
+
+    public static void setContadorCapacitacionesRealizadas(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        {
+            Conexion conn = new Conexion();
+            CapacitacionDao vDto = new CapacitacionDao(conn);
+            List<ContadorCapacitacion> contadorCapacitacion = vDto.obtenerCantidadCapacitacionesRealizadas();
+
+            if (contadorCapacitacion != null && contadorCapacitacion.size() > 0) {
+                HttpSession sesion = request.getSession();
+                sesion.setAttribute("cRealizadas", contadorCapacitacion);
+            } else {
+                List<ContadorVisita> contadorCapacitacion2 = new LinkedList<>();
+                HttpSession sesion = request.getSession();
+                sesion.setAttribute("cRealizadas", contadorCapacitacion2);
+            }
+        }
+    }
+
+    public static void setContadorCapacitacionesPendientes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        {
+            Conexion conn = new Conexion();
+            CapacitacionDao vDto = new CapacitacionDao(conn);
+            List<ContadorCapacitacion> contadorCapacitacion = vDto.obtenerCantidadCapacitacionesPendientes();
+
+            if (contadorCapacitacion != null && contadorCapacitacion.size() > 0) {
+                HttpSession sesion = request.getSession();
+                sesion.setAttribute("cPendientes", contadorCapacitacion);
+            } else {
+                List<ContadorVisita> contadorCapacitacion2 = new LinkedList<>();
+                HttpSession sesion = request.getSession();
+                sesion.setAttribute("cPendientes", contadorCapacitacion2);
+            }
+        }
+    }
+
+    public static void setContadorCapacitacionesCanceladas(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        {
+            Conexion conn = new Conexion();
+            CapacitacionDao vDto = new CapacitacionDao(conn);
+            List<ContadorCapacitacion> contadorCapacitacion = vDto.obtenerCantidadCapacitacionesCanceladas();
+
+            if (contadorCapacitacion != null && contadorCapacitacion.size() > 0) {
+                HttpSession sesion = request.getSession();
+                sesion.setAttribute("cCanceladas", contadorCapacitacion);
+            } else {
+                List<ContadorVisita> contadorCapacitacion2 = new LinkedList<>();
+                HttpSession sesion = request.getSession();
+                sesion.setAttribute("cCanceladas", contadorCapacitacion2);
+            }
+        }
+    }
+
+    public static void setContadorAsesoriasRealizadas(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        {
+            Conexion conn = new Conexion();
+            AsesoriaDao vDto = new AsesoriaDao(conn);
+            List<ContadorAsesoria> contadorAsesoria = vDto.obtenerCantidadAsesoriasRealizadas();
+
+            if (contadorAsesoria != null && contadorAsesoria.size() > 0) {
+                HttpSession sesion = request.getSession();
+                sesion.setAttribute("aRealizadas", contadorAsesoria);
+            } else {
+                List<ContadorVisita> contadorAsesoria2 = new LinkedList<>();
+                HttpSession sesion = request.getSession();
+                sesion.setAttribute("aRealizadas", contadorAsesoria2);
+            }
+        }
+    }
+
+    public static void setContadorAsesoriasPendientes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        {
+            Conexion conn = new Conexion();
+            AsesoriaDao vDto = new AsesoriaDao(conn);
+            List<ContadorAsesoria> contadorAsesoria = vDto.obtenerCantidadAsesoriasPendientes();
+
+            if (contadorAsesoria != null && contadorAsesoria.size() > 0) {
+                HttpSession sesion = request.getSession();
+                sesion.setAttribute("aPendientes", contadorAsesoria);
+            } else {
+                List<ContadorVisita> contadorAsesoria2 = new LinkedList<>();
+                HttpSession sesion = request.getSession();
+                sesion.setAttribute("aPendientes", contadorAsesoria2);
+            }
+        }
+    }
+
+    public static void setContadorAsesoriasCanceladas(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        {
+            Conexion conn = new Conexion();
+            AsesoriaDao vDto = new AsesoriaDao(conn);
+            List<ContadorAsesoria> contadorAsesoria = vDto.obtenerCantidadAsesoriasCanceladas();
+
+            if (contadorAsesoria != null && contadorAsesoria.size() > 0) {
+                HttpSession sesion = request.getSession();
+                sesion.setAttribute("aCanceladas", contadorAsesoria);
+            } else {
+                List<ContadorVisita> contadorAsesoria2 = new LinkedList<>();
+                HttpSession sesion = request.getSession();
+                sesion.setAttribute("aCanceladas", contadorAsesoria2);
+            }
+        }
+    }
+    
+   
+    public static void setGraficosAccidentes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        {
+            Conexion conn = new Conexion();
+            AccidenteDao vDto = new AccidenteDao(conn);
+            List<ContadorTotalAccidente> contadorTotalAccidente = vDto.obtenerGraficoAccidente();
+
+            if (contadorTotalAccidente != null && contadorTotalAccidente.size() > 0) {
+                HttpSession sesion = request.getSession();
+                sesion.setAttribute("graficos", contadorTotalAccidente);
+            } else {
+                List<ContadorVisita> contadorTotalAccidente2 = new LinkedList<>();
+                HttpSession sesion = request.getSession();
+                sesion.setAttribute("graficos", contadorTotalAccidente2);
+            }
+        }
+    }
+    
 }

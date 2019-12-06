@@ -2,6 +2,7 @@ package cl.segurosporsiempre.Data;
 
 import cl.segurosporsiempre.Connection.Conexion;
 import cl.segurosporsiempre.Model.CheckList;
+import cl.segurosporsiempre.Model.ContadorVisita;
 import cl.segurosporsiempre.Model.Empresa;
 import cl.segurosporsiempre.Model.Profesional;
 import cl.segurosporsiempre.Model.Visita;
@@ -30,7 +31,6 @@ public class VisitaDAO {
             cst.setLong(1, v.getProfesional().getId());
             cst.setLong(2, v.getEmpresa().getId());
             cst.setString(3, v.getFecha());
-            
 
             cst.execute();
 
@@ -76,15 +76,13 @@ public class VisitaDAO {
                 empresa.setRazonSocial(rs.getString("RAZON_SOCIAL"));
 
                 visita.setFecha(rs.getString("fecha"));
-                
+
                 //visita.setEstado(rs.getBoolean("Estado"));
                 //visita.setEstado(rs.getLong("id_estado"));
-                
                 estado = new EstadoVisita();
                 estado.setId(rs.getLong("id_estado"));
                 estado.setDescripcion(rs.getString("DESCRIPCION_ESTADO"));
 
-                
                 visita.setProfesional(profesional);
                 visita.setEmpresa(empresa);
                 visita.setEstado(estado);
@@ -148,7 +146,6 @@ public class VisitaDAO {
         Profesional profesional;
         Empresa empresa;
 
-
         try {
 
             CallableStatement cst = conn.getConnection().prepareCall("{ call SP_BUSCAR_VISITA_V2(?,?) }");
@@ -190,13 +187,13 @@ public class VisitaDAO {
         }
     }
 
-    public boolean modificarVisita(Visita v,CheckList c) {
+    public boolean modificarVisita(Visita v, CheckList c) {
         try {
 
             CallableStatement cst = conn.getConnection().prepareCall("{ call SP_ACTUALIZAR_VISITA_V2(?,?,?) }");
             cst.setLong(1, v.getId());
             cst.setString(2, v.getFecha());
-            
+
             //CheckList checklist = new CheckList();
             cst.setString(3, c.getDescripcion());
 
@@ -213,8 +210,7 @@ public class VisitaDAO {
         }
 
     }
-    
-    
+
     //PORCLIENTE
     public boolean solicitarVisita(Visita v) {
         try {
@@ -224,7 +220,7 @@ public class VisitaDAO {
             cst.setLong(1, 241);
             cst.setLong(2, v.getEmpresa().getId());
             cst.setString(3, v.getFecha());
-            
+
             cst.execute();
 
             return true;
@@ -235,6 +231,127 @@ public class VisitaDAO {
         } catch (Exception ex) {
             Logger.getLogger(VisitaDAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;
+        }
+    }
+
+    public List<ContadorVisita> obtenerCantidadVisitasRealizadas() {
+        List<ContadorVisita> listaContadorVisitas = new LinkedList<>();
+        ContadorVisita contadorVisitas;
+
+        try {
+
+            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_CONTADOR_VISITAS_REALIZADAS(?) }");
+            cst.registerOutParameter(1, OracleTypes.CURSOR);
+
+            cst.execute();
+
+            ResultSet rs = (ResultSet) cst.getObject(1);
+
+            while (rs.next()) {
+
+                contadorVisitas = new ContadorVisita();
+                contadorVisitas.setContador(rs.getLong("CANTIDAD"));
+
+                listaContadorVisitas.add(contadorVisitas);
+            }
+
+            return listaContadorVisitas;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(VisitaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } catch (Exception ex) {
+            Logger.getLogger(VisitaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    /* Método del campesino (Más efectivo)
+    public int obtenerCantidadVisitasAlternativo()
+    {
+        try {
+            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_CONTADOR_VISITAS_REALIZADAS(?)}");
+            cst.registerOutParameter(1, OracleTypes.CURSOR);
+            
+            cst.execute();
+            
+            ResultSet rs = (ResultSet)cst.getObject(1);
+            
+            rs.next();
+            
+            int cantidad = rs.getInt("CANTIDAD");
+            
+            return cantidad;
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(VisitaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
+        } catch (Exception ex) {
+            Logger.getLogger(VisitaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
+        }
+    }*/
+    public List<ContadorVisita> obtenerCantidadVisitasPendientes() {
+        List<ContadorVisita> listaContadorVisitas = new LinkedList<>();
+        ContadorVisita contadorVisitas;
+
+        try {
+
+            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_CONTADOR_VISITAS_PENDIENTES(?) }");
+            cst.registerOutParameter(1, OracleTypes.CURSOR);
+
+            cst.execute();
+
+            ResultSet rs = (ResultSet) cst.getObject(1);
+
+            while (rs.next()) {
+
+                contadorVisitas = new ContadorVisita();
+                contadorVisitas.setContador(rs.getLong("CANTIDAD"));
+
+                listaContadorVisitas.add(contadorVisitas);
+            }
+
+            return listaContadorVisitas;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(VisitaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } catch (Exception ex) {
+            Logger.getLogger(VisitaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    public List<ContadorVisita> obtenerCantidadVisitasCanceladas() {
+        List<ContadorVisita> listaContadorVisitas = new LinkedList<>();
+        ContadorVisita contadorVisitas;
+
+        try {
+
+            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_CONTADOR_VISITAS_CANCELADAS(?) }");
+            cst.registerOutParameter(1, OracleTypes.CURSOR);
+
+            cst.execute();
+
+            ResultSet rs = (ResultSet) cst.getObject(1);
+
+            while (rs.next()) {
+
+                contadorVisitas = new ContadorVisita();
+                contadorVisitas.setContador(rs.getLong("CANTIDAD"));
+
+                listaContadorVisitas.add(contadorVisitas);
+            }
+
+            return listaContadorVisitas;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(VisitaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } catch (Exception ex) {
+            Logger.getLogger(VisitaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
     }
 
