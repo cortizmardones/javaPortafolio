@@ -3,6 +3,7 @@ package cl.segurosporsiempre.Model;
 
 public class ContadorTotalAccidente {
     
+    
     private Long id;
     private int enero;
     private int febrero;

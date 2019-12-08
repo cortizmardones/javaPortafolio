@@ -151,4 +151,5 @@ public class Empresa {
     public String toString() {
         return "Empresa{" + "id=" + id + ", rubro=" + rubro + ", contrato=" + contrato + ", usuarios=" + usuarios + ", razonSocial=" + razonSocial + ", rut=" + rut + ", logo=" + logo + ", email=" + email + ", direccion=" + direccion + ", fono=" + fono + ", numeroTrabajadores=" + numeroTrabajadores + ", estado=" + estado + '}';
     }
+
 }

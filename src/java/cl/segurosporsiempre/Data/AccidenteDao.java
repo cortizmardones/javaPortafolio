@@ -324,7 +324,57 @@ public class AccidenteDao {
         }
     }
 
-    public List<ContadorTotalAccidente> obtenerGraficoAccidente() {
+    public List<ContadorTotalAccidente> obtenerGraficoAccidenteEmpresa(Empresa empresa) {
+        List<ContadorTotalAccidente> listaGraficoAccidentes = new LinkedList<>();
+        ContadorTotalAccidente contadorTotalAccidente;
+
+        try {
+
+            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_CONTADOR_ACCIDENTE_TOTAL(?,?) }");
+            cst.registerOutParameter(1, OracleTypes.CURSOR);
+            cst.setLong(2, empresa.getId());
+
+            cst.execute();
+
+            ResultSet rs = (ResultSet) cst.getObject(1);
+
+            while (rs.next()) {
+
+                contadorTotalAccidente = new ContadorTotalAccidente();
+
+                contadorTotalAccidente.setId(rs.getLong("id_cantidad_accidente"));
+                contadorTotalAccidente.setEnero(rs.getInt("enero"));
+                contadorTotalAccidente.setFebrero(rs.getInt("febrero"));
+                contadorTotalAccidente.setMarzo(rs.getInt("marzo"));
+                contadorTotalAccidente.setAbril(rs.getInt("abril"));
+                contadorTotalAccidente.setMayo(rs.getInt("mayo"));
+                contadorTotalAccidente.setJunio(rs.getInt("junio"));
+                contadorTotalAccidente.setJulio(rs.getInt("julio"));
+                contadorTotalAccidente.setAgosto(rs.getInt("agosto"));
+                contadorTotalAccidente.setSeptiembre(rs.getInt("septiembre"));
+                contadorTotalAccidente.setOctubre(rs.getInt("octubre"));
+                contadorTotalAccidente.setNoviembre(rs.getInt("noviembre"));
+                contadorTotalAccidente.setDiciembre(rs.getInt("diciembre"));
+
+                Empresa empresa2 = new Empresa();
+                empresa.setId(rs.getLong("id_empresa"));
+                contadorTotalAccidente.setEmpresa(empresa2);
+
+                listaGraficoAccidentes.add(contadorTotalAccidente);
+            }
+
+            return listaGraficoAccidentes;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(AccidenteDao.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } catch (Exception ex) {
+            Logger.getLogger(AccidenteDao.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    public List<ContadorTotalAccidente> obtenerGraficoAccidenteAdmin() {
         List<ContadorTotalAccidente> listaGraficoAccidentes = new LinkedList<>();
         ContadorTotalAccidente contadorTotalAccidente;
 

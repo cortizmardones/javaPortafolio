@@ -120,10 +120,11 @@
                             <form>
                                 <label for="cs">Seleccione cliente: </label>
                                 <select name="cs" id="cs" class="form-control">
-                                    <option value="v1">CLIENTE 1</option>
-                                    <option value="v2">CLIENTE 2</option>
-                                    <option value="v3">CLIENTE 3</option>
-                                    <option value="v4">CLIENTE 4</option>
+                                    
+                                    <c:forEach items="${empresas}" var="empresas">
+                                        <option value="${empresas.id}">${empresas.razonSocial}</option>
+                                    </c:forEach>
+                                        
                                 </select>                                
                                 <br>
                                 <label for="subject">Asunto: </label>
@@ -201,7 +202,8 @@
                         </div>
 
                         <div class="card-body">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1661.9382691132357!2d-70.69431291195261!3d-33.5825546943504!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2scl!4v1575775554191!5m2!1ses-419!2scl" 
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1661.9382691132357!2d-70.69431291195261!3d-33.5825546943504!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2scl!4v1575775554191!5m2!1ses-419!2scl"
+                                    width="920" height="600" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
                         </div>
                     </div>
                 </div>

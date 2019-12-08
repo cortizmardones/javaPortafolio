@@ -43,7 +43,8 @@ public class MappingController extends HttpServlet {
 
         switch (nav) {
             case "aPanel":
-                Common.setGraficosAccidentes(request, response);
+                Common.setGraficosAccidentesAdmin(request, response);
+                Common.setEmpresasSession2(request, response);
                 request.getRequestDispatcher("pAdmin.jsp").forward(request, response);
                 break;
             case "aClientes":
@@ -79,7 +80,7 @@ public class MappingController extends HttpServlet {
                 Common.setContadorAsesoriasRealizadas(request, response);
                 Common.setContadorAsesoriasPendientes(request, response);
                 Common.setContadorAsesoriasCanceladas(request, response);
-                Common.setGraficosAccidentes(request, response);
+                Common.setGraficosAccidentesEmpresa(request, response);
                 request.getRequestDispatcher("pCliente.jsp").forward(request, response);
                 break;
             case "cSolicitudes":

@@ -558,13 +558,16 @@ public class Common extends HttpServlet {
             }
         }
     }
-    
-   
-    public static void setGraficosAccidentes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    public static void setGraficosAccidentesEmpresa(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         {
             Conexion conn = new Conexion();
             AccidenteDao vDto = new AccidenteDao(conn);
-            List<ContadorTotalAccidente> contadorTotalAccidente = vDto.obtenerGraficoAccidente();
+
+            Empresa empresa = new Empresa();
+            empresa.setId(Long.valueOf(161));
+            
+            List<ContadorTotalAccidente> contadorTotalAccidente = vDto.obtenerGraficoAccidenteEmpresa(empresa);
 
             if (contadorTotalAccidente != null && contadorTotalAccidente.size() > 0) {
                 HttpSession sesion = request.getSession();
@@ -577,4 +580,21 @@ public class Common extends HttpServlet {
         }
     }
     
+        public static void setGraficosAccidentesAdmin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        {
+            Conexion conn = new Conexion();
+            AccidenteDao vDto = new AccidenteDao(conn);
+            List<ContadorTotalAccidente> contadorTotalAccidente = vDto.obtenerGraficoAccidenteAdmin();
+
+            if (contadorTotalAccidente != null && contadorTotalAccidente.size() > 0) {
+                HttpSession sesion = request.getSession();
+                sesion.setAttribute("graficos", contadorTotalAccidente);
+            } else {
+                List<ContadorVisita> contadorTotalAccidente2 = new LinkedList<>();
+                HttpSession sesion = request.getSession();
+                sesion.setAttribute("graficos", contadorTotalAccidente2);
+            }
+        }
+    }
+
 }
