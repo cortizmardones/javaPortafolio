@@ -118,9 +118,8 @@
                                 <b><u>Correo:</u></b> ${usuarioActivo.correo}<br> <br>
                             </div>
                             <div align="center">
-                                <a class="btn btn-warning" style="color: black;" href="" role="button">Modificar datos</a>
-                                <a class="btn btn-warning" style="color: black;" href="" role="button">Modificar
-                                    contraseña</a>
+                                <!--<a class="btn btn-warning" style="color: black;" href="" role="button">Modificar datos</a>-->
+                                <a class="btn btn-warning" style="color: black;" href="pro?accion=gatillarModPass" role="button">Modificar contraseña</a>
                             </div>
                         </div>
                     </div>
@@ -128,173 +127,398 @@
             </div>
 
 
+            <!--TABLAS-->
+            <div class="row" id="clidata">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header text-white bg-dark">
+                            Estadísticas Accidentes 
+                        </div>
 
-
-            <div class="row no-gutters pt-3" id="clidata">
-                <div class="col-md-12">
-                    <div class="card mb-3">
-                        <div class="card-header text-white bg-dark">Resumen Servicios (Diciembre 2019): </div>
                         <div class="card-body">
 
-                            <div class="row">
-
-                                <div class="col-xl-3">
-                                    <div class="card border-success mb-3">
-                                        <div class="card-body text-dark">
-                                            <h5 class="card-title text-center">Accidentes Leves</h5>
+                            <table class="table text-center">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th></th>
+                                        <th>Leve</th>
+                                        <th>Incapacitante</th>
+                                        <th>Fatal</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Diciembre</strong></td>
+                                        <td>
                                             <c:forEach items="${aLeves}" var="ContadorAccidente">
-                                                <p class="card-text text-center"> ${ContadorAccidente.contador}</p>  
-                                            </c:forEach>    
-                                        </div>
-                                    </div> 
-                                </div>
-
-                                <div class="col-xl-3">
-                                    <div class="card border-success mb-3">
-                                        <div class="card-body text-dark">
-                                            <h5 class="card-title text-center">Visitas Realizadas</h5>
-                                            <c:forEach items="${vRealizadas}" var="ContadorVisita">
-                                                <p class="card-text text-center"> ${ContadorVisita.contador}</p>  
-                                            </c:forEach>
-
-                                        </div>
-                                    </div> 
-                                </div>
-
-                                <div class="col-xl-3">
-                                    <div class="card border-success mb-3">
-                                        <div class="card-body text-dark">
-                                            <h5 class="card-title text-center">Capacitaciones Realizadas</h5>
-                                            <c:forEach items="${cRealizadas}" var="ContadorCapacitacion">
-                                                <p class="card-text text-center"> ${ContadorCapacitacion.contador}						</p>  
-                                            </c:forEach>
-                                        </div>
-                                    </div> 
-                                </div>
-
-                                <div class="col-xl-3">
-                                    <div class="card border-success mb-3">
-                                        <div class="card-body text-dark">
-                                            <h5 class="card-title text-center"> Asesorías Realizadas</h5>
-                                            <c:forEach items="${aRealizadas}" var="ContadorAsesoria">
-                                                <p class="card-text text-center"> ${ContadorAsesoria.contador}</p>  
-                                            </c:forEach>     
-                                        </div>
-                                    </div> 
-                                </div>
-
-                            </div>
-
-                            <div class="row">
-
-                                <div class="col-xl-3">
-                                    <div class="card border-warning mb-3">
-                                        <div class="card-body text-dark">
-                                            <h5 class="card-title text-center">Accidente Incapacitante</h5>
+                                                ${ContadorAccidente.contador}
+                                            </c:forEach> 
+                                        </td>
+                                        <td>
                                             <c:forEach items="${aMedios}" var="ContadorAccidente">
-                                                <p class="card-text text-center"> ${ContadorAccidente.contador}</p>  
+                                                ${ContadorAccidente.contador} 
                                             </c:forEach>  
-
-                                        </div>
-                                    </div> 
-                                </div>
-
-                                <div class="col-xl-3">
-                                    <div class="card border-warning mb-3">
-                                        <div class="card-body text-dark">
-                                            <h5 class="card-title text-center">Visitas Pendientes</h5>
-                                            <c:forEach items="${vPendientes}" var="ContadorVisita">
-                                                <p class="card-text text-center"> ${ContadorVisita.contador}</p>  
-                                            </c:forEach>  
-
-                                        </div>
-                                    </div> 
-                                </div>
-
-                                <div class="col-xl-3">
-                                    <div class="card border-warning mb-3">
-                                        <div class="card-body text-dark">
-                                            <h5 class="card-title text-center">Capacitaciones Pendientes</h5>
-                                            <c:forEach items="${cPendientes}" var="ContadorCapacitacion">
-                                                <p class="card-text text-center"> ${ContadorCapacitacion.contador}						</p>  
-                                            </c:forEach>  
-
-                                        </div>
-                                    </div> 
-                                </div>
-
-                                <div class="col-xl-3">
-                                    <div class="card border-warning mb-3">
-                                        <div class="card-body text-dark">
-                                            <h5 class="card-title text-center"> Asesorías Pendientes</h5>
-                                            <c:forEach items="${aPendientes}" var="ContadorAsesoria">
-                                                <p class="card-text text-center"> ${ContadorAsesoria.contador}</p>  
-                                            </c:forEach>   
-                                        </div>
-                                    </div> 
-                                </div>
-
-                            </div>
-
-                            <div class="row">
-
-                                <div class="col-xl-3">
-                                    <div class="card border-danger mb-3">
-                                        <div class="card-body text-dark">
-                                            <h5 class="card-title text-center">Accidentes Fatales</h5>
+                                        </td>
+                                        <td>
                                             <c:forEach items="${aGraves}" var="ContadorAccidente">
-                                                <p class="card-text text-center"> ${ContadorAccidente.contador}</p>  
+                                                ${ContadorAccidente.contador}  
+                                            </c:forEach>
+                                        </td>
+                                        <td>
+                                            <c:forEach items="${graficos}" var="ContadorTotalAccidente">
+                                                ${ContadorTotalAccidente.diciembre}
+                                            </c:forEach>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+                            <hr>
+
+                            <!--TRABAJAR ACÁ-->
+                            <c:forEach items="${aLeves}" var="ContadorAccidente">
+                                <input type="text" id="leve" value="${ContadorAccidente.contador}" hidden="">
+                            </c:forEach>
+                            <c:forEach items="${aMedios}" var="ContadorAccidente">
+                                <input type="text" id="incapacitante" value="${ContadorAccidente.contador}" hidden="">
+                            </c:forEach>
+                            <c:forEach items="${aGraves}" var="ContadorAccidente">
+                                <input type="text" id="fatal" value="${ContadorAccidente.contador}" hidden="">
+                            </c:forEach>
+
+                            <canvas id="myDoughnutChart" class="text-center" width="auto" height="auto"></canvas>
+
+                            <script src="js/grafico/grafico.js" type="text/javascript"></script>
+                            <script src="js/grafico/jquery.js" type="text/javascript"></script>
+                            <script>
+                                var leve = $("#leve").val();
+                                var incapacitante = $("#incapacitante").val();
+                                var fatal = $("#fatal").val();
+
+                                var ctx = document.getElementById("myDoughnutChart");
+                                var myChart = new Chart(ctx, {
+                                    type: 'doughnut',
+                                    data: {
+                                        labels: ['Leve', 'incapacitante', 'Fatal'],
+                                        datasets: [{
+                                                label: '% de accidentes',
+                                                data: [leve, incapacitante, fatal],
+                                                backgroundColor: [
+                                                    'rgba(0,255,0,0.6)',
+                                                    'rgba(255,255,43,0.6)',
+                                                    'rgba(255, 99, 132, 0.6)'
+                                                ],
+                                                borderColor: [
+                                                    'rgba(0, 0, 0, 1)',
+                                                    'rgba(0, 0, 0, 1)',
+                                                    'rgba(0, 0, 0, 1)'
+                                                ],
+                                                borderWidth: 1
+                                            }]
+                                    },
+                                    options: {
+                                        cutoutPercentage: 50,
+                                        responsive: true,
+
+                                    }
+                                });
+                            </script>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header text-white bg-dark">
+                            Estadísticas Visitas 
+                        </div>
+
+                        <div class="card-body">
+
+                            <table class="table text-center">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th></th>
+                                        <th>Realizadas</th>
+                                        <th>Pendientes</th>
+                                        <th>Canceladas</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Diciembre</strong></td>
+                                        <td>
+                                            <c:forEach items="${vRealizadas}" var="ContadorVisita">
+                                                ${ContadorVisita.contador} 
+                                            </c:forEach>
+                                        </td>
+                                        <td>
+                                            <c:forEach items="${vPendientes}" var="ContadorVisita">
+                                                ${ContadorVisita.contador}
                                             </c:forEach>  
-
-                                        </div>
-                                    </div> 
-                                </div>
-
-                                <div class="col-xl-3">
-                                    <div class="card border-danger mb-3">
-                                        <div class="card-body text-dark">
-                                            <h5 class="card-title text-center">Visitas Canceladas</h5>
+                                        </td>
+                                        <td>
                                             <c:forEach items="${vCanceladas}" var="ContadorVisita">
-                                                <p class="card-text text-center"> ${ContadorVisita.contador}</p>  
+                                                ${ContadorVisita.contador}
                                             </c:forEach>  
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+                             <hr>
 
-                                        </div>
-                                    </div> 
-                                </div>
+                            <!--TRABAJAR ACÁ-->
+                            <c:forEach items="${vRealizadas}" var="ContadorVisita">
+                                <input type="text" id="vRealizadas" value="${ContadorVisita.contador}" hidden="">
+                            </c:forEach>
+                            <c:forEach items="${vPendientes}" var="ContadorVisita">
+                                <input type="text" id="vPendientes" value="${ContadorVisita.contador}" hidden="">
+                            </c:forEach>
+                            <c:forEach items="${vCanceladas}" var="ContadorVisita">
+                                <input type="text" id="vCanceladas" value="${ContadorVisita.contador}" hidden="">
+                            </c:forEach>
 
-                                <div class="col-xl-3">
-                                    <div class="card border-danger mb-3">
-                                        <div class="card-body text-dark">
-                                            <h5 class="card-title text-center">Capacitaciones Canceladas</h5>
-                                            <c:forEach items="${cCanceladas}" var="ContadorCapacitacion">
-                                                <p class="card-text text-center"> ${ContadorCapacitacion.contador}						</p>  
-                                            </c:forEach>    
-                                        </div>
-                                    </div> 
-                                </div>
+                            <canvas id="myDoughnutChart2" class="text-center" width="auto" height="auto"></canvas>
 
-                                <div class="col-xl-3">
-                                    <div class="card border-danger mb-3">
-                                        <div class="card-body text-dark">
-                                            <h5 class="card-title text-center"> Asesorías Canceladas</h5>
-                                            <c:forEach items="${aCanceladas}" var="ContadorAsesoria">
-                                                <p class="card-text text-center"> ${ContadorAsesoria.contador}</p>  
-                                            </c:forEach>  
-                                        </div>
-                                    </div> 
-                                </div>
+                            <script src="js/grafico/grafico.js" type="text/javascript"></script>
+                            <script src="js/grafico/jquery.js" type="text/javascript"></script>
+                            <script>
+                                var vRealizadas = $("#vRealizadas").val();
+                                var vPendientes = $("#vPendientes").val();
+                                var vCanceladas = $("#vCanceladas").val();
 
+                                var ctx = document.getElementById("myDoughnutChart2");
+                                var myChart = new Chart(ctx, {
+                                    type: 'doughnut',
+                                    data: {
+                                        labels: ['Realizadas', 'Pendientes', 'Canceladas'],
+                                        datasets: [{
+                                                label: '% de visitas',
+                                                data: [vRealizadas, vPendientes, vCanceladas],
+                                                backgroundColor: [
+                                                    'rgba(0,255,0,0.6)',
+                                                    'rgba(255,255,43,0.6)',
+                                                    'rgba(255, 99, 132, 0.6)'
+                                                ],
+                                                borderColor: [
+                                                    'rgba(0, 0, 0, 1)',
+                                                    'rgba(0, 0, 0, 1)',
+                                                    'rgba(0, 0, 0, 1)'
+                                                ],
+                                                borderWidth: 1
+                                            }]
+                                    },
+                                    options: {
+                                        cutoutPercentage: 50,
+                                        responsive: true,
 
-                            </div>
-
+                                    }
+                                });
+                            </script>
                         </div>
                     </div>
                 </div>
-            </div>      
+            </div>  
+
+            <br>
 
             <div class="row" id="clidata">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header text-white bg-dark">
+                            Estadísticas Capacitaciones 
+                        </div>
 
+                        <div class="card-body">
+
+                            <table class="table text-center">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th></th>
+                                        <th>Realizadas</th>
+                                        <th>Pendientes</th>
+                                        <th>Canceladas</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Diciembre</strong></td>
+                                        <td>
+                                            <c:forEach items="${cRealizadas}" var="ContadorCapacitacion">
+                                                ${ContadorCapacitacion.contador}						
+                                            </c:forEach>
+                                        </td>
+                                        <td>
+                                            <c:forEach items="${cPendientes}" var="ContadorCapacitacion">
+                                                ${ContadorCapacitacion.contador}						 
+                                            </c:forEach>
+                                        </td>
+                                        <td>
+                                            <c:forEach items="${cCanceladas}" var="ContadorCapacitacion">
+                                                ${ContadorCapacitacion.contador}						 
+                                            </c:forEach>  
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+                             <hr>
+
+                            <!--TRABAJAR ACÁ-->
+                            <c:forEach items="${cRealizadas}" var="ContadorCapacitacion">
+                                <input type="text" id="cRealizadas" value="${ContadorCapacitacion.contador}" hidden="">
+                            </c:forEach>
+                            <c:forEach items="${cPendientes}" var="ContadorCapacitacion">
+                                <input type="text" id="cPendientes" value="${ContadorCapacitacion.contador}" hidden="">
+                            </c:forEach>
+                            <c:forEach items="${cCanceladas}" var="ContadorCapacitacion">
+                                <input type="text" id="cCanceladas" value="${ContadorCapacitacion.contador}" hidden="">
+                            </c:forEach>
+
+                            <canvas id="myDoughnutChart3" class="text-center" width="auto" height="auto"></canvas>
+
+                            <script src="js/grafico/grafico.js" type="text/javascript"></script>
+                            <script src="js/grafico/jquery.js" type="text/javascript"></script>
+                            <script>
+                                var cRealizadas = $("#cRealizadas").val();
+                                var cPendientes = $("#cPendientes").val();
+                                var cCanceladas = $("#cCanceladas").val();
+
+                                var ctx = document.getElementById("myDoughnutChart3");
+                                var myChart = new Chart(ctx, {
+                                    type: 'doughnut',
+                                    data: {
+                                        labels: ['Realizadas', 'Pendientes', 'Canceladas'],
+                                        datasets: [{
+                                                label: '% de visitas',
+                                                data: [cRealizadas, cPendientes, cCanceladas],
+                                                backgroundColor: [
+                                                    'rgba(0,255,0,0.6)',
+                                                    'rgba(255,255,43,0.6)',
+                                                    'rgba(255, 99, 132, 0.6)'
+                                                ],
+                                                borderColor: [
+                                                    'rgba(0, 0, 0, 1)',
+                                                    'rgba(0, 0, 0, 1)',
+                                                    'rgba(0, 0, 0, 1)'
+                                                ],
+                                                borderWidth: 1
+                                            }]
+                                    },
+                                    options: {
+                                        cutoutPercentage: 50,
+                                        responsive: true,
+
+                                    }
+                                });
+                            </script>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header text-white bg-dark">
+                            Estadísticas Asesorías 
+                        </div>
+
+                        <div class="card-body">
+
+                            <table class="table text-center">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th></th>
+                                        <th>Realizadas</th>
+                                        <th>Pendientes</th>
+                                        <th>Canceladas</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Diciembre</strong></td>
+                                        <td>
+                                            <c:forEach items="${aRealizadas}" var="ContadorAsesoria">
+                                                ${ContadorAsesoria.contador} 
+                                            </c:forEach>  
+                                        </td>
+                                        <td>
+                                            <c:forEach items="${aPendientes}" var="ContadorAsesoria">
+                                                ${ContadorAsesoria.contador}
+                                            </c:forEach>              
+                                        </td>
+                                        <td>
+                                            <c:forEach items="${aCanceladas}" var="ContadorAsesoria">
+                                                ${ContadorAsesoria.contador} 
+                                            </c:forEach>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+                             <hr>
+
+                            <!--TRABAJAR ACÁ-->
+                            <c:forEach items="${aRealizadas}" var="ContadorAsesoria">
+                                <input type="text" id="aRealizadas" value="${ContadorAsesoria.contador}" hidden="">
+                            </c:forEach>
+                            <c:forEach items="${aPendientes}" var="ContadorAsesoria">
+                                <input type="text" id="aPendientes" value="${ContadorAsesoria.contador}" hidden="">
+                            </c:forEach>
+                            <c:forEach items="${aCanceladas}" var="ContadorAsesoria">
+                                <input type="text" id="aCanceladas" value="${ContadorAsesoria.contador}" hidden="">
+                            </c:forEach>
+
+                            <canvas id="myDoughnutChart4" class="text-center" width="auto" height="auto"></canvas>
+
+                            <script src="js/grafico/grafico.js" type="text/javascript"></script>
+                            <script src="js/grafico/jquery.js" type="text/javascript"></script>
+                            <script>
+                                var aRealizadas = $("#aRealizadas").val();
+                                var aPendientes = $("#aPendientes").val();
+                                var aCanceladas = $("#aCanceladas").val();
+
+                                var ctx = document.getElementById("myDoughnutChart4");
+                                var myChart = new Chart(ctx, {
+                                    type: 'doughnut',
+                                    data: {
+                                        labels: ['Realizadas', 'Pendientes', 'Canceladas'],
+                                        datasets: [{
+                                                label: '% de visitas',
+                                                data: [aRealizadas, aPendientes, aCanceladas],
+                                                backgroundColor: [
+                                                    'rgba(0,255,0,0.6)',
+                                                    'rgba(255,255,43,0.6)',
+                                                    'rgba(255, 99, 132, 0.6)'
+                                                ],
+                                                borderColor: [
+                                                    'rgba(0, 0, 0, 1)',
+                                                    'rgba(0, 0, 0, 1)',
+                                                    'rgba(0, 0, 0, 1)'
+                                                ],
+                                                borderWidth: 1
+                                            }]
+                                    },
+                                    options: {
+                                        cutoutPercentage: 50,
+                                        responsive: true,
+
+                                    }
+                                });
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--GRÁFICO-->
+            <div class="row" id="grafico">
                 <div class="col-md-12">
+                    <br>
+
                     <div class="card">
 
                         <div class="card-header text-white bg-dark">

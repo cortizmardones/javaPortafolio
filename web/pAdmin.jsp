@@ -29,12 +29,14 @@
     </head>
 
     <body>
+
         <div class="container">
             <div class="row">
                 <div class="col-xl-12">
                     <img src="img/spsbanner.png" alt="Seguros por siempre - Dashboard Administrador" class="img-fluid">
                 </div>
             </div>
+
             <div class="row no-gutters">
                 <div class="col-xl-10">
                     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -75,6 +77,7 @@
                     </div>
                 </div>                  
             </div>
+
             <div class="row no-gutters pt-4">
                 <c:if test="${usuarioActivo != null}">
                     <div class="col-md-12">
@@ -87,6 +90,7 @@
                     </div>
                 </c:if>
             </div>
+
             <div class="row no-gutters pt-3" id="admindata">
                 <div class="col-md-12">
                     <div class="card mb-3">
@@ -100,7 +104,6 @@
                                 <b><u>Perfil:</u></b> ${usuarioActivo.perfil.nombre} <br><br>
                             </div>
                             <div align="center">
-                                <a class="btn btn-warning" style="color: black;" href="" role="button">Modificar datos</a>
                                 <a class="btn btn-warning" style="color: black;" href="" role="button">Modificar
                                     contraseña</a>
                             </div>
@@ -108,6 +111,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="row no-gutters pt-2" id="insercion">
                 <div class="col-md-12">
                     <div class="card mb-3">
@@ -137,8 +141,76 @@
 
 
             <div class="row" id="clidata">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header text-white bg-dark">
+                            Estadísticas Generales: 
+                        </div>
+
+                        <div class="card-body">
+
+                        </div>
+                    </div>
+                </div>
+            </div>         
+
+            <br>
+
+            <div class="row" id="mapas">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header text-white bg-dark">
+                            Geolocalización Profesionales: 
+                        </div>
+                        <div class="card-body">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3323.256470469777!2d-70.7078133842614!3d-33.59864941252065!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2scl!4v1575774064412!5m2!1ses-419!2scl" 
+                                    width="920" height="600" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header text-white bg-dark">
+                            Geolocalización Profesionales:
+                        </div>
+
+                        <div class="card-body">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d13289.355607433477!2d-70.609782!3d-33.6224537!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2scl!4v1575773578484!5m2!1ses-419!2scl" 
+                                    width="920" height="600" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" id="mapas2">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header text-white bg-dark">
+                            Geolocalización Profesionales: 
+                        </div>
+                        <div class="card-body">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d856.6355556390263!2d-70.66112819449991!3d-33.44943054787215!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2scl!4v1575774540643!5m2!1ses-419!2scl" 
+                                    width="920" height="600" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header text-white bg-dark">
+                            Geolocalización Profesionales:
+                        </div>
+
+                        <div class="card-body">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1661.9382691132357!2d-70.69431291195261!3d-33.5825546943504!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2scl!4v1575775554191!5m2!1ses-419!2scl" 
+                        </div>
+                    </div>
+                </div>
+            </div>   
+
+            <div class="row" id="clidata">
 
                 <div class="col-md-12">
+                    <br>
                     <div class="card">
 
                         <div class="card-header text-white bg-dark">
