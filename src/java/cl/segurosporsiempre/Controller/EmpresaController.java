@@ -40,6 +40,9 @@ public class EmpresaController extends HttpServlet {
             case "gModificar":
                 this.gatillarModificacion(request, response);
                 break;
+            case "gatillarModPassEmpresa":
+                this.modificarContrasenaEmpresa(request, response);
+                break;
             default:
                 throw new AssertionError();
         }
@@ -234,5 +237,11 @@ public class EmpresaController extends HttpServlet {
             Common.setEmpresasSession2(request, response);
             request.getRequestDispatcher("adminClientes.jsp").forward(request, response);
         }
+    }
+
+    private void modificarContrasenaEmpresa(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        request.setAttribute("modal", "cambiarPassEmpresa");
+        request.getRequestDispatcher("pCliente.jsp").forward(request, response);
     }
 }
