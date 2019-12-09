@@ -154,9 +154,9 @@
                                        onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Debe ingresar la misma contraseña de arriba' : '');"
                                        placeholder="Confirmar contraseña" required> <br>
 
-                                <input type="hidden" name="accion" value="cambiarPassRec" >
+                                <input type="hidden" name="accion" value="cambiarPassRecEmpresa" >
                                 <input type="hidden" name="id" value="${usuarioActivo.id}" >      
-                                <input type="hidden" name="categoria" value="Profesional" >                              
+                                <input type="hidden" name="categoria" value="Empresa" >                              
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                                     <input type="submit" class="btn btn-primary" value="Guardar Cambios">

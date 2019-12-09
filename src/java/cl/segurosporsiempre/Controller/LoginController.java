@@ -82,6 +82,10 @@ public class LoginController extends HttpServlet {
                 break;
             case "cambiarPassRec":
                 this.cambiarPasswordRecuperacion(request, response);
+                break;
+            case "cambiarPassRecEmpresa":
+                this.cambiarPasswordRecuperacionEmpresa(request, response);
+                break;
             default:
                 throw new AssertionError();
         }
@@ -111,19 +115,19 @@ public class LoginController extends HttpServlet {
 
         if (usu != null) {
             if (usu.getPerfil().getId() == 1 && !categoria.equals("administrador")) {
-                
+
                 request.setAttribute("mensaje", "Credenciales incorrectas");
                 request.getRequestDispatcher("index.jsp").forward(request, response);
 
             } else if (usu.getPerfil().getId() == 2 && !categoria.equals("profesional")) {
-                
+
                 request.setAttribute("mensaje", "Credenciales incorrectas");
                 request.getRequestDispatcher("index.jsp").forward(request, response);
-                
+
             } else if (usu.getPerfil().getId() == 3 && !categoria.equals("empresa")) {
-                
+
                 request.setAttribute("mensaje", "Credenciales incorrectas");
-                request.getRequestDispatcher("index.jsp").forward(request, response);                
+                request.getRequestDispatcher("index.jsp").forward(request, response);
 
             } else {
 
@@ -196,6 +200,8 @@ public class LoginController extends HttpServlet {
 
         if (usu.getPerfil().getId() == 1) {
             Common.setUsuarioActivoSession(usu, request, response);
+            Common.setGraficosAccidentesAdmin(request, response);
+            Common.setEmpresasSession2(request, response);
             request.getRequestDispatcher("pAdmin.jsp").forward(request, response);
         }
         if (usu.getPerfil().getId() == 2) {
@@ -204,6 +210,19 @@ public class LoginController extends HttpServlet {
         }
         if (usu.getPerfil().getId() == 3) {
             Common.setUsuarioActivoSession(usu, request, response);
+            Common.setContadorVisitasRealizadas(request, response);
+            Common.setContadorVisitasPendientes(request, response);
+            Common.setContadorVisitasCanceladas(request, response);
+            Common.setContadorAccidentesLeves(request, response);
+            Common.setContadorAccidentesMedios(request, response);
+            Common.setContadorAccidentesGraves(request, response);
+            Common.setContadorCapacitacionesRealizadas(request, response);
+            Common.setContadorCapacitacionesPendientes(request, response);
+            Common.setContadorCapacitacionesCanceladas(request, response);
+            Common.setContadorAsesoriasRealizadas(request, response);
+            Common.setContadorAsesoriasPendientes(request, response);
+            Common.setContadorAsesoriasCanceladas(request, response);
+            Common.setGraficosAccidentesEmpresa(request, response);
             request.getRequestDispatcher("pCliente.jsp").forward(request, response);
         }
     }
@@ -222,59 +241,42 @@ public class LoginController extends HttpServlet {
 
         Conexion conn = new Conexion();
         LoginDao lDto = new LoginDao(conn);
-        
-        if (perfil.equals("administrador"))
-        {
+
+        if (perfil.equals("administrador")) {
             Usuario usu = lDto.obtenerUsuario(correo);
-            if (usu != null)
-            {
+            if (usu != null) {
                 this.enviarCorreoRecuperacion(request, response, correo, codigo, perfil);
-            }
-            else
-            {
+            } else {
                 request.setAttribute("mensaje", "El correo no existe en el sistema");
-                request.getRequestDispatcher("index.jsp").forward(request, response);                
+                request.getRequestDispatcher("index.jsp").forward(request, response);
             }
-        }
-        else if (perfil.equals("profesional"))
-        {
+        } else if (perfil.equals("profesional")) {
             UsuarioProfesional usu = lDto.obtenerUsuarioProfesional(correo);
-            if (usu != null)
-            {
+            if (usu != null) {
                 this.enviarCorreoRecuperacion(request, response, correo, codigo, perfil);
-            }
-            else
-            {
+            } else {
                 request.setAttribute("mensaje", "El correo no existe en el sistema");
-                request.getRequestDispatcher("index.jsp").forward(request, response);                
-            }          
-        }
-        else if (perfil.equals("empresa"))
-        {
+                request.getRequestDispatcher("index.jsp").forward(request, response);
+            }
+        } else if (perfil.equals("empresa")) {
             Usuario usu = lDto.obtenerUsuario(correo);
-            if (usu != null)
-            {
+            if (usu != null) {
                 this.enviarCorreoRecuperacion(request, response, correo, codigo, perfil);
-            }
-            else
-            {
+            } else {
                 request.setAttribute("mensaje", "El correo no existe en el sistema");
-                request.getRequestDispatcher("index.jsp").forward(request, response);                
-            }           
-        }
-        else
-        {
+                request.getRequestDispatcher("index.jsp").forward(request, response);
+            }
+        } else {
             request.setAttribute("mensaje", "Inconcordancia correo - perfil");
             request.getRequestDispatcher("index.jsp").forward(request, response);
         }
     }
-    
-    public void enviarCorreoRecuperacion(HttpServletRequest request, HttpServletResponse response, String correo, String codigo, String perfil) throws ServletException, IOException 
-    {
-        
+
+    public void enviarCorreoRecuperacion(HttpServletRequest request, HttpServletResponse response, String correo, String codigo, String perfil) throws ServletException, IOException {
+
         Conexion conn = new Conexion();
         LoginDao lDto = new LoginDao(conn);
-        
+
         boolean resultado = lDto.registrarCodigo(correo, codigo);
 
         conn.cerrarConexion();
@@ -282,8 +284,7 @@ public class LoginController extends HttpServlet {
         if (resultado) {
             String mensaje = "El código para reestablecer su contraseña es: " + codigo;
             boolean res = Utils.enviarCorreo("info.segurita@gmail.com", "bahamut77*", correo, mensaje, "Recuperación de contraseña");
-            if (res)
-            {
+            if (res) {
                 Common.setUsuarioActivoRecPassSession(correo, perfil, request, response);
             }
             request.setAttribute("modal", "pasoDos");
@@ -292,7 +293,7 @@ public class LoginController extends HttpServlet {
         } else {
             request.setAttribute("mensaje", "El correo señalado no existe en el sistema");
             request.getRequestDispatcher("index.jsp").forward(request, response);
-        }    
+        }
     }
 
     private void recuperarPassP2(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -341,7 +342,7 @@ public class LoginController extends HttpServlet {
             usuPro.setPassword(pass);
 
             resultado = lDto.modificarPassLogin(usuPro);
-            
+
             conn.cerrarConexion();
 
             if (resultado) {
@@ -355,7 +356,7 @@ public class LoginController extends HttpServlet {
             usu.setPassword(pass);
 
             resultado = lDto.modificarPassLogin(usu);
-            
+
             conn.cerrarConexion();
 
             if (resultado) {
@@ -364,9 +365,61 @@ public class LoginController extends HttpServlet {
                 mensj = "No se pudo cambiar la contraseña";
             }
         }
-        
+
         request.setAttribute("mensaje", mensj);
         request.getRequestDispatcher("index.jsp").forward(request, response);
-        
+
+    }
+
+    private void cambiarPasswordRecuperacionEmpresa(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        Long id = Long.parseLong(request.getParameter("id"));
+
+        String perfil = request.getParameter("categoria");
+
+        String pass = Utils.MD5(request.getParameter("password"));
+
+        Conexion conn = new Conexion();
+        LoginDao lDto = new LoginDao(conn);
+
+        Usuario usu;
+        UsuarioProfesional usuPro;
+
+        boolean resultado;
+        String mensj = "";
+
+        if (perfil.equalsIgnoreCase("Profesional")) {
+            usuPro = new UsuarioProfesional();
+            usuPro.setId(id);
+            usuPro.setPassword(pass);
+
+            resultado = lDto.modificarPassLogin(usuPro);
+
+            conn.cerrarConexion();
+
+            if (resultado) {
+                mensj = "Contraseña cambiada, ingrese nuevamente";
+            } else {
+                mensj = "No se pudo cambiar la contraseña";
+            }
+        } else {
+            usu = new Usuario();
+            usu.setId(id);
+            usu.setPassword(pass);
+
+            resultado = lDto.modificarPassLogin(usu);
+
+            conn.cerrarConexion();
+
+            if (resultado) {
+                mensj = "Contraseña cambiada, ingrese nuevamente";
+            } else {
+                mensj = "No se pudo cambiar la contraseña";
+            }
+        }
+
+        request.setAttribute("mensaje", mensj);
+        request.getRequestDispatcher("pCliente.jsp").forward(request, response);
+
     }
 }
