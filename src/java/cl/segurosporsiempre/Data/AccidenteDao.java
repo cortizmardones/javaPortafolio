@@ -356,9 +356,10 @@ public class AccidenteDao {
                 contadorTotalAccidente.setNoviembre(rs.getInt("noviembre"));
                 contadorTotalAccidente.setDiciembre(rs.getInt("diciembre"));
 
-                Empresa empresa2 = new Empresa();
+                /*Empresa empresa2 = new Empresa();
                 empresa.setId(rs.getLong("id_empresa"));
                 contadorTotalAccidente.setEmpresa(empresa2);
+                */
 
                 listaGraficoAccidentes.add(contadorTotalAccidente);
             }

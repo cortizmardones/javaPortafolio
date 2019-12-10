@@ -200,8 +200,8 @@ public class LoginController extends HttpServlet {
 
         if (usu.getPerfil().getId() == 1) {
             Common.setUsuarioActivoSession(usu, request, response);
-            Common.setGraficosAccidentesAdmin(request, response);
             Common.setEmpresasSession2(request, response);
+            Common.setGraficosAccidentesAdmin(request, response);
             request.getRequestDispatcher("pAdmin.jsp").forward(request, response);
         }
         if (usu.getPerfil().getId() == 2) {

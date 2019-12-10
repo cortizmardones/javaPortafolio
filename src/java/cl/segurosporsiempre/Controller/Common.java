@@ -565,7 +565,14 @@ public class Common extends HttpServlet {
             AccidenteDao vDto = new AccidenteDao(conn);
 
             Empresa empresa = new Empresa();
-            empresa.setId(Long.valueOf(161));
+            
+            //Magia para traer de la sessión.
+            HttpSession sesion2 = request.getSession();
+            Usuario usu = (Usuario)sesion2.getAttribute("usuarioActivo");
+            Long id = usu.getEmpresa().getId();
+            
+            //Pasarme el parametro dinamico
+            empresa.setId(id);
             
             List<ContadorTotalAccidente> contadorTotalAccidente = vDto.obtenerGraficoAccidenteEmpresa(empresa);
 
