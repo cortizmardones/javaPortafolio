@@ -410,7 +410,17 @@ public class Common extends HttpServlet {
         {
             Conexion conn = new Conexion();
             AccidenteDao vDto = new AccidenteDao(conn);
-            List<ContadorAccidente> contadorAccidente = vDto.obtenerCantidadAccidentesLeves();
+
+            Empresa empresa = new Empresa();
+
+            HttpSession sesion2 = request.getSession();
+            Usuario usu = (Usuario) sesion2.getAttribute("usuarioActivo");
+            Long id = usu.getEmpresa().getId();
+
+            //Pasarme el parametro dinamico
+            empresa.setId(id);
+
+            List<ContadorAccidente> contadorAccidente = vDto.obtenerCantidadAccidentesLeves(empresa);
 
             if (contadorAccidente != null && contadorAccidente.size() > 0) {
                 HttpSession sesion = request.getSession();
@@ -427,7 +437,17 @@ public class Common extends HttpServlet {
         {
             Conexion conn = new Conexion();
             AccidenteDao vDto = new AccidenteDao(conn);
-            List<ContadorAccidente> contadorAccidente = vDto.obtenerCantidadAccidentesMedios();
+
+            Empresa empresa = new Empresa();
+
+            HttpSession sesion2 = request.getSession();
+            Usuario usu = (Usuario) sesion2.getAttribute("usuarioActivo");
+            Long id = usu.getEmpresa().getId();
+
+            //Pasarme el parametro dinamico
+            empresa.setId(id);
+
+            List<ContadorAccidente> contadorAccidente = vDto.obtenerCantidadAccidentesMedios(empresa);
 
             if (contadorAccidente != null && contadorAccidente.size() > 0) {
                 HttpSession sesion = request.getSession();
@@ -444,7 +464,17 @@ public class Common extends HttpServlet {
         {
             Conexion conn = new Conexion();
             AccidenteDao vDto = new AccidenteDao(conn);
-            List<ContadorAccidente> contadorAccidente = vDto.obtenerCantidadAccidentesGraves();
+
+            Empresa empresa = new Empresa();
+
+            HttpSession sesion2 = request.getSession();
+            Usuario usu = (Usuario) sesion2.getAttribute("usuarioActivo");
+            Long id = usu.getEmpresa().getId();
+
+            //Pasarme el parametro dinamico
+            empresa.setId(id);
+            
+            List<ContadorAccidente> contadorAccidente = vDto.obtenerCantidadAccidentesGraves(empresa);
 
             if (contadorAccidente != null && contadorAccidente.size() > 0) {
                 HttpSession sesion = request.getSession();
@@ -565,15 +595,15 @@ public class Common extends HttpServlet {
             AccidenteDao vDto = new AccidenteDao(conn);
 
             Empresa empresa = new Empresa();
-            
+
             //Magia para traer de la sessión.
             HttpSession sesion2 = request.getSession();
-            Usuario usu = (Usuario)sesion2.getAttribute("usuarioActivo");
+            Usuario usu = (Usuario) sesion2.getAttribute("usuarioActivo");
             Long id = usu.getEmpresa().getId();
-            
+
             //Pasarme el parametro dinamico
             empresa.setId(id);
-            
+
             List<ContadorTotalAccidente> contadorTotalAccidente = vDto.obtenerGraficoAccidenteEmpresa(empresa);
 
             if (contadorTotalAccidente != null && contadorTotalAccidente.size() > 0) {
@@ -586,8 +616,8 @@ public class Common extends HttpServlet {
             }
         }
     }
-    
-        public static void setGraficosAccidentesAdmin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    public static void setGraficosAccidentesAdmin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         {
             Conexion conn = new Conexion();
             AccidenteDao vDto = new AccidenteDao(conn);

@@ -228,14 +228,15 @@ public class AccidenteDao {
 
     }
 
-    public List<ContadorAccidente> obtenerCantidadAccidentesLeves() {
+    public List<ContadorAccidente> obtenerCantidadAccidentesLeves(Empresa empresa) {
         List<ContadorAccidente> listaContadorAccidentes = new LinkedList<>();
         ContadorAccidente contadorAccidente;
 
         try {
 
-            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_CONTADOR_ACCIDENTE_LEVE(?) }");
+            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_CONTADOR_ACCIDENTE_LEVE(?,?) }");
             cst.registerOutParameter(1, OracleTypes.CURSOR);
+            cst.setLong(2, empresa.getId());
 
             cst.execute();
 
@@ -260,14 +261,15 @@ public class AccidenteDao {
         }
     }
 
-    public List<ContadorAccidente> obtenerCantidadAccidentesMedios() {
+    public List<ContadorAccidente> obtenerCantidadAccidentesMedios(Empresa empresa) {
         List<ContadorAccidente> listaContadorAccidentes = new LinkedList<>();
         ContadorAccidente contadorAccidente;
 
         try {
 
-            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_CONTADOR_ACCIDENTE_MEDIO(?) }");
+            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_CONTADOR_ACCIDENTE_MEDIO(?,?) }");
             cst.registerOutParameter(1, OracleTypes.CURSOR);
+            cst.setLong(2, empresa.getId());
 
             cst.execute();
 
@@ -292,15 +294,16 @@ public class AccidenteDao {
         }
     }
 
-    public List<ContadorAccidente> obtenerCantidadAccidentesGraves() {
+    public List<ContadorAccidente> obtenerCantidadAccidentesGraves(Empresa empresa) {
         List<ContadorAccidente> listaContadorAccidentes = new LinkedList<>();
         ContadorAccidente contadorAccidente;
 
         try {
 
-            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_CONTADOR_ACCIDENTE_GRAVE(?) }");
+            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_CONTADOR_ACCIDENTE_GRAVE(?,?) }");
             cst.registerOutParameter(1, OracleTypes.CURSOR);
-
+            cst.setLong(2, empresa.getId());
+            
             cst.execute();
 
             ResultSet rs = (ResultSet) cst.getObject(1);
