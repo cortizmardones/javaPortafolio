@@ -234,14 +234,15 @@ public class VisitaDAO {
         }
     }
 
-    public List<ContadorVisita> obtenerCantidadVisitasRealizadas() {
+    public List<ContadorVisita> obtenerCantidadVisitasRealizadas(Empresa empresa) {
         List<ContadorVisita> listaContadorVisitas = new LinkedList<>();
         ContadorVisita contadorVisitas;
 
         try {
 
-            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_CONTADOR_VISITAS_REALIZADAS(?) }");
+            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_CONTADOR_VISITAS_REALIZADAS(?,?) }");
             cst.registerOutParameter(1, OracleTypes.CURSOR);
+            cst.setLong(2, empresa.getId());
 
             cst.execute();
 
@@ -291,14 +292,15 @@ public class VisitaDAO {
             return 0;
         }
     }*/
-    public List<ContadorVisita> obtenerCantidadVisitasPendientes() {
+    public List<ContadorVisita> obtenerCantidadVisitasPendientes(Empresa empresa) {
         List<ContadorVisita> listaContadorVisitas = new LinkedList<>();
         ContadorVisita contadorVisitas;
 
         try {
 
-            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_CONTADOR_VISITAS_PENDIENTES(?) }");
+            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_CONTADOR_VISITAS_PENDIENTES(?,?) }");
             cst.registerOutParameter(1, OracleTypes.CURSOR);
+            cst.setLong(2, empresa.getId());
 
             cst.execute();
 
@@ -323,14 +325,15 @@ public class VisitaDAO {
         }
     }
 
-    public List<ContadorVisita> obtenerCantidadVisitasCanceladas() {
+    public List<ContadorVisita> obtenerCantidadVisitasCanceladas(Empresa empresa) {
         List<ContadorVisita> listaContadorVisitas = new LinkedList<>();
         ContadorVisita contadorVisitas;
 
         try {
 
-            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_CONTADOR_VISITAS_CANCELADAS(?) }");
+            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_CONTADOR_VISITAS_CANCELADAS(?,?) }");
             cst.registerOutParameter(1, OracleTypes.CURSOR);
+            cst.setLong(2, empresa.getId());
 
             cst.execute();
 

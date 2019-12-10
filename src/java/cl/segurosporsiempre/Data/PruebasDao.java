@@ -10,10 +10,7 @@ public class PruebasDao {
         Conexion conn = new Conexion();
         VisitaDAO vDto = new VisitaDAO(conn);
 
-        //System.out.println(vDto.obtenerCantidadVisitasAlternativo());
-        for (ContadorVisita i : vDto.obtenerCantidadVisitasRealizadas()) {
-            System.out.println(i.getContador());
-        }
+
     }
 
 }

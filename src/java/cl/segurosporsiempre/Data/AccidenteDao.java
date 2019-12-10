@@ -326,6 +326,39 @@ public class AccidenteDao {
             return null;
         }
     }
+    
+        public List<ContadorAccidente> obtenerCantidadAccidentesEmpresa(Empresa empresa) {
+        List<ContadorAccidente> listaContadorAccidentes = new LinkedList<>();
+        ContadorAccidente contadorAccidente;
+
+        try {
+
+            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_CONT_ACC_TOTAL_EMPRESA(?,?) }");
+            cst.registerOutParameter(1, OracleTypes.CURSOR);
+            cst.setLong(2, empresa.getId());
+            
+            cst.execute();
+
+            ResultSet rs = (ResultSet) cst.getObject(1);
+
+            while (rs.next()) {
+
+                contadorAccidente = new ContadorAccidente();
+                contadorAccidente.setContador(rs.getLong("CANTIDAD"));
+
+                listaContadorAccidentes.add(contadorAccidente);
+            }
+
+            return listaContadorAccidentes;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(AccidenteDao.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } catch (Exception ex) {
+            Logger.getLogger(AccidenteDao.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
 
     public List<ContadorTotalAccidente> obtenerGraficoAccidenteEmpresa(Empresa empresa) {
         List<ContadorTotalAccidente> listaGraficoAccidentes = new LinkedList<>();

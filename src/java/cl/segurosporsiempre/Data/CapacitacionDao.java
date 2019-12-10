@@ -121,14 +121,15 @@ public class CapacitacionDao {
         }
     }
 
-    public List<ContadorCapacitacion> obtenerCantidadCapacitacionesRealizadas() {
+    public List<ContadorCapacitacion> obtenerCantidadCapacitacionesRealizadas(Empresa empresa) {
         List<ContadorCapacitacion> listaContadorCapacitacion = new LinkedList<>();
         ContadorCapacitacion contadorCapacitacion;
 
         try {
 
-            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_CONTADOR_CAPAC_REALIZADAS(?) }");
+            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_CONTADOR_CAPAC_REALIZADAS(?,?) }");
             cst.registerOutParameter(1, OracleTypes.CURSOR);
+            cst.setLong(2, empresa.getId());
 
             cst.execute();
 
@@ -153,14 +154,15 @@ public class CapacitacionDao {
         }
     }
 
-    public List<ContadorCapacitacion> obtenerCantidadCapacitacionesPendientes() {
+    public List<ContadorCapacitacion> obtenerCantidadCapacitacionesPendientes(Empresa empresa) {
         List<ContadorCapacitacion> listaContadorCapacitacion = new LinkedList<>();
         ContadorCapacitacion contadorCapacitacion;
 
         try {
 
-            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_CONTADOR_CAPAC_PENDIENTES(?) }");
+            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_CONTADOR_CAPAC_PENDIENTES(?,?) }");
             cst.registerOutParameter(1, OracleTypes.CURSOR);
+            cst.setLong(2, empresa.getId());
 
             cst.execute();
 
@@ -185,14 +187,15 @@ public class CapacitacionDao {
         }
     }
 
-    public List<ContadorCapacitacion> obtenerCantidadCapacitacionesCanceladas() {
+    public List<ContadorCapacitacion> obtenerCantidadCapacitacionesCanceladas(Empresa empresa) {
         List<ContadorCapacitacion> listaContadorCapacitacion = new LinkedList<>();
         ContadorCapacitacion contadorCapacitacion;
 
         try {
 
-            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_CONTADOR_CAPAC_CANCELADAS(?) }");
+            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_CONTADOR_CAPAC_CANCELADAS(?,?) }");
             cst.registerOutParameter(1, OracleTypes.CURSOR);
+            cst.setLong(2, empresa.getId());
 
             cst.execute();
 

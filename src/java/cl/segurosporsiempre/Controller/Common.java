@@ -359,7 +359,17 @@ public class Common extends HttpServlet {
         {
             Conexion conn = new Conexion();
             VisitaDAO vDto = new VisitaDAO(conn);
-            List<ContadorVisita> contadorVisitas = vDto.obtenerCantidadVisitasRealizadas();
+
+            Empresa empresa = new Empresa();
+
+            HttpSession sesion2 = request.getSession();
+            Usuario usu = (Usuario) sesion2.getAttribute("usuarioActivo");
+            Long id = usu.getEmpresa().getId();
+
+            //Pasarme el parametro dinamico
+            empresa.setId(id);
+
+            List<ContadorVisita> contadorVisitas = vDto.obtenerCantidadVisitasRealizadas(empresa);
 
             if (contadorVisitas != null && contadorVisitas.size() > 0) {
                 HttpSession sesion = request.getSession();
@@ -376,7 +386,17 @@ public class Common extends HttpServlet {
         {
             Conexion conn = new Conexion();
             VisitaDAO vDto = new VisitaDAO(conn);
-            List<ContadorVisita> contadorVisitas = vDto.obtenerCantidadVisitasPendientes();
+
+            Empresa empresa = new Empresa();
+
+            HttpSession sesion2 = request.getSession();
+            Usuario usu = (Usuario) sesion2.getAttribute("usuarioActivo");
+            Long id = usu.getEmpresa().getId();
+
+            //Pasarme el parametro dinamico
+            empresa.setId(id);
+
+            List<ContadorVisita> contadorVisitas = vDto.obtenerCantidadVisitasPendientes(empresa);
 
             if (contadorVisitas != null && contadorVisitas.size() > 0) {
                 HttpSession sesion = request.getSession();
@@ -393,7 +413,17 @@ public class Common extends HttpServlet {
         {
             Conexion conn = new Conexion();
             VisitaDAO vDto = new VisitaDAO(conn);
-            List<ContadorVisita> contadorVisitas = vDto.obtenerCantidadVisitasCanceladas();
+
+            Empresa empresa = new Empresa();
+
+            HttpSession sesion2 = request.getSession();
+            Usuario usu = (Usuario) sesion2.getAttribute("usuarioActivo");
+            Long id = usu.getEmpresa().getId();
+
+            //Pasarme el parametro dinamico
+            empresa.setId(id);
+
+            List<ContadorVisita> contadorVisitas = vDto.obtenerCantidadVisitasCanceladas(empresa);
 
             if (contadorVisitas != null && contadorVisitas.size() > 0) {
                 HttpSession sesion = request.getSession();
@@ -473,7 +503,7 @@ public class Common extends HttpServlet {
 
             //Pasarme el parametro dinamico
             empresa.setId(id);
-            
+
             List<ContadorAccidente> contadorAccidente = vDto.obtenerCantidadAccidentesGraves(empresa);
 
             if (contadorAccidente != null && contadorAccidente.size() > 0) {
@@ -486,12 +516,50 @@ public class Common extends HttpServlet {
             }
         }
     }
+    
+    public static void setContadorAccidentesEmpresa(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        {
+            Conexion conn = new Conexion();
+            AccidenteDao vDto = new AccidenteDao(conn);
+
+            Empresa empresa = new Empresa();
+
+            HttpSession sesion2 = request.getSession();
+            Usuario usu = (Usuario) sesion2.getAttribute("usuarioActivo");
+            Long id = usu.getEmpresa().getId();
+
+            //Pasarme el parametro dinamico
+            empresa.setId(id);
+
+            List<ContadorAccidente> contadorAccidente = vDto.obtenerCantidadAccidentesEmpresa(empresa);
+
+            if (contadorAccidente != null && contadorAccidente.size() > 0) {
+                HttpSession sesion = request.getSession();
+                sesion.setAttribute("aTotalEmpresa", contadorAccidente);
+            } else {
+                List<ContadorVisita> contadorAccidente2 = new LinkedList<>();
+                HttpSession sesion = request.getSession();
+                sesion.setAttribute("aTotalEmpresa", contadorAccidente2);
+            }
+        }
+    }
+    
 
     public static void setContadorCapacitacionesRealizadas(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         {
             Conexion conn = new Conexion();
             CapacitacionDao vDto = new CapacitacionDao(conn);
-            List<ContadorCapacitacion> contadorCapacitacion = vDto.obtenerCantidadCapacitacionesRealizadas();
+
+            Empresa empresa = new Empresa();
+
+            HttpSession sesion2 = request.getSession();
+            Usuario usu = (Usuario) sesion2.getAttribute("usuarioActivo");
+            Long id = usu.getEmpresa().getId();
+
+            //Pasarme el parametro dinamico
+            empresa.setId(id);
+
+            List<ContadorCapacitacion> contadorCapacitacion = vDto.obtenerCantidadCapacitacionesRealizadas(empresa);
 
             if (contadorCapacitacion != null && contadorCapacitacion.size() > 0) {
                 HttpSession sesion = request.getSession();
@@ -508,7 +576,17 @@ public class Common extends HttpServlet {
         {
             Conexion conn = new Conexion();
             CapacitacionDao vDto = new CapacitacionDao(conn);
-            List<ContadorCapacitacion> contadorCapacitacion = vDto.obtenerCantidadCapacitacionesPendientes();
+
+            Empresa empresa = new Empresa();
+
+            HttpSession sesion2 = request.getSession();
+            Usuario usu = (Usuario) sesion2.getAttribute("usuarioActivo");
+            Long id = usu.getEmpresa().getId();
+
+            //Pasarme el parametro dinamico
+            empresa.setId(id);
+
+            List<ContadorCapacitacion> contadorCapacitacion = vDto.obtenerCantidadCapacitacionesPendientes(empresa);
 
             if (contadorCapacitacion != null && contadorCapacitacion.size() > 0) {
                 HttpSession sesion = request.getSession();
@@ -525,7 +603,17 @@ public class Common extends HttpServlet {
         {
             Conexion conn = new Conexion();
             CapacitacionDao vDto = new CapacitacionDao(conn);
-            List<ContadorCapacitacion> contadorCapacitacion = vDto.obtenerCantidadCapacitacionesCanceladas();
+
+            Empresa empresa = new Empresa();
+
+            HttpSession sesion2 = request.getSession();
+            Usuario usu = (Usuario) sesion2.getAttribute("usuarioActivo");
+            Long id = usu.getEmpresa().getId();
+
+            //Pasarme el parametro dinamico
+            empresa.setId(id);
+
+            List<ContadorCapacitacion> contadorCapacitacion = vDto.obtenerCantidadCapacitacionesCanceladas(empresa);
 
             if (contadorCapacitacion != null && contadorCapacitacion.size() > 0) {
                 HttpSession sesion = request.getSession();
@@ -542,7 +630,17 @@ public class Common extends HttpServlet {
         {
             Conexion conn = new Conexion();
             AsesoriaDao vDto = new AsesoriaDao(conn);
-            List<ContadorAsesoria> contadorAsesoria = vDto.obtenerCantidadAsesoriasRealizadas();
+
+            Empresa empresa = new Empresa();
+
+            HttpSession sesion2 = request.getSession();
+            Usuario usu = (Usuario) sesion2.getAttribute("usuarioActivo");
+            Long id = usu.getEmpresa().getId();
+
+            //Pasarme el parametro dinamico
+            empresa.setId(id);
+
+            List<ContadorAsesoria> contadorAsesoria = vDto.obtenerCantidadAsesoriasRealizadas(empresa);
 
             if (contadorAsesoria != null && contadorAsesoria.size() > 0) {
                 HttpSession sesion = request.getSession();
@@ -559,7 +657,17 @@ public class Common extends HttpServlet {
         {
             Conexion conn = new Conexion();
             AsesoriaDao vDto = new AsesoriaDao(conn);
-            List<ContadorAsesoria> contadorAsesoria = vDto.obtenerCantidadAsesoriasPendientes();
+
+            Empresa empresa = new Empresa();
+
+            HttpSession sesion2 = request.getSession();
+            Usuario usu = (Usuario) sesion2.getAttribute("usuarioActivo");
+            Long id = usu.getEmpresa().getId();
+
+            //Pasarme el parametro dinamico
+            empresa.setId(id);
+
+            List<ContadorAsesoria> contadorAsesoria = vDto.obtenerCantidadAsesoriasPendientes(empresa);
 
             if (contadorAsesoria != null && contadorAsesoria.size() > 0) {
                 HttpSession sesion = request.getSession();
@@ -576,7 +684,17 @@ public class Common extends HttpServlet {
         {
             Conexion conn = new Conexion();
             AsesoriaDao vDto = new AsesoriaDao(conn);
-            List<ContadorAsesoria> contadorAsesoria = vDto.obtenerCantidadAsesoriasCanceladas();
+
+            Empresa empresa = new Empresa();
+
+            HttpSession sesion2 = request.getSession();
+            Usuario usu = (Usuario) sesion2.getAttribute("usuarioActivo");
+            Long id = usu.getEmpresa().getId();
+
+            //Pasarme el parametro dinamico
+            empresa.setId(id);
+            
+            List<ContadorAsesoria> contadorAsesoria = vDto.obtenerCantidadAsesoriasCanceladas(empresa);
 
             if (contadorAsesoria != null && contadorAsesoria.size() > 0) {
                 HttpSession sesion = request.getSession();

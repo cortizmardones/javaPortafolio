@@ -206,8 +206,8 @@
                                                 </c:forEach>
                                             </td>
                                             <td>
-                                                <c:forEach items="${graficos}" var="ContadorTotalAccidente">
-                                                    ${ContadorTotalAccidente.diciembre}
+                                                <c:forEach items="${aTotalEmpresa}" var="ContadorAccidente">
+                                                    ${ContadorAccidente.contador}
                                                 </c:forEach>
                                             </td>
                                         </tr>

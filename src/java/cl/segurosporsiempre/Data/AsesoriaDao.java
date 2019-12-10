@@ -234,14 +234,15 @@ public class AsesoriaDao {
         }
     }
 
-    public List<ContadorAsesoria> obtenerCantidadAsesoriasRealizadas() {
+    public List<ContadorAsesoria> obtenerCantidadAsesoriasRealizadas(Empresa empresa) {
         List<ContadorAsesoria> listaContadorAsesoria = new LinkedList<>();
         ContadorAsesoria contadorAsesoria;
 
         try {
 
-            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_CONTADOR_ASES_REALIZADAS(?) }");
+            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_CONTADOR_ASES_REALIZADAS(?,?) }");
             cst.registerOutParameter(1, OracleTypes.CURSOR);
+            cst.setLong(2, empresa.getId());
 
             cst.execute();
 
@@ -266,14 +267,15 @@ public class AsesoriaDao {
         }
     }
 
-    public List<ContadorAsesoria> obtenerCantidadAsesoriasPendientes() {
+    public List<ContadorAsesoria> obtenerCantidadAsesoriasPendientes(Empresa empresa) {
         List<ContadorAsesoria> listaContadorAsesoria = new LinkedList<>();
         ContadorAsesoria contadorAsesoria;
 
         try {
 
-            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_CONTADOR_ASES_PENDIENTES(?) }");
+            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_CONTADOR_ASES_PENDIENTES(?,?) }");
             cst.registerOutParameter(1, OracleTypes.CURSOR);
+            cst.setLong(2, empresa.getId());
 
             cst.execute();
 
@@ -298,14 +300,15 @@ public class AsesoriaDao {
         }
     }
 
-    public List<ContadorAsesoria> obtenerCantidadAsesoriasCanceladas() {
+    public List<ContadorAsesoria> obtenerCantidadAsesoriasCanceladas(Empresa empresa) {
         List<ContadorAsesoria> listaContadorAsesoria = new LinkedList<>();
         ContadorAsesoria contadorAsesoria;
 
         try {
 
-            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_CONTADOR_ASES_CANCELADAS(?) }");
+            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_CONTADOR_ASES_CANCELADAS(?,?) }");
             cst.registerOutParameter(1, OracleTypes.CURSOR);
+            cst.setLong(2, empresa.getId());
 
             cst.execute();
 
