@@ -45,6 +45,7 @@ public class MappingController extends HttpServlet {
             case "aPanel":
                 Common.setGraficosAccidentesAdmin(request, response);
                 Common.setEmpresasSession2(request, response);
+                Common.setProfesionalesSession(request, response);
                 request.getRequestDispatcher("pAdmin.jsp").forward(request, response);
                 break;
             case "aClientes":

@@ -202,6 +202,7 @@ public class LoginController extends HttpServlet {
             Common.setUsuarioActivoSession(usu, request, response);
             Common.setEmpresasSession2(request, response);
             Common.setGraficosAccidentesAdmin(request, response);
+            Common.setProfesionalesSession(request, response);
             request.getRequestDispatcher("pAdmin.jsp").forward(request, response);
         }
         if (usu.getPerfil().getId() == 2) {
@@ -210,26 +211,26 @@ public class LoginController extends HttpServlet {
         }
         if (usu.getPerfil().getId() == 3) {
             Common.setUsuarioActivoSession(usu, request, response);
-            
+
             Common.setContadorVisitasRealizadas(request, response);
             Common.setContadorVisitasPendientes(request, response);
             Common.setContadorVisitasCanceladas(request, response);
-            
+
             Common.setContadorAccidentesLeves(request, response);
             Common.setContadorAccidentesMedios(request, response);
             Common.setContadorAccidentesGraves(request, response);
             Common.setContadorAccidentesEmpresa(request, response);
-            
+
             Common.setContadorCapacitacionesRealizadas(request, response);
             Common.setContadorCapacitacionesPendientes(request, response);
             Common.setContadorCapacitacionesCanceladas(request, response);
-            
+
             Common.setContadorAsesoriasRealizadas(request, response);
             Common.setContadorAsesoriasPendientes(request, response);
             Common.setContadorAsesoriasCanceladas(request, response);
-            
+
             Common.setGraficosAccidentesEmpresa(request, response);
-            
+
             request.getRequestDispatcher("pCliente.jsp").forward(request, response);
         }
     }

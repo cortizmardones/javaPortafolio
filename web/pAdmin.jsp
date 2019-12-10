@@ -120,11 +120,11 @@
                             <form>
                                 <label for="cs">Seleccione cliente: </label>
                                 <select name="cs" id="cs" class="form-control">
-                                    
+
                                     <c:forEach items="${empresas}" var="empresas">
                                         <option value="${empresas.id}">${empresas.razonSocial}</option>
                                     </c:forEach>
-                                        
+
                                 </select>                                
                                 <br>
                                 <label for="subject">Asunto: </label>
@@ -150,6 +150,45 @@
 
                         <div class="card-body">
 
+                        </div>
+                    </div>
+                </div>
+            </div>         
+
+            <br>
+
+            <div class="row" id="listadoProfesionales">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header text-white bg-dark">
+                            Listado Profesionales: 
+                        </div>
+
+                        <div class="card-body">
+                            <table class="table table-striped table-dark">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Rut</th>
+                                        <th scope="col">Nombre</th>
+                                        <th scope="col">Apellido</th>
+                                        <th scope="col">Fono</th>
+                                        <th scope="col">Ubicación</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <c:forEach items="${profesionales}" var="profesional">
+                                            <th scope="row">1</th>
+                                            <td>${profesional.rut}</td>
+                                            <td> ${profesional.nombres}</td>
+                                            <td>${profesional.apellidos}</td>
+                                            <td>${profesional.fono}</td>
+                                            <td><button class="btn btn-success">Consultar</button></td>
+                                        </tr>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
