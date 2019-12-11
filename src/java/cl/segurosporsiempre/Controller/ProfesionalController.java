@@ -368,15 +368,15 @@ public class ProfesionalController extends HttpServlet {
 
     private void traerUbicacion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        //Long id = Long.parseLong(request.getParameter("idPro"));
+        Long id = Long.parseLong(request.getParameter("idPro"));
 
         Conexion conn = new Conexion();
         ProfesionalDao pDto = new ProfesionalDao(conn);
         
-        //Profesional profesional = new Profesional();
-        //profesional.setId(Long.valueOf(81));
+        Profesional profesional = new Profesional();
+        profesional.setId(id);
         
-        List<UbicacionProfesional> resultado = pDto.obtenerUbicacion();
+        List<UbicacionProfesional> resultado = pDto.obtenerUbicacion(profesional);
 
         conn.cerrarConexion();
 

@@ -4,28 +4,28 @@ package cl.segurosporsiempre.Model;
 
 public class UbicacionProfesional {
     
-    private int id;
-    private double longitud;
-    private double latitud;
+    private long id;
+    public double longitud;
+    public double latitud;
 
     public UbicacionProfesional() {
     }
 
-    public UbicacionProfesional(int id) {
+    public UbicacionProfesional(long id) {
         this.id = id;
     }
 
-    public UbicacionProfesional(int id, double longitud, double latitud) {
+    public UbicacionProfesional(long id, double longitud, double latitud) {
         this.id = id;
         this.longitud = longitud;
         this.latitud = latitud;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -44,6 +44,8 @@ public class UbicacionProfesional {
     public void setLatitud(double latitud) {
         this.latitud = latitud;
     }
+
+ 
 
 
  

@@ -254,15 +254,15 @@ public class ProfesionalDao {
         }
     }
 
-    public List<UbicacionProfesional> obtenerUbicacion() {
+    public List<UbicacionProfesional> obtenerUbicacion(Profesional profesional) {
         List<UbicacionProfesional> lista = new LinkedList<>();
         UbicacionProfesional ubicacionProfesional;
 
         try {
 
-            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_OBTENER_UBICACION(?,?) }");
+            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_OBTENER_UBICACION2(?,?) }");
             cst.registerOutParameter(1, OracleTypes.CURSOR);
-            cst.setDouble(2,81);
+            cst.setLong(2,profesional.getId());
 
             cst.execute();
 

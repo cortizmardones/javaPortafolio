@@ -177,8 +177,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <c:forEach items="${profesionales}" var="profesional">
+                                    <c:forEach items="${profesionales}" var="profesional">
+                                        <tr>
                                             <th scope="row">${profesional.id}</th>
                                             <td>${profesional.rut}</td>
                                             <td> ${profesional.nombres}</td>
@@ -195,62 +195,62 @@
             </div>         
 
             <br>
-            
-           <!--
-            <div class="row" id="mapas">
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header text-white bg-dark">
-                            Geolocalización Profesionales: 
-                        </div>
-                        <div class="card-body">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3323.256470469777!2d-70.7078133842614!3d-33.59864941252065!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2scl!4v1575774064412!5m2!1ses-419!2scl" 
-                                    width="600" height="600" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header text-white bg-dark">
-                            Geolocalización Profesionales:
-                        </div>
 
-                        <div class="card-body">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d13289.355607433477!2d-70.609782!3d-33.6224537!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2scl!4v1575773578484!5m2!1ses-419!2scl" 
-                                    width="600" height="600" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
-                        </div>
-                    </div>
-                </div>
-            </div>
-          
-
-            <div class="row" id="mapas2">
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header text-white bg-dark">
-                            Geolocalización Profesionales: 
-                        </div>
-                        <div class="card-body">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d856.6355556390263!2d-70.66112819449991!3d-33.44943054787215!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2scl!4v1575774540643!5m2!1ses-419!2scl" 
-                                    width="600" height="600" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header text-white bg-dark">
-                            Geolocalización Profesionales:
-                        </div>
-
-                        <div class="card-body">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1661.9382691132357!2d-70.69431291195261!3d-33.5825546943504!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2scl!4v1575775554191!5m2!1ses-419!2scl"
-                                    width="600" height="600" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
-                        </div>
-                    </div>
-                </div>
-            </div>   
-            -->
+            <!--
+             <div class="row" id="mapas">
+                 <div class="col-md-6">
+                     <div class="card">
+                         <div class="card-header text-white bg-dark">
+                             Geolocalización Profesionales: 
+                         </div>
+                         <div class="card-body">
+                             <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3323.256470469777!2d-70.7078133842614!3d-33.59864941252065!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2scl!4v1575774064412!5m2!1ses-419!2scl" 
+                                     width="600" height="600" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="card">
+                         <div class="card-header text-white bg-dark">
+                             Geolocalización Profesionales:
+                         </div>
+ 
+                         <div class="card-body">
+                             <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d13289.355607433477!2d-70.609782!3d-33.6224537!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2scl!4v1575773578484!5m2!1ses-419!2scl" 
+                                     width="600" height="600" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                         </div>
+                     </div>
+                 </div>
+             </div>
            
+ 
+             <div class="row" id="mapas2">
+                 <div class="col-md-6">
+                     <div class="card">
+                         <div class="card-header text-white bg-dark">
+                             Geolocalización Profesionales: 
+                         </div>
+                         <div class="card-body">
+                             <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d856.6355556390263!2d-70.66112819449991!3d-33.44943054787215!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2scl!4v1575774540643!5m2!1ses-419!2scl" 
+                                     width="600" height="600" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="card">
+                         <div class="card-header text-white bg-dark">
+                             Geolocalización Profesionales:
+                         </div>
+ 
+                         <div class="card-body">
+                             <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1661.9382691132357!2d-70.69431291195261!3d-33.5825546943504!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2scl!4v1575775554191!5m2!1ses-419!2scl"
+                                     width="600" height="600" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                         </div>
+                     </div>
+                 </div>
+             </div>   
+            -->
+
             <div class="row" id="clidata">
 
                 <div class="col-md-12">
