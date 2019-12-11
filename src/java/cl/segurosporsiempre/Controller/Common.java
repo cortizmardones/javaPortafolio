@@ -516,7 +516,7 @@ public class Common extends HttpServlet {
             }
         }
     }
-    
+
     public static void setContadorAccidentesEmpresa(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         {
             Conexion conn = new Conexion();
@@ -543,7 +543,6 @@ public class Common extends HttpServlet {
             }
         }
     }
-    
 
     public static void setContadorCapacitacionesRealizadas(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         {
@@ -693,7 +692,7 @@ public class Common extends HttpServlet {
 
             //Pasarme el parametro dinamico
             empresa.setId(id);
-            
+
             List<ContadorAsesoria> contadorAsesoria = vDto.obtenerCantidadAsesoriasCanceladas(empresa);
 
             if (contadorAsesoria != null && contadorAsesoria.size() > 0) {
@@ -751,5 +750,8 @@ public class Common extends HttpServlet {
             }
         }
     }
+    
+    
+
 
 }

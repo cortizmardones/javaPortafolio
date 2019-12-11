@@ -4,6 +4,7 @@ import cl.segurosporsiempre.Connection.Conexion;
 import cl.segurosporsiempre.Model.ContratoProfesional;
 import cl.segurosporsiempre.Model.Perfil;
 import cl.segurosporsiempre.Model.Profesional;
+import cl.segurosporsiempre.Model.UbicacionProfesional;
 import cl.segurosporsiempre.Model.UsuarioProfesional;
 import cl.segurosporsiempre.Model.Utils;
 import java.sql.CallableStatement;
@@ -125,7 +126,7 @@ public class ProfesionalDao {
 
         try {
 
-            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_ACTIVAR_PROFESIONAL(?) }");
+            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_OBTENER_UBICACION(?,?) }");
             cst.setLong(1, id);
 
             cst.execute();
@@ -252,4 +253,39 @@ public class ProfesionalDao {
             return false;
         }
     }
+
+    public List<UbicacionProfesional> obtenerUbicacion() {
+        List<UbicacionProfesional> lista = new LinkedList<>();
+        UbicacionProfesional ubicacionProfesional;
+
+        try {
+
+            CallableStatement cst = conn.getConnection().prepareCall("{ call SP_OBTENER_UBICACION(?,?) }");
+            cst.registerOutParameter(1, OracleTypes.CURSOR);
+            cst.setDouble(2,81);
+
+            cst.execute();
+
+            ResultSet rs = (ResultSet) cst.getObject(1);
+
+            while (rs.next()) {
+
+                ubicacionProfesional = new UbicacionProfesional();
+                ubicacionProfesional.setLongitud(rs.getDouble("LONGITUD"));
+                ubicacionProfesional.setLatitud(rs.getDouble("LATITUD"));
+                
+                lista.add(ubicacionProfesional);
+            }
+
+            return lista;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ProfesionalDao.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } catch (Exception ex) {
+            Logger.getLogger(ProfesionalDao.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
 }

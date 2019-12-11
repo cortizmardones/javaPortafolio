@@ -9,15 +9,19 @@ import cl.segurosporsiempre.Connection.Conexion;
 import cl.segurosporsiempre.Data.ProfesionalDao;
 import cl.segurosporsiempre.Model.ContratoProfesional;
 import cl.segurosporsiempre.Model.Profesional;
+import cl.segurosporsiempre.Model.UbicacionProfesional;
+import cl.segurosporsiempre.Model.Usuario;
 import cl.segurosporsiempre.Model.UsuarioProfesional;
 import cl.segurosporsiempre.Model.Utils;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 /**
@@ -59,7 +63,10 @@ public class ProfesionalController extends HttpServlet {
                 break;
             case "gatillarModPass":
                 this.modificarContrasenaProf(request, response);
-                break;                
+                break;
+            case "consultarUbicacion":
+                this.traerUbicacion(request, response);
+                break;
             default:
                 throw new AssertionError();
         }
@@ -112,7 +119,7 @@ public class ProfesionalController extends HttpServlet {
 
         ContratoProfesional c = new ContratoProfesional();
         c.setFechaContrato(fechaContrato);
-        
+
         UsuarioProfesional u = new UsuarioProfesional();
         u.setCorreo(correo);
         u.setPassword(password);
@@ -125,7 +132,6 @@ public class ProfesionalController extends HttpServlet {
         pro.setFono(fono);
         pro.setFechaNacimiento(fechaNacimiento);
         pro.setAvatar(avatar);
-        
 
         pro.setContrato(c);
         pro.setUsuario(u);
@@ -228,15 +234,13 @@ public class ProfesionalController extends HttpServlet {
             request.getRequestDispatcher("adminProfesionales.jsp").forward(request, response);
         }
     }
-    
+
     private void modificarContrasenaProf(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
+
         request.setAttribute("modal", "cambiarPassProfesional");
         request.getRequestDispatcher("pProfesional.jsp").forward(request, response);
-        
+
     }
-    
-    
 
     private void modificarProfesional(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -244,7 +248,7 @@ public class ProfesionalController extends HttpServlet {
 
         switch (tipoDeTransaccion) {
             case "part":
-                
+
                 String direccion = request.getParameter("direccion");
                 String correo = request.getParameter("correo");
                 String nombres = request.getParameter("nombres");
@@ -256,25 +260,22 @@ public class ProfesionalController extends HttpServlet {
                 String formularioFechaTermino = request.getParameter("fechaTermino");
                 Long id = Long.parseLong(request.getParameter("id"));
                 String fechaTermino;
-                
-                if (formularioFechaTermino.equals("INDEFINIDO"))
-                {
+
+                if (formularioFechaTermino.equals("INDEFINIDO")) {
                     fechaTermino = null;
+                } else {
+                    fechaTermino = Utils.FECHATRANSFORMADA(formularioFechaTermino);
                 }
-                else
-                {
-                    fechaTermino = Utils.FECHATRANSFORMADA(formularioFechaTermino);                    
-                }                
-                
+
                 Profesional p = new Profesional();
                 ContratoProfesional c = new ContratoProfesional();
                 UsuarioProfesional up = new UsuarioProfesional();
-                
+
                 c.setFechaTermino(fechaTermino);
                 c.setFechaContrato(fechaContratoS);
-                
+
                 up.setCorreo(correo);
-                
+
                 p.setApellidos(apellidos);
                 p.setAvatar(foto);
                 p.setFechaNacimiento(fechaNacimiento);
@@ -284,27 +285,24 @@ public class ProfesionalController extends HttpServlet {
                 p.setContrato(c);
                 p.setUsuario(up);
                 p.setId(id);
-                
+
                 Conexion conn = new Conexion();
                 ProfesionalDao pDto = new ProfesionalDao(conn);
-                
+
                 boolean resultado = pDto.modificarProfesional(p);
-                
+
                 conn.cerrarConexion();
-                
-                if (resultado)
-                {
+
+                if (resultado) {
                     request.setAttribute("mensaje", "modificarProfesionalExito");
                     Common.setProfesionalesSession(request, response);
                     request.getRequestDispatcher("adminProfesionales.jsp").forward(request, response);
-                }
-                else
-                {
+                } else {
                     request.setAttribute("mensaje", "modificarProfesionalFracaso");
                     Common.setProfesionalesSession(request, response);
-                    request.getRequestDispatcher("adminProfesionalesMod.jsp").forward(request, response);                
-                }    
-                
+                    request.getRequestDispatcher("adminProfesionalesMod.jsp").forward(request, response);
+                }
+
                 break;
             case "non-part":
 
@@ -319,59 +317,79 @@ public class ProfesionalController extends HttpServlet {
                 String formularioFechaTerminoDos = request.getParameter("fechaTermino");
                 Long idDos = Long.parseLong(request.getParameter("id"));
                 String fechaTerminoDos;
-                
-                if (formularioFechaTerminoDos.equals("INDEFINIDO"))
-                {
+
+                if (formularioFechaTerminoDos.equals("INDEFINIDO")) {
                     fechaTerminoDos = null;
+                } else {
+                    fechaTerminoDos = Utils.FECHATRANSFORMADA(formularioFechaTerminoDos);
                 }
-                else
-                {
-                    fechaTerminoDos = Utils.FECHATRANSFORMADA(formularioFechaTerminoDos);                    
-                }                
-                
+
                 Profesional pDos = new Profesional();
                 ContratoProfesional cDos = new ContratoProfesional();
                 UsuarioProfesional upo = new UsuarioProfesional();
-                
+
                 cDos.setFechaTermino(fechaTerminoDos);
                 cDos.setFechaContrato(fechaContrato);
-                
+
                 upo.setCorreo(correoDos);
-                
+
                 pDos.setApellidos(apellidosDos);
                 pDos.setAvatar(fotoDos);
                 pDos.setFechaNacimiento(fechaNacimientoDos);
                 pDos.setFono(fonoDos);
                 pDos.setDireccion(direccionDos);
                 pDos.setNombres(nombresDos);
-                pDos.setContrato(cDos); 
+                pDos.setContrato(cDos);
                 pDos.setUsuario(upo);
                 pDos.setId(idDos);
-                
+
                 Conexion connDos = new Conexion();
                 ProfesionalDao pDtoDos = new ProfesionalDao(connDos);
-                
+
                 boolean resultadoDos = pDtoDos.modificarProfesional(pDos);
-                
+
                 connDos.cerrarConexion();
-                
-                if (resultadoDos)
-                {
+
+                if (resultadoDos) {
                     request.setAttribute("mensaje", "modificarProfesionalExito");
                     Common.setProfesionalesSession(request, response);
                     request.getRequestDispatcher("adminProfesionales.jsp").forward(request, response);
-                }
-                else
-                {
+                } else {
                     request.setAttribute("mensaje", "modificarProfesionalFracaso");
                     Common.setProfesionalesSession(request, response);
-                    request.getRequestDispatcher("adminProfesionalesMod.jsp").forward(request, response);                
-                }                
-                
+                    request.getRequestDispatcher("adminProfesionalesMod.jsp").forward(request, response);
+                }
+
                 break;
             default:
                 throw new AssertionError();
         }
+    }
+
+    private void traerUbicacion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        //Long id = Long.parseLong(request.getParameter("idPro"));
+
+        Conexion conn = new Conexion();
+        ProfesionalDao pDto = new ProfesionalDao(conn);
+        
+        //Profesional profesional = new Profesional();
+        //profesional.setId(Long.valueOf(81));
+        
+        List<UbicacionProfesional> resultado = pDto.obtenerUbicacion();
+
+        conn.cerrarConexion();
+
+        if (resultado != null && resultado.size()>0) {
+            request.setAttribute("ubicacion", resultado);
+            System.out.println("LLENA");
+            request.getRequestDispatcher("ubicacionProfesional.jsp").forward(request, response);
+        } else {
+            request.setAttribute("ubicacion", resultado);
+            System.out.println("VACÍA");
+            request.getRequestDispatcher("ubicacionProfesional.jsp").forward(request, response);
+        }
+
     }
 
 }

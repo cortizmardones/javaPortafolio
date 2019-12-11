@@ -104,7 +104,7 @@
                                 <b><u>Perfil:</u></b> ${usuarioActivo.perfil.nombre} <br><br>
                             </div>
                             <div align="center">
-                                <a class="btn btn-warning" style="color: black;" href="" role="button">Modificar
+                                <a class="btn btn-warning" style="color: black;" href="#" role="button">Modificar
                                     contraseña</a>
                             </div>
                         </div>
@@ -165,7 +165,7 @@
                         </div>
 
                         <div class="card-body">
-                            <table class="table table-striped table-dark">
+                            <table class="table table-striped table-dark text-center">
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
@@ -179,12 +179,12 @@
                                 <tbody>
                                     <tr>
                                         <c:forEach items="${profesionales}" var="profesional">
-                                            <th scope="row">1</th>
+                                            <th scope="row">${profesional.id}</th>
                                             <td>${profesional.rut}</td>
                                             <td> ${profesional.nombres}</td>
                                             <td>${profesional.apellidos}</td>
                                             <td>${profesional.fono}</td>
-                                            <td><button class="btn btn-success">Consultar</button></td>
+                                            <td><a class="btn btn-success" style="color: black;" href="pro?accion=consultarUbicacion&idPro=${profesional.id}" role="button">Consultar Ubicación</a></td>
                                         </tr>
                                     </c:forEach>
                                 </tbody>
@@ -195,7 +195,8 @@
             </div>         
 
             <br>
-
+            
+           <!--
             <div class="row" id="mapas">
                 <div class="col-md-6">
                     <div class="card">
@@ -221,6 +222,7 @@
                     </div>
                 </div>
             </div>
+          
 
             <div class="row" id="mapas2">
                 <div class="col-md-6">
@@ -247,7 +249,8 @@
                     </div>
                 </div>
             </div>   
-
+            -->
+           
             <div class="row" id="clidata">
 
                 <div class="col-md-12">
