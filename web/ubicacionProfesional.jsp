@@ -1,6 +1,6 @@
 
-<%@page import="cl.segurosporsiempre.Model.UbicacionProfesional"%>
-<%@page import="java.util.List"%>
+<%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"  %>  
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -26,60 +26,49 @@
     </head>
     <body>
 
-        <%
+    <c:forEach items="${ubicacion}" var="UbicacionProfesional">
+        <input type="number" step="any" id="latitud" value="${UbicacionProfesional.latitud}">
+        <input type="number" step="any" id="longitud" value="${UbicacionProfesional.longitud}">
+    </c:forEach>
 
-            List<UbicacionProfesional> lista = (List<UbicacionProfesional>) request.getAttribute("ubicacion");
+    <a href="pAdmin.jsp"><button class="btn btn-success">Volver</button></a>    
 
-            for (UbicacionProfesional x : lista) {
+    <div id="map"></div>
 
-                out.print("<input type='number' step='any' id='latitud' value='");
-                out.print(x.latitud);
-                out.print("'>");
+    <script>
+        // Initialize and add the map
+        function initMap() {
+            // The location of Uluru
+            //var latitud = document.getElementById('latitud');
+            //var longitud = document.getElementById('longitud');
 
-                out.print("<input type='number' step='any' id='longitud' value='");
-                out.print(x.longitud);
-                out.print("'>");
-            }
-        %>
+            var latitud = parseFloat(document.getElementById('latitud').value);
+            var longitud = parseFloat(document.getElementById('longitud').value);
 
-        <a href="pAdmin.jsp"><button class="btn btn-success">Volver</button></a>    
+            //var latitudDecimal = latitud.toFixed(4);
+            //var longitudDecimal = longitud.toFixed(1);
 
-        <div id="map"></div>
+            //var latitudDecimal = latitud.replace(.,,);
+            //var longitudDecimal = longitud.replace(.,,);
 
-        <script>
-            // Initialize and add the map
-            function initMap() {
-                // The location of Uluru
-                //var latitud = document.getElementById('latitud');
-                //var longitud = document.getElementById('longitud');
-                
-                var latitud = parseFloat(document.getElementById('latitud').value);
-                var longitud = parseFloat(document.getElementById('longitud').value);
+            //var latitud = -33.5833;
+            //var longitud = -70.7;
 
-                //var latitudDecimal = latitud.toFixed(4);
-                //var longitudDecimal = longitud.toFixed(1);
+            console.log(latitud);
+            console.log(longitud);
 
-                //var latitudDecimal = latitud.replace(.,,);
-                //var longitudDecimal = longitud.replace(.,,);
+            var uluru = {lat: latitud, lng: longitud};
+            // The map, centered at Uluru
+            var map = new google.maps.Map(
+                    document.getElementById('map'), {zoom: 15, center: uluru});
+            // The marker, positioned at Uluru
+            var marker = new google.maps.Marker({position: uluru, map: map});
+        }
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD12RTFCnDLUOfhQjKSj2PvLkBESgB6mSg&callback=initMap">
+    </script>
 
-                //var latitud = -33.5833;
-                //var longitud = -70.7;
-
-                console.log(latitud);
-                console.log(longitud);
-
-                var uluru = {lat: latitud, lng: longitud};
-                // The map, centered at Uluru
-                var map = new google.maps.Map(
-                        document.getElementById('map'), {zoom: 15, center: uluru});
-                // The marker, positioned at Uluru
-                var marker = new google.maps.Marker({position: uluru, map: map});
-            }
-        </script>
-        <script async defer
-                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD12RTFCnDLUOfhQjKSj2PvLkBESgB6mSg&callback=initMap">
-        </script>
-
-    </body>
+</body>
 
 </html>
